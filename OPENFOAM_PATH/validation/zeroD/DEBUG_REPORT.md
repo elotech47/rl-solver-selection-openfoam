@@ -240,44 +240,185 @@ Not required to close the crash hypothesis set after E1–E6 (H1 dead; rates not
 
 ---
 
-## Diagnosis (campaign conclusion)
+## E8 — True in-OF state dump (COMPLETE)
 
-### Confirmed
+**Status:** COMPLETE — **H5 (negative-Y / ΣY≪1) FALSIFIED.** Mechanism pinned to OF `cellMixture` JANAF-coeff blending.
 
-1. **Custom solvers are not the cause of the abort** (E1: stock `ode`/`seulex` identical failure mode).
-2. **JANAF / conversion thermo data are not corrupted** (E2: foam≡Chemkin≡Cantera to ~3e-5; no cp≤0; no material discontinuities).
-3. **Failure occurs for n-dodecane ignition (106 and 53 species) in chemFoam’s `h = h0+∫Qdot/ρ dt` → `thermo.correct()` Newton**, while the ESI GRI tutorial completes (E3).
-4. **Smaller CFD Δt does not fix it** (E6).
-5. **Hc-based enthalpy accounting is thermodynamically consistent when ΔY is exact** (E5 Cantera mimic).
+**Date:** 2026-07-17  
+**Solver:** local `applications/solvers/chemFoam` → `chemFoamDebug`  
+**Switch:** `OFRL_DEBUG_STATE=1` (off path bit-identical to stock `chemFoam.out`)
 
-### Single root-cause statement
+### Newton form (confirmed from `thermoI.H`)
 
-> **Root cause class:** chemFoam’s outer-loop enthalpy reconstruction + h→T Newton fails during the thermal runaway of n-dodecane (const-p MidT), independent of custom chemistry solvers and independent of JANAF coefficient fidelity. The stock ESI chemistry path updates `RR`/`Qdot(Hc)` and then re-inverts temperature from sensible enthalpy; under this stiff ignition that (Y, h) pair becomes non-convergent for OpenFOAM’s Newton even though per-species `hs_i(T)` are healthy and a Cantera-faithful Hc accounting stays consistent.
+```
+Tnew = limit( Test - (F(p,Test) - f) / dFdT(p,Test) )
+```
+i.e. `T_new = T_old − (hs_mix(T_old) − f) / cp_mix(T_old)` on the **blended** `cellMixture` thermo.
 
-This is **H3 in a refined form** (chemFoam path fragility under stiff heavy-fuel runaway), **not** H1/H2/H4 as originally posed.
+### Instrumentation (before `thermo.correct()`)
 
-### What is *not* yet pinned (next instrumentation, not a silent fix)
+Per step to `e8_state.csv`: ΣY, minY (+5 most-neg), `hsSum/cpSum` (= Σ Yi·Hs_i), `hsCell/cpCell` (= `cellMixture` blend), f, rho triplet, Qdot increment.  
+Crash dumps: `e8_crash_state.dat`, `e8_crash_hs_cp.dat` (both hsSum and hsCell vs T).
 
-- Exact OF `Y[]` and `integratedHeat` at the failing Newton step (true in-OF E4 dump).
-- Whether `YEqn`/`rho`/`deltaTChem` substepping produces RR that disagrees with the Y change chemFoam applies (in-OF E5).
+### Bit-identical check (switch off)
 
-### Fix direction (only after that dump — do not clip T/h)
+```bash
+# stock chemFoam vs chemFoamDebug with OFRL_DEBUG_STATE unset
+diff e8_state/bitidentical/stock/chemFoam.out \
+     e8_state/bitidentical/debug_off/chemFoam.out
+# → empty (BIT_IDENTICAL_PASS)
+```
 
-Per protocol: treat as chemFoam coupling for 0D validation — preferred options to evaluate with evidence:
-- **(A)** Trust chemistry-solver T for 0D and bypass/rebuild `hEqn` for validation builds, or  
-- **(B)** Reconstruct `h` from Σ Y_i hs_i(T_ode) after chemistry instead of `∫Qdot`, or  
-- **(C)** Fix RR/Y/ρ consistency if in-OF E5 shows ΣRR or R2 exploding.
+### Raw outcome — stock `ode` MidT (Δt=1e-6)
 
-Do **not** raise Newton maxIter / clip T / switch mechanism for production.
+| Quantity | Result |
+|----------|--------|
+| ΣY | **1.0 exactly** every step |
+| min Y | ≥ 0 (worst −1e−41 noise); crash Y: **0 negatives**, ΣY=1 |
+| rho triplet | \|ρ_thermo−ρ_chem\| = **0**, \|ρ_fromC−ρ_chem\| = **0** |
+| Ignition T≥1200 | t ≈ 2.149e−3 s |
+| Abort | same Newton FATAL ~1852 K |
+
+**Late dump (t≈2.27257e−3, Tprev=1811 K, f=1.669e6):**
+
+| | hs | cp |
+|--|----|----|
+| Σ Yi·Hs_i / Cp_i (`hsSum`/`cpSum`) | 1.920e6 | **1407** (physical) |
+| `cellMixture` blend (`hsCell`/`cpCell`) | 1.669e6 ≈ f | **201** (collapsing) |
+
+`hs(T)` / `cp(T)` on the **blended** surface at crash Y:
+
+| T [K] | hsSum | cpSum | hsCell | cpCell |
+|------:|------:|------:|-------:|-------:|
+| 800 | 5.76e5 | 1216 | 5.76e5 | 1216 |
+| 1638 | 1.68e6 | 1386 | 1.58e6 | 796 |
+| 1841 | 1.96e6 | 1410 | 1.67e6 | **64** |
+| 2200 | 2.47e6 | 1441 | 1.27e6 | **−2658** |
+| 2600 | 3.06e6 | 1465 | −9.2e5 | **−9062** |
+
+Hand Newton on **cellMixture** at late dump: `R2cell≈100 J/kg`, `TnewProbe≈1812` (ill-conditioned; cpCell→0).  
+Stock FATAL last iterate stays near 1841–1851 with tiny steps — consistent with cpCell→O(10) then sign-flip (cpCell_min≈12 at abort).
+
+Custom `cvode` (same instrumentation): FATAL `T0=1814 → new T:2200`, `f=1.732e6`; dump shows `cpCell≈190`, `hsCell` vs f drives `TnewProbe≈2142` — **reproduces the preamble-style large Newton jump** once cpCell is small/wrong. Y still healthy (ΣY=1, minY=0).
+
+Artifacts: `validation/zeroD/e8_state/{stock_ode,cvode,bitidentical}/`, plots `e8_overview.png`, `e8_hs_vs_f.png`.
+
+### Interpretation (E8 table)
+
+| Observation | Conclusion |
+|-------------|------------|
+| min Y ramps to −1e−3; rho agrees | **Not observed** — H5 dead |
+| rho triplet disagrees | **Not observed** |
+| Y healthy but hs(Tprev,Y)≪physical | Partially: **ΣYi·Hs is physical**; the quantity Newton uses (`hsCell`) tracks f while **cpCell collapses** |
+| Everything healthy & f reachable on ΣYi·Hs | Yes for mass-weighted sum — but **not** on `cellMixture`; escalate was unnecessary once hsCell/cpCell logged |
+
+**E8b:** skipped (no negative-Y ramp).
+
+### Hypothesis update
+
+- **H5 dead.** Corruption is not RR→YEqn negative mass fractions.
+- **New H6 (named):** ESI `multiComponentMixture::cellMixture` blends JANAF NASA coefficients by Y, then evaluates Hs/Cp on that single pseudo-species. For Luo burnt-gas Y during runaway, **cpCell→0 and goes negative** while Σ Yi·Cp_i stays ~1400 J/(kg·K). `thermo.correct()` / `mixture.THE` uses the blended surface → Newton fails. GRI (below) has hsSum≡hsCell and healthy cpCell throughout.
+
+---
+
+## E10 — Last-species / normalization audit (COMPLETE, reading only)
+
+### chemFoam `YEqn.H` (v2312, verbatim behavior)
+
+```cpp
+forAll(Y, specieI)
+{
+    volScalarField& Yi = Y[specieI];
+    solve(fvm::ddt(rho, Yi) - chemistry.RR(specieI), "Yi");
+}
+```
+
+- **No** ΣY normalization  
+- **No** residual `1−ΣY` assigned to a last/inert slot  
+- **No** `Y.max(0)` / `clamp_min`  
+
+`createFields.H`: no inertIndex handling.
+
+### reactingFoam `YEqn.H` (for later 2D reference)
+
+Solves all species **except** `inertIndex`; `Yi.clamp_min(0)`; then `Y[inertIndex] = 1 - Yt` with `clamp_min(0)`.
+
+### Last species in mechanisms
+
+| Mechanism | n | first | last | N2 index |
+|-----------|---|-------|------|----------|
+| Luo foam (106) | 106 | `h` | **`c8h15`** | 6 (early) |
+| E3 skeletal 53 | 53 | `NC12H26` | **`N2`** | last |
+| GRI tutorial foam | 53 | `CH4` | **`CH3CHO`** | 47 (not last) |
+
+**E10 step 3 (reorder):** **not executed** — chemFoam has no residual/last-slot treatment; speculative reorder forbidden.
+
+---
+
+## E9 — const-p vs const-v 2×2 (COMPLETE)
+
+### `constantProperty` records
+
+| Case | `constantProperty` |
+|------|--------------------|
+| This MidT Luo case | **pressure** |
+| ESI GRI chemFoam tutorial | **pressure** (not volume — E3 “tutorial path” was already const-p) |
+
+### 2×2 results (stock `ode`, `OFRL_DEBUG_STATE=1`)
+
+| Case | Energy path | Outcome |
+|------|-------------|---------|
+| GRI, Δt=maxΔt=1e−6, endTime=0.07 | const-**p** | **SURVIVES** → Teq≈2660 K (70016 steps, wall≈650 s) |
+| GRI, same numerics | const-**v** | **SURVIVES** → Teq≈2941 K (70074 steps, wall≈1552 s) |
+| Luo MidT | const-**v** | **ABORT** ~1823 K (same blended-cp failure; wall≈69 s) |
+| Luo MidT | const-**p** | **ABORT** ~1852 K (= E8; wall≈64 s) |
+
+GRI diagnostics: `max|hsSum−hsCell|=0`, `cpCell_min≈1341` (healthy) on both energy paths.  
+Luo: `max|hsSum−hsCell|≈3.0e5 J/kg`, `cpCell_min≈12` at abort — **both** const-p and const-v.
+
+### Attribution
+
+> **dodecane@const-v fails too** → energy-path attribution collapses. Failure is **not** specific to const-p `hEqn`. Matches E8: blended JANAF `cellMixture` pathology under Luo burnt-gas Y, independent of whether f comes from `h0+∫Q` or `u0+p/ρ+∫Q`.
+
+E3’s “GRI works ⇒ fuel-specific” stands, but **not** because GRI used a different energy path — both are const-p capable; GRI’s blended thermo remains well-behaved.
+
+Artifacts: `validation/zeroD/e9_constprop/`.
+
+---
+
+## Diagnosis (updated after E8–E10) — STOP for human
+
+### Confirmed (E1–E10)
+
+1. Custom solvers exonerated (E1).  
+2. Per-species JANAF data clean (E2).  
+3. n-dodecane fails; GRI survives (E3/E9) — **both** energy paths.  
+4. Δt↓ does not fix (E6).  
+5. Hc accounting OK when ΔY exact (E5).  
+6. **Y/ρ healthy at crash; H5 dead (E8).**  
+7. **No chemFoam last-slot / clip (E10).**  
+8. **Smoking gun (E8):** `cellMixture` blended cp collapses / goes negative for Luo runaway Y; ΣYi·Cp stays physical; Newton uses the blended surface.
+
+### Root-cause statement (replace prior H3 location-only claim)
+
+> **Root cause:** During Luo n-dodecane thermal runaway, OpenFOAM’s mass-fraction blend of JANAF coefficients (`multiComponentMixture::cellMixture`) produces a pseudo-species whose `Cp(T)` collapses toward zero and becomes negative above ~2000 K, while the physically correct mixture `Σ Yi Cp_i(T)` remains ~1400 J/(kg·K). `hePsiThermo::correct()` inverts T with `mixture.THE(h,p,T)` on that blended surface, so the h→T Newton fails (ill-conditioned then oscillatory). Stock and custom chemistry solvers only supply (Y, Qdot); they are not the defect. GRI’s blend stays faithful (`hsSum≡hsCell`), so the tutorial survives.
+
+### Fix conversation (do **not** apply yet — awaiting human)
+
+Options to discuss (none implemented):
+- Evaluate mixture Hs/Cp as **Σ Yi·Hs_i** for THE (or equivalent) instead of NASA-coeff blending, at least for chemFoam / validation.  
+- Or restrict blending / switch temperature handling for mechanisms with disparate `Tcommon` / Thigh.  
+- reactingFoam still uses the same `cellMixture` for energy — 2D will hit this unless addressed.  
+- Prior (A)/(B) bypasses remain **on hold** (would mask without fixing blend).
 
 ### Definition-of-done status
 
 | Item | Status |
 |------|--------|
-| Named root cause + experiment trail in this file | **Yes** (refined H3 / chemFoam path) |
-| MidT to equilibrium stock+cvode+qss, original JANAF, no warnings | **Open** (fix not applied this campaign) |
-| OF-CVODE ign within 1%; QSS gap re-measured | **Open** (pre-crash CVODE was ~1%; QSS ~18% parked) |
-| E5 invariant logging behind debug switch in OF | **Open** (Python mimic done; OF switch TBD) |
+| Named mechanism + experiment trail | **Yes — H6 cellMixture JANAF blend / cp collapse** |
+| MidT to eq stock+cvode+qss, original JANAF | **Open** (fix not applied) |
+| OF-CVODE ign within 1%; QSS gap (E7) | **Open** (after fix) |
+| E8 instrumentation behind debug switch | **Done** (`OFRL_DEBUG_STATE`) |
 
-**Git commits:** skipped — workspace is not a git repository.
+**Git:** repo initialized; commits per experiment on `main`.
 

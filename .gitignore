@@ -23,6 +23,13 @@
 # Keep validation artifacts that are small text; ignore huge logs optionally
 OPENFOAM_PATH/validation/zeroD/of_runs/**/*.log
 OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/runs/log.*
+# E9 GRI per-step CSVs are ~13MB each; report has the summary
+OPENFOAM_PATH/validation/zeroD/e9_constprop/e8.gri_*.csv
+OPENFOAM_PATH/validation/zeroD/e8_state/**/log.chemFoam
+OPENFOAM_PATH/applications/solvers/chemFoam/Make/linux*/
+# Transient dumps left in the live case directory
+OPENFOAM_PATH/cases/chemFoam_0D/e8_*.csv
+OPENFOAM_PATH/cases/chemFoam_0D/e8_*.dat
 
 # OS / IDE
 .DS_Store
