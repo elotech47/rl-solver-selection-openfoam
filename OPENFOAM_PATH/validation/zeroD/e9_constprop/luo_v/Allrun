@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Bootstrap chemFoam case from ESI tutorial and swap in imported mechanism.
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+CASE="$(cd "$(dirname "$0")" && pwd)"
+
+if [[ -z "${WM_PROJECT_DIR:-}" ]]; then
+  echo "Source OpenFOAM bashrc first (use ./container/of_shell.sh)"
+  exit 1
+fi
+
+TUT="${WM_PROJECT_DIR}/tutorials/combustion/chemFoam"
+# Prefer gri or h2; copy structure
+SRC=""
+for d in gri h2 ic8h18; do
+  if [[ -d "${TUT}/${d}" ]]; then SRC="${TUT}/${d}"; break; fi
+done
+if [[ -z "${SRC}" ]]; then
+  echo "No chemFoam tutorial found under ${TUT}"
+  exit 1
+fi
+
+rsync -a --delete --exclude README.md --exclude Allrun "${SRC}/" "${CASE}/"
+# Point thermo/reactions at imported mechanism if present
+if [[ -d "${ROOT}/mechanisms/foam" ]]; then
+  mkdir -p "${CASE}/constant"
+  cp -f "${ROOT}/mechanisms/foam/"* "${CASE}/constant/" 2>/dev/null || true
+fi
+
+echo "Case bootstrapped from ${SRC}"
+echo "Edit 0/T, constant/chemistryProperties, then: chemFoam"

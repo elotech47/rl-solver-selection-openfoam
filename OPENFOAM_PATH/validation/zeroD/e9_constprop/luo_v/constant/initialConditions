@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          initialConditions;
+}
+
+constantProperty volume;
+
+fractionBasis   mole;
+
+fractions
+{
+    o2              0.207758;
+    n2              0.781171;
+    nc12h26         0.0110713;
+}
+
+p               1.01325e+06;
+
+T               800;
+
+
+// ************************************************************************* //
