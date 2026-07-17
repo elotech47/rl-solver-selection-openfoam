@@ -1,0 +1,9 @@
+EXE_INC = \
+    -I$(LIBTORCH_DIR)/include \
+    -I$(LIBTORCH_DIR)/include/torch/csrc/api/include
+
+LIB_LIBS = \
+    -L$(LIBTORCH_DIR)/lib \
+    -ltorch \
+    -ltorch_cpu \
+    -lc10

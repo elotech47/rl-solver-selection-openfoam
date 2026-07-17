@@ -1,0 +1,31 @@
+# Large / generated / binary
+**/platforms/
+**/opt/
+**/*.so
+**/*.o
+**/Make/linux*/
+**/*.core
+**/__pycache__/
+**/.pytest_cache/
+*.pt
+*.pkl
+
+# OpenFOAM case runtime
+**/processor*/
+**/postProcessing/
+**/dynamicCode/
+**/chemFoam.out
+**/log.chemFoam*
+**/0/[0-9]*
+**/[0-9]*/
+**/[0-9]*.*/
+
+# Keep validation artifacts that are small text; ignore huge logs optionally
+OPENFOAM_PATH/validation/zeroD/of_runs/**/*.log
+OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/runs/log.*
+
+# OS / IDE
+.DS_Store
+.cursor/
+*.swp
+.env

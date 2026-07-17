@@ -1,0 +1,5 @@
+foam_species=106
+chemkin_species=106
+material_flags=2
+FLAG h rel_cp=2.976e-05 rel_hs=2.976e-05 min_cp=2.062e+04 cp_disc=0 hs_jump=0
+FLAG h2 rel_cp=2.996e-05 rel_hs=2.989e-05 min_cp=1.432e+04 cp_disc=0.003453 hs_jump=1.255

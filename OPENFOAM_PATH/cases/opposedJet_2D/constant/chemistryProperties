@@ -1,0 +1,52 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      chemistryProperties;
+}
+chemistryType
+{
+    chemistrySolver   ode;   // smoke; later: wire rl chemistry model
+    chemistryThermo   psi;
+}
+chemistry       on;
+initialChemicalTimeStep 1e-7;
+
+odeCoeffs
+{
+    solver          seulex;
+    absTol          1e-12;
+    relTol          1e-8;
+}
+
+// Custom RL block (used when chemistry model = rl)
+rl
+{
+    mode                rlAdaptive; // cvodeOnly | qssOnly | rlAdaptive
+    maxChemDeltaT       1e-6;
+    numSteps            20;
+    confidenceThreshold 0.6;
+    torchScript         "../../policy/policy.ts";
+    manifest            "../../policy/policy_manifest.json";
+}
+
+// QSS coeffs when chemistrySolver qss
+qssCoeffs
+{
+    epsmin  0.02;
+    epsmax  100;
+    dtmin   1e-12;
+    dtmax   1e-6;
+    abstol  1e-11;
+    itermax 2;
+}
+
+cvodeCoeffs
+{
+    relTol      1e-8;
+    absTol      1e-12;
+    maxSteps    100000;
+}

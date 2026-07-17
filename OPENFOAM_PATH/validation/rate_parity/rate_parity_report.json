@@ -1,0 +1,14 @@
+{
+  "n_states": 80,
+  "mechanism": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/mechanisms/n-dodecane.yaml",
+  "n_species": 106,
+  "n_reactions": 678,
+  "max_rel_err_creation_minus_destruction_vs_net": 9.296739088779405e-05,
+  "n_outliers_gt_0.1pct": 0,
+  "outliers_sample": [],
+  "acceptance": {
+    "target": "OF vs Cantera rates \u2264 0.1% relative",
+    "note": "This script validates Cantera oracle self-consistency and writes states for OF comparison. Run of_rate_dump utility in Docker and compare with compare_of_cantera.py.",
+    "cantera_qd_self_consistent": true
+  }
+}

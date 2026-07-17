@@ -1,0 +1,46 @@
+# =============================================================================
+# Example with Supervised-ML baseline + gradient-only observation policy
+# =============================================================================
+# Enable Supervised-ML by setting supervised.model_dir and listing it in methods.
+
+mechanism: ndodecane
+device: cpu
+n_repeats: 1
+
+methods:
+  - CVODE
+  - QSS
+  - RL-Adaptive
+  - Supervised-ML
+
+policy:
+  model_path: checkpoints/only_gradient.pt   # UPDATE — must match use_gradient_only below
+  use_prev_state: false
+  use_gradient_only: true        # observation = [dTdt, dYdt..., P_norm]
+  num_steps: 20
+  confidence_threshold: 0.6
+  network:
+    hidden_dims: [256, 128, 64]
+    activation: relu
+
+supervised:
+  model_dir: checkpoints/supervised_models_12   # UPDATE
+  error_threshold: 1.0e-4
+
+conditions:
+  - label: MidT_MidP
+    temp: 800
+    pressure_atm: 10.0
+    Z: 0.062
+    dt: 1.0e-6
+    t_end: 3.5e-3
+
+output:
+  dir: handoff_runs/with_supervised
+  save_pkl: true
+  save_summary_csv: true
+  plot:
+    enable: true
+    compare_methods: [CVODE, QSS, RL-Adaptive, Supervised-ML]
+    species: [OH, CO2, H2O]
+    formats: [png, pdf]

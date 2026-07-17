@@ -1,0 +1,49 @@
+########## E3 START ode ##########
+solver          ode;
+endTime         0.0035;
+deltaT          1e-06;
+maxDeltaT       1e-06;
+adjustTimeStep  yes;
+environment: line 7:   495 Aborted                 (core dumped) chemFoam > "$OUT/log.$solver" 2>&1
+exit=134 WALL_SEC 18
+Selecting chemistry solver 
+ p   = 1.01325e+06 [Pa]
+ T   = 800 [K] 
+--> FOAM FATAL ERROR: (openfoam-2312)
+0.00219185	1390.99	1.01325e+06
+0.00219186	1391.07	1.01325e+06
+maxT 1391.07 at 0.00219186
+########## E3 FINISH ode ##########
+########## E3 START cvode ##########
+solver          cvode;
+endTime         0.0035;
+deltaT          1e-06;
+maxDeltaT       1e-06;
+adjustTimeStep  yes;
+environment: line 7:   537 Aborted                 (core dumped) chemFoam > "$OUT/log.$solver" 2>&1
+exit=134 WALL_SEC 15
+Selecting chemistry solver 
+ p   = 1.01325e+06 [Pa]
+ T   = 800 [K] 
+--> FOAM FATAL ERROR: (openfoam-2312)
+0.002182	1382.29	1.01325e+06
+0.002183	1387.59	1.01325e+06
+maxT 1387.59 at 0.002183
+########## E3 FINISH cvode ##########
+########## E3 START qss ##########
+solver          qss;
+endTime         0.0035;
+deltaT          1e-06;
+maxDeltaT       1e-06;
+adjustTimeStep  yes;
+environment: line 7:   579 Aborted                 (core dumped) chemFoam > "$OUT/log.$solver" 2>&1
+exit=134 WALL_SEC 8
+Selecting chemistry solver 
+ p   = 1.01325e+06 [Pa]
+ T   = 800 [K] 
+--> FOAM FATAL ERROR: (openfoam-2312)
+0.002119	1381.96	1.01325e+06
+0.00212	1387.52	1.01325e+06
+maxT 1387.52 at 0.00212
+########## E3 FINISH qss ##########
+E3_COMPLETE

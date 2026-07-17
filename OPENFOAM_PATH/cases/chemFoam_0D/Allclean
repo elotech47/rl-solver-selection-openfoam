@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Reset chemFoam_0D so createBaseFields reseeds p/T/Ydefault from initialConditions.
+# Stale 0/{p,T,Ydefault} override constant/initialConditions (READ_IF_PRESENT).
+# Ydefault must not be 0 — thermo fatals before readInitialConditions applies fractions.
+set -euo pipefail
+CASE="$(cd "$(dirname "$0")" && pwd)"
+cd "$CASE"
+# Remove written result time directories (not 0/)
+find . -maxdepth 1 -type d \( -name '[0-9]*' -o -name '[0-9]*.*' \) ! -name '0' -exec rm -rf {} +
+# Drop base fields so next chemFoam run rebuilds them from initialConditions
+rm -f 0/p 0/T 0/Ydefault
+rm -f chemFoam.out log.chemFoam* 2>/dev/null || true
+rm -rf postProcessing processor* dynamicCode 2>/dev/null || true
+mkdir -p 0
+echo "Cleaned $CASE (kept 0/; cleared p/T/Ydefault overrides)"

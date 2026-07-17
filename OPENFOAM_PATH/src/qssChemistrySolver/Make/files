@@ -1,0 +1,4 @@
+qss_int.C
+qssChemistrySolvers.C
+
+LIB = $(FOAM_USER_LIBBIN)/libqssChemistrySolver

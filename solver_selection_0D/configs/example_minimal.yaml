@@ -1,0 +1,40 @@
+# Minimal single-condition evaluation template.
+# Replace model_path before running.
+#
+#   python handoff/run.py --config handoff/configs/example_minimal.yaml
+
+mechanism: ndodecane
+device: cpu
+n_repeats: 1
+
+methods:
+  - CVODE
+  - QSS
+  - RL-Adaptive
+
+policy:
+  model_path: checkpoints/best_offline_eval2.pt
+  use_prev_state: true
+  use_gradient_only: false
+  num_steps: 20
+  confidence_threshold: 0.6
+  network:
+    hidden_dims: [256, 128, 64]
+    activation: relu
+
+conditions:
+  - label: demo_800K_10atm
+    temp: 800
+    pressure_atm: 10.0
+    Z: 0.062
+    dt: 1.0e-6
+    t_end: 3.5e-3
+
+output:
+  dir: handoff_runs/minimal_demo
+  save_pkl: true
+  save_summary_csv: true
+  plot:
+    enable: true
+    species: [OH, CO2, H2O]
+    formats: [png]

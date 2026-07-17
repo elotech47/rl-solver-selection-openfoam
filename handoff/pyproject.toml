@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solver-selection-handoff"
+version = "1.0.0"
+description = "Self-contained black-box evaluation of RL chemistry solver-selection policies (CVODE vs QSS)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Research / project license — see parent repository" }
+authors = [
+  { name = "Solver Selection Team" },
+]
+keywords = [
+  "combustion",
+  "cantera",
+  "reinforcement-learning",
+  "CVODE",
+  "QSS",
+  "solver-selection",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Chemistry",
+]
+dependencies = [
+  "numpy",
+  "scipy",
+  "matplotlib",
+  "seaborn",
+  "tqdm",
+  "PyYAML",
+  "torch",
+  "cantera",
+  # Compiled integrator backends (install from PyPI / GitHub as available):
+  "SundialsPy",
+  "qss-integrator",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "build", "twine"]
+
+[project.scripts]
+solver-selection-eval = "solver_selection_handoff.blackbox.cli:main"
+
+[project.urls]
+Documentation = "README.md"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["solver_selection_handoff*"]
+
+[tool.setuptools.package-data]
+solver_selection_handoff = [
+  "data/mechanisms/*.yaml",
+  "py.typed",
+]

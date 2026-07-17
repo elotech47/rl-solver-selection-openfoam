@@ -1,0 +1,2 @@
+[console_scripts]
+solver-selection-eval = solver_selection_handoff.blackbox.cli:main

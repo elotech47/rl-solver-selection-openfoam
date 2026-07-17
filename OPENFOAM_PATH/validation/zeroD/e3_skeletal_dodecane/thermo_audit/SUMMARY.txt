@@ -1,0 +1,7 @@
+foam_species=52
+chemkin_species=53
+material_flags=4
+FLAG c12ooh rel_cp=1.255e-03 rel_hs=1.146e-05 min_cp=1343 cp_disc=3.464 hs_jump=3.497
+FLAG h rel_cp=2.976e-05 rel_hs=2.976e-05 min_cp=2.062e+04 cp_disc=1.029e-05 hs_jump=0.02212
+FLAG h2 rel_cp=2.976e-05 rel_hs=2.976e-05 min_cp=1.431e+04 cp_disc=0.0001515 hs_jump=0.02831
+FLAG oc12h23ooh rel_cp=1.679e-03 rel_hs=1.054e-05 min_cp=1213 cp_disc=4.334 hs_jump=0.5253

@@ -1,0 +1,135 @@
+# =============================================================================
+# Example configuration — n-dodecane 0-D evaluation (handoff black-box)
+# =============================================================================
+#
+# Run:
+#   workon rlenv   # or your virtualenv
+#   python handoff/run.py --config handoff/configs/example_ndodecane.yaml
+#
+# Override fields without editing this file:
+#   python handoff/run.py --config handoff/configs/example_ndodecane.yaml \
+#       --set policy.model_path=/path/to/your_policy.pt \
+#       --set output.dir=handoff_runs/my_demo
+#
+# Full field documentation: handoff/docs/CONFIG_REFERENCE.md
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Mechanism
+# ---------------------------------------------------------------------------
+# Named key (hydrogen | methane | ndodecane | jetA) OR a path to a Cantera YAML.
+mechanism: ndodecane
+# fuel / oxidizer / key_species are taken from the named mechanism by default.
+# Uncomment to override:
+# fuel: "nc12h26:1.0"
+# oxidizer: "n2:3.76, o2:1.0"
+# key_species: [OH, H2O, O2, H2, H2O2, O, H, N2]
+
+# ---------------------------------------------------------------------------
+# Device & repeats
+# ---------------------------------------------------------------------------
+device: cpu                  # cpu | cuda
+n_repeats: 1                # >1 → CPU bars report mean ± std (first repeat keeps traj)
+record_trajectory: true
+
+# ---------------------------------------------------------------------------
+# Which solvers to evaluate / appear in plots
+# ---------------------------------------------------------------------------
+# Always include RL-Adaptive. CVODE is the reference for accuracy metrics.
+# Supervised-ML requires the supervised: block below.
+methods:
+  - CVODE
+  - QSS
+  - RL-Adaptive
+  # - Supervised-ML
+
+# ---------------------------------------------------------------------------
+# RL policy (must match how the checkpoint was trained)
+# ---------------------------------------------------------------------------
+policy:
+  # UPDATE THIS PATH to your trained checkpoint (.pt)
+  model_path: checkpoints/best_offline_eval2.pt
+
+  # Observation construction — MUST match training.
+  #   use_prev_state=true, use_gradient_only=false → state + gradients (19-D typical)
+  #   use_gradient_only=true                       → gradients + P only (10-D typical)
+  use_prev_state: true
+  use_gradient_only: false
+
+  # Micro-steps between policy queries (training often uses 20).
+  num_steps: 20
+
+  # If policy confidence < threshold, force CVODE for that decision block.
+  confidence_threshold: 0.6
+
+  network:
+    hidden_dims: [256, 128, 64]
+    activation: relu
+
+# ---------------------------------------------------------------------------
+# Optional supervised classifier baseline (Lapointe-style)
+# ---------------------------------------------------------------------------
+# supervised:
+#   model_dir: path/to/supervised_model_dir   # contains meta.json, cpu_net.pt, ...
+#   error_threshold: 1.0e-4
+
+# ---------------------------------------------------------------------------
+# Integrator tolerances (sensible defaults; override only if needed)
+# ---------------------------------------------------------------------------
+solver:
+  cvode_rtol: 1.0e-8
+  cvode_atol: 1.0e-12
+  qss_dtmin: 1.0e-12
+  qss_dtmax: 1.0e-6
+  qss_abstol: 1.0e-11
+  qss_itermax: 2
+  mxsteps: 100000
+
+# ---------------------------------------------------------------------------
+# Initial conditions (0-D constant-pressure homogeneous reactors)
+# ---------------------------------------------------------------------------
+# Provide either Z (mixture fraction) or phi (equivalence ratio).
+conditions:
+  - label: LowT_LowP
+    temp: 650
+    pressure_atm: 1.0
+    Z: 0.062
+    dt: 1.0e-5
+    t_end: 0.12
+
+  - label: MidT_MidP
+    temp: 800
+    pressure_atm: 10.0
+    Z: 0.062
+    dt: 1.0e-6
+    t_end: 3.5e-3
+
+  - label: HighT_HighP
+    temp: 1000
+    pressure_atm: 30.0
+    Z: 0.042
+    dt: 1.0e-6
+    t_end: 3.0e-3
+
+  - label: LowT_VeryHighP
+    temp: 750
+    pressure_atm: 60.0
+    Z: 0.042
+    dt: 1.0e-6
+    t_end: 2.5e-3
+
+# ---------------------------------------------------------------------------
+# Outputs
+# ---------------------------------------------------------------------------
+output:
+  dir: handoff_runs/example_ndodecane
+  save_pkl: true
+  save_summary_csv: true
+  plot:
+    enable: true
+    style: comparison
+    # Which methods to overlay on plots (defaults to ``methods`` above).
+    # compare_methods: [CVODE, QSS, RL-Adaptive]
+    species: [OH, CO2, H2O]
+    formats: [png, pdf]
+    dpi: 300

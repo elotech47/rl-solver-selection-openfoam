@@ -1,0 +1,27 @@
+Parsed foam thermo: 52 species from /Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/case/constant/thermo
+Parsed Chemkin therm: 53 species from /Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/chemkin/therm_of.dat
+Wrote /Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/thermo_audit/thermo_audit.csv
+
+Top 15 by max_rel_cp (foam vs Cantera):
+  oc12h23ooh    rel_cp=1.679e-03  rel_hs=1.054e-05  abs_hs=83.42  min_cp=1213  cp_disc=4.334  h_jump=0.5253  Tcommon=1000.0  ck_vs_foam=0.0
+  c12ooh        rel_cp=1.255e-03  rel_hs=1.146e-05  abs_hs=77.92  min_cp=1343  cp_disc=3.464  h_jump=3.497  Tcommon=1000.0  ck_vs_foam=0.0
+  c12h25o2      rel_cp=9.522e-04  rel_hs=1.046e-05  abs_hs=78.41  min_cp=1309  cp_disc=2.642  h_jump=1.959  Tcommon=1000.0  ck_vs_foam=0.0
+  o2c12h24ooh   rel_cp=3.405e-04  rel_hs=1.136e-05  abs_hs=89.04  min_cp=1272  cp_disc=0.913  h_jump=6.508  Tcommon=1000.0  ck_vs_foam=0.0
+  h2            rel_cp=2.976e-05  rel_hs=2.976e-05  abs_hs=1310  min_cp=1.431e+04  cp_disc=0.0001515  h_jump=0.02831  Tcommon=1000.0  ck_vs_foam=0.0
+  h             rel_cp=2.976e-05  rel_hs=2.976e-05  abs_hs=1658  min_cp=2.062e+04  cp_disc=1.029e-05  h_jump=0.02212  Tcommon=1000.0  ck_vs_foam=0.0
+  o             rel_cp=2.500e-05  rel_hs=2.503e-05  abs_hs=88.41  min_cp=1302  cp_disc=1.656e-06  h_jump=0.02606  Tcommon=1000.0  ck_vs_foam=0.0
+  o2            rel_cp=2.500e-05  rel_hs=2.500e-05  abs_hs=76.66  min_cp=918.4  cp_disc=2.868e-05  h_jump=0.002156  Tcommon=1000.0  ck_vs_foam=0.0
+  ho2           rel_cp=2.334e-05  rel_hs=2.333e-05  abs_hs=98.84  min_cp=1058  cp_disc=6.913e-05  h_jump=0.002485  Tcommon=1000.0  ck_vs_foam=0.0
+  n2            rel_cp=2.178e-05  rel_hs=2.142e-05  abs_hs=70.9  min_cp=1038  cp_disc=0.0004613  h_jump=0.1856  Tcommon=1000.0  ck_vs_foam=0.0
+  h2o2          rel_cp=2.176e-05  rel_hs=2.176e-05  abs_hs=117.4  min_cp=1248  cp_disc=0.0001154  h_jump=0.01252  Tcommon=1000.0  ck_vs_foam=0.0
+  oh            rel_cp=2.176e-05  rel_hs=2.176e-05  abs_hs=114.6  min_cp=1735  cp_disc=6.427e-05  h_jump=0.003389  Tcommon=1000.0  ck_vs_foam=0.0
+  co2           rel_cp=2.159e-05  rel_hs=2.159e-05  abs_hs=74.95  min_cp=845.7  cp_disc=5.673e-05  h_jump=0.003151  Tcommon=1000.0  ck_vs_foam=0.0
+  co            rel_cp=1.964e-05  rel_hs=1.964e-05  abs_hs=65.56  min_cp=1040  cp_disc=3.574e-05  h_jump=0.003617  Tcommon=1000.0  ck_vs_foam=0.0
+  h2o           rel_cp=1.887e-05  rel_hs=1.889e-05  abs_hs=133.7  min_cp=1865  cp_disc=0.0001521  h_jump=0.03011  Tcommon=1000.0  ck_vs_foam=0.0
+
+Species with cp<=0 in range: 0
+Implausible Tcommon (<800 or >2000): 0
+Plots in /Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/thermo_audit/plots
+
+Material flag count (thresholds above): 4
+Wrote /Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e3_skeletal_dodecane/thermo_audit/SUMMARY.txt

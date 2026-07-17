@@ -1,0 +1,27 @@
+{
+  "data": "solver_dataset.npy",
+  "n_rows": 512392,
+  "n_species": 106,
+  "input_mode": "h2o2_12",
+  "pressure_unit": "bar",
+  "dt": 1e-06,
+  "alpha_T": 0.7,
+  "alpha_Y": 0.3,
+  "input_dim": 12,
+  "h2o2_species_indices": [
+    0,
+    3,
+    1,
+    2,
+    4,
+    6,
+    5,
+    7,
+    9
+  ],
+  "splits": {
+    "train": 409913,
+    "val": 51239,
+    "test": 51240
+  }
+}

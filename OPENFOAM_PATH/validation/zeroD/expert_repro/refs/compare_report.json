@@ -1,0 +1,38 @@
+{
+  "ic": {
+    "label": "MidT_MidP",
+    "T": 800,
+    "P_atm": 10,
+    "Z": 0.062,
+    "dt": 1e-06,
+    "t_end": 0.0035
+  },
+  "tol": 0.01,
+  "results": [
+    {
+      "solver": "cvode",
+      "of_ign_s": 0.002141,
+      "handoff_ign_s": 0.0021559999999999618,
+      "rel_err": 0.006957328385882154,
+      "pass_1pct": true,
+      "T0": 800.0,
+      "T_end": 1764.87,
+      "p0": 1013250.0,
+      "n_samples": 2264,
+      "of_out": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/of_runs/MidT_MidP/cvode/chemFoam.out"
+    },
+    {
+      "solver": "qss",
+      "of_ign_s": 0.001892,
+      "handoff_ign_s": 0.0023129999999999826,
+      "rel_err": 0.18201469952442098,
+      "pass_1pct": false,
+      "T0": 800.0,
+      "T_end": 1771.35,
+      "p0": 1013250.0,
+      "n_samples": 2008,
+      "of_out": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/of_runs/MidT_MidP/qss/chemFoam.out"
+    }
+  ],
+  "all_pass": false
+}

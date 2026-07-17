@@ -1,0 +1,45 @@
+pressure will be held constant.
+ p   = 1.01325e+06 [Pa]
+ T   = 800 [K] 
+ rho = 4.63351 [kg/m3]
+--- last 40 lines ---
+
+Qdot = 3.69533e+10, T = 1720.62, p = 1.01325e+06, h = 8.93698e-06
+ExecutionTime = 1.7 s  ClockTime = 2 s
+
+deltaT = 9.375e-07
+Time = 0.00198594
+
+--> FOAM Warning : 
+    From Foam::scalar Foam::janafThermo<EquationOfState>::limit(Foam::scalar) const [with EquationOfState = Foam::perfectGas<Foam::specie>; Foam::scalar = double]
+    in file ./src/thermophysicalModels/specie/lnInclude/janafThermoI.H at line 120
+    attempt to use janafThermo<EquationOfState> out of temperature range 300 -> 5000;  T = -365.332
+--> FOAM Warning : 
+    From Foam::scalar Foam::janafThermo<EquationOfState>::limit(Foam::scalar) const [with EquationOfState = Foam::perfectGas<Foam::specie>; Foam::scalar = double]
+    in file ./src/thermophysicalModels/specie/lnInclude/janafThermoI.H at line 120
+    attempt to use janafThermo<EquationOfState> out of temperature range 300 -> 5000;  T = -44.145
+--> FOAM Warning : 
+    From Foam::scalar Foam::janafThermo<EquationOfState>::limit(Foam::scalar) const [with EquationOfState = Foam::perfectGas<Foam::specie>; Foam::scalar = double]
+    in file ./src/thermophysicalModels/specie/lnInclude/janafThermoI.H at line 120
+    attempt to use janafThermo<EquationOfState> out of temperature range 300 -> 5000;  T = -44.145
+
+
+--> FOAM FATAL ERROR: (openfoam-2312)
+Maximum number of iterations exceeded: 100 when starting from T0:1720.62 old T:1786.65 new T:1858.01 f:1.6954e+06 p:1.01325e+06 tol:0.172062
+
+    From Foam::scalar Foam::species::thermo<Thermo, Type>::T(Foam::scalar, Foam::scalar, Foam::scalar, Foam::scalar (Foam::species::thermo<Thermo, Type>::*)(Foam::scalar, Foam::scalar) const, Foam::scalar (Foam::species::thermo<Thermo, Type>::*)(Foam::scalar, Foam::scalar) const, Foam::scalar (Foam::species::thermo<Thermo, Type>::*)(Foam::scalar) const) const [with Thermo = Foam::janafThermo<Foam::perfectGas<Foam::specie> >; Type = Foam::sensibleEnthalpy; Foam::scalar = double; Foam::species::thermo<Thermo, Type> = Foam::species::thermo<Foam::janafThermo<Foam::perfectGas<Foam::specie> >, Foam::sensibleEnthalpy>]
+    in file ./src/thermophysicalModels/specie/lnInclude/thermoI.H at line 76.
+
+FOAM aborting
+
+[stack trace]
+=============
+#1  Foam::error::simpleExit(int, bool) in /usr/lib/openfoam/openfoam2312/platforms/linuxARM64GccDPInt32Opt/lib/libOpenFOAM.so
+#2  ? in /usr/lib/openfoam/openfoam2312/platforms/linuxARM64GccDPInt32Opt/lib/libreactionThermophysicalModels.so
+#3  ? in /usr/lib/openfoam/openfoam2312/platforms/linuxARM64GccDPInt32Opt/lib/libreactionThermophysicalModels.so
+#4  ? in /usr/lib/openfoam/openfoam2312/platforms/linuxARM64GccDPInt32Opt/lib/libreactionThermophysicalModels.so
+#5  ? in /usr/lib/openfoam/openfoam2312/platforms/linuxARM64GccDPInt32Opt/bin/chemFoam
+#6  ? in /lib/aarch64-linux-gnu/libc.so.6
+#7  __libc_start_main in /lib/aarch64-linux-gnu/libc.so.6
+#8  ? in /usr/lib/openfoam/openfoam2312/platforms/linuxARM64GccDPInt32Opt/bin/chemFoam
+=============

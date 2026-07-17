@@ -1,0 +1,211 @@
+Metadata-Version: 2.4
+Name: solver-selection-handoff
+Version: 1.0.0
+Summary: Self-contained black-box evaluation of RL chemistry solver-selection policies (CVODE vs QSS).
+Author: Solver Selection Team
+License: Research / project license — see parent repository
+Project-URL: Documentation, README.md
+Keywords: combustion,cantera,reinforcement-learning,CVODE,QSS,solver-selection
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: tqdm
+Requires-Dist: PyYAML
+Requires-Dist: torch
+Requires-Dist: cantera
+Requires-Dist: SundialsPy
+Requires-Dist: qss-integrator
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+
+# Solver Selection Handoff (self-contained, installable)
+
+**Purpose.** Give a collaborator or reviewer a **standalone, pip-installable**
+package that evaluates a trained RL chemistry-solver selection policy on 0-D
+homogeneous reactors—**without** cloning or importing the research training
+repository.
+
+This directory *is* the distribution unit. It vendors:
+
+| Bundled module | Role |
+|----------------|------|
+| `inference.py` | `RLSolverSelector` — load `.pt`, pick CVODE vs QSS |
+| `evaluation_pipeline.py` | `CompletePipeline` — run CVODE / QSS / RL / Sup-ML |
+| `solver_strategy.py` | Integrator strategy wrappers |
+| `ppo_agent.py` | Actor–critic network + observation normalisation |
+| `utils.py` | CVODE/QSS factories, `MECHANISM_CONFIGS` |
+| `train_supervised_nets.py` | `MLP` used by the Supervised-ML baseline |
+| `data/mechanisms/*.yaml` | Cantera mechanisms (`n-dodecane`, methane, jetA) |
+| `blackbox/` | Config-driven CLI / plotting / metrics |
+
+Third-party **runtime** libraries (PyTorch, Cantera, `SundialsPy`, `qss-integrator`, …)
+are declared in `pyproject.toml` and installed by pip—they are not re-implemented here.
+
+---
+
+## Install
+
+From this folder (`handoff/`):
+
+```bash
+# Activate your scientific Python env (Cantera + torch capable), e.g.:
+workon rlenv
+
+cd handoff
+pip install -e .
+```
+
+This registers the console script `solver-selection-eval` and makes
+`import solver_selection_handoff` work from anywhere.
+
+**Requirements** (see `pyproject.toml`):
+
+- Python ≥ 3.9
+- `numpy`, `scipy`, `matplotlib`, `seaborn`, `tqdm`, `PyYAML`
+- `torch`, `cantera`
+- `SundialsPy` (CVODE via Sundials)
+- `qss-integrator` (QSS)
+
+If `SundialsPy` / `qss-integrator` are not on PyPI in your environment, install
+them from their GitHub sources (same stack used by the original research repo)
+*before* or *with* this package.
+
+---
+
+## Quick start
+
+```bash
+# 1. Install (once)
+pip install -e /path/to/handoff
+
+# 2. Point a config at your checkpoint and run
+solver-selection-eval \
+  --config /path/to/handoff/configs/example_minimal.yaml \
+  --set policy.model_path=/absolute/path/to/policy.pt \
+  --set output.dir=./eval_out
+```
+
+Equivalents:
+
+```bash
+python -m solver_selection_handoff --config ...
+# or, from this directory without install (adds src/ to path):
+python run.py --config configs/example_minimal.yaml
+```
+
+Python API:
+
+```python
+from solver_selection_handoff import run_from_config
+
+result = run_from_config(
+    "configs/example_minimal.yaml",
+    overrides=[
+        "policy.model_path=/path/to/policy.pt",
+        "output.dir=./eval_out",
+    ],
+)
+print(result.output_dir, result.summary_csv)
+```
+
+---
+
+## What the black box does
+
+**Inputs (YAML):**
+
+1. Mechanism (named key `ndodecane` | `methane` | `jetA` | `hydrogen`, or a YAML path)
+2. RL checkpoint (`.pt`)
+3. Observation flags (`use_prev_state`, `use_gradient_only`, `num_steps`, network)
+4. Initial condition(s): \(T\), \(P\), \(Z\) or \(\phi\), `dt`, `t_end`
+5. Methods to run: `CVODE`, `QSS`, `RL-Adaptive`, optional `Supervised-ML`
+6. Plot / output options
+
+**Outputs:**
+
+| Artifact | Description |
+|----------|-------------|
+| `resolved_config.json` | Provenance snapshot |
+| `condition_*.pkl` | Trajectories, solver sequences, CPU timing |
+| `summary.csv` | Ignition delay, CPU, speedup, range-normalised \(T\) MSE |
+| `0D_comparison_*.png/.pdf` | Publication-style comparison figure |
+
+---
+
+## Package layout
+
+```
+handoff/                              ← installable project root
+├── pyproject.toml                    ← pip metadata + dependencies
+├── README.md
+├── run.py                            ← convenience launcher
+├── configs/                          ← example YAML configs
+├── docs/
+│   ├── CONFIG_REFERENCE.md
+│   └── ARCHITECTURE.md
+└── src/solver_selection_handoff/     ← importable package
+    ├── inference.py                  ← vendored
+    ├── evaluation_pipeline.py        ← vendored
+    ├── solver_strategy.py            ← vendored
+    ├── ppo_agent.py                  ← vendored
+    ├── utils.py                      ← vendored (+ packaged mech paths)
+    ├── train_supervised_nets.py      ← vendored
+    ├── data/mechanisms/              ← Cantera YAMLs
+    └── blackbox/                     ← CLI, config, runner, plots
+```
+
+There is **no import** from a parent research checkout. Everything needed to *evaluate*
+is under `src/solver_selection_handoff/`.
+
+---
+
+## Critical: match training settings
+
+| Training | Config |
+|----------|--------|
+| State + gradients | `policy.use_prev_state: true`, `use_gradient_only: false` |
+| Gradients only | `policy.use_gradient_only: true` |
+| RL period | `policy.num_steps` (often `20`) |
+| MLP | `policy.network.hidden_dims` / `activation` |
+
+Mismatch → wrong actions or size errors when loading weights.
+
+---
+
+## Documentation
+
+- [`docs/CONFIG_REFERENCE.md`](docs/CONFIG_REFERENCE.md) — every YAML field
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — data flow & packaging notes
+- Example configs: [`configs/`](configs/)
+
+---
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| `No module named solver_selection_handoff` | `pip install -e .` from `handoff/` |
+| `No module named qss_integrator` | Install `qss-integrator` into the same env |
+| `No module named SundialsPy` | Install `SundialsPy` into the same env |
+| Network size mismatch | Align `policy.network` + observation flags with training |
+| Mechanism not found | Use `mechanism: ndodecane` (packaged) or an absolute YAML path |
+
+---
+
+## What is *not* included
+
+Training (PPO loops, reward, environment), HPC sweep scripts, WandB, and
+multi-policy ablation utilities remain in the research repository. This package
+is **evaluation-only** by design.
