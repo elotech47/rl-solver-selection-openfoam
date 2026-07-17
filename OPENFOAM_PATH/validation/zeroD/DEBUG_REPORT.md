@@ -386,7 +386,7 @@ Artifacts: `validation/zeroD/e9_constprop/`.
 
 ---
 
-## Diagnosis (updated after E8–E10) — STOP for human
+## Diagnosis (updated after E8–E10)
 
 ### Confirmed (E1–E10)
 
@@ -399,26 +399,52 @@ Artifacts: `validation/zeroD/e9_constprop/`.
 7. **No chemFoam last-slot / clip (E10).**  
 8. **Smoking gun (E8):** `cellMixture` blended cp collapses / goes negative for Luo runaway Y; ΣYi·Cp stays physical; Newton uses the blended surface.
 
-### Root-cause statement (replace prior H3 location-only claim)
+### Root-cause statement
 
-> **Root cause:** During Luo n-dodecane thermal runaway, OpenFOAM’s mass-fraction blend of JANAF coefficients (`multiComponentMixture::cellMixture`) produces a pseudo-species whose `Cp(T)` collapses toward zero and becomes negative above ~2000 K, while the physically correct mixture `Σ Yi Cp_i(T)` remains ~1400 J/(kg·K). `hePsiThermo::correct()` inverts T with `mixture.THE(h,p,T)` on that blended surface, so the h→T Newton fails (ill-conditioned then oscillatory). Stock and custom chemistry solvers only supply (Y, Qdot); they are not the defect. GRI’s blend stays faithful (`hsSum≡hsCell`), so the tutorial survives.
+> **Root cause (H6):** During Luo n-dodecane thermal runaway, OpenFOAM’s mass-fraction blend of JANAF coefficients (`multiComponentMixture::cellMixture`) produces a pseudo-species whose `Cp(T)` collapses toward zero and becomes negative above ~2000 K, while the physically correct mixture `Σ Yi Cp_i(T)` remains ~1400 J/(kg·K). `hePsiThermo::correct()` inverts T with `mixture.THE(h,p,T)` on that blended surface, so the h→T Newton fails. Stock and custom chemistry solvers only supply (Y, Qdot); they are not the defect. GRI’s blend stays faithful (`hsSum≡hsCell`), so the tutorial survives.
 
-### Fix conversation (do **not** apply yet — awaiting human)
+---
 
-Options to discuss (none implemented):
-- Evaluate mixture Hs/Cp as **Σ Yi·Hs_i** for THE (or equivalent) instead of NASA-coeff blending, at least for chemFoam / validation.  
-- Or restrict blending / switch temperature handling for mechanisms with disparate `Tcommon` / Thigh.  
-- reactingFoam still uses the same `cellMixture` for energy — 2D will hit this unless addressed.  
-- Prior (A)/(B) bypasses remain **on hold** (would mask without fixing blend).
+## FIX — mass-weighted h→T in local chemFoam (APPLIED)
+
+**Date:** 2026-07-17  
+**Scope:** `applications/solvers/chemFoam/massWeightedT.H` included from `hEqn.H` (local `chemFoamDebug` build only; installed ESI tree untouched).
+
+### What changed
+
+After `h[0] = h0 + integratedHeat` (or const-v equivalent):
+
+1. **Newton on Σ Yi·Hs_i(T) = f** using per-species `composition.Hs/Cp` (same basis as `h0` in `readInitialConditions.H`).
+2. Set `he` to blended `Hs(T_new)` so stock `thermo.correct()` THE is a numerical no-op, then call `correct()` to refresh `psi` (ρ = p·ψ).
+3. Restore `he = f` for bookkeeping.
+
+No Y/T clipping, no Newton maxIter change, no bypass of chemistry or `∫Qdot/ρ`.
+
+### Verification — MidT_MidP, original JANAF, Δt=maxΔt=1e−6, endTime=0.0035
+
+| Solver | Outcome | τ_ign (T≥1200) | T_end [K] | vs handoff τ_ign |
+|--------|---------|----------------|-----------|------------------|
+| stock `ode` | **End** (32745 steps, ~91 s) | 2.151 ms | 2601 | — |
+| custom `cvode` | **End** (3522 steps, ~21 s) | 2.144 ms | 2609 | **0.56%** (PASS ≤1%) |
+| custom `qss` | **End** (3523 steps, ~5 s) | 1.949 ms | 2631 | **15.7% early** (FAIL — E7 parked) |
+
+Artifacts: `validation/zeroD/fix_verify/{ode,cvode,qss}/`.
+
+No warnings in solver logs. E8 `OFRL_DEBUG_STATE` instrumentation unchanged.
+
+### 2D note
+
+reactingFoam still uses `cellMixture` THE for energy; this chemFoam fix is the 0D validation path. A reactionThermo-level fix (or reactingFoam patch) is still required before coflow/opposedJet.
 
 ### Definition-of-done status
 
 | Item | Status |
 |------|--------|
-| Named mechanism + experiment trail | **Yes — H6 cellMixture JANAF blend / cp collapse** |
-| MidT to eq stock+cvode+qss, original JANAF | **Open** (fix not applied) |
-| OF-CVODE ign within 1%; QSS gap (E7) | **Open** (after fix) |
-| E8 instrumentation behind debug switch | **Done** (`OFRL_DEBUG_STATE`) |
+| Named mechanism + experiment trail | **Yes — H6** |
+| MidT to eq stock+cvode+qss, original JANAF | **Yes** (chemFoamDebug) |
+| OF-CVODE ign within 1% | **Yes** (0.56%) |
+| QSS gap re-measured (E7) | **Open** (~16% early, unchanged class) |
+| E8 instrumentation behind debug switch | **Done** |
 
-**Git:** repo initialized; commits per experiment on `main`.
+**Git:** commits on `main` through E8–E10 + fix.
 

@@ -12,5 +12,8 @@
 
     #include "debugStateDump.H"
 
-    thermo.correct();
+    // FIX (E8 H6): do not call thermo.correct() — its THE uses cellMixture
+    // JANAF blending with pathological cp for Luo runaway. Invert T from
+    // Σ Yi·Hs_i instead (matches h0 construction).
+    #include "massWeightedT.H"
 }
