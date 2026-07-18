@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          controlDict;
+}
+
+application     reactingFoamDebug;
+
+startFrom       startTime;
+startTime       0;
+stopAt          endTime;
+
+// E12.1 ignition: 3200 cells, CVODE, MidP 10 atm, hot air 1100 K
+// Cost: ~10–15 s/step → endTime 5 ms ≈ 500 steps ≈ 1–2 h wall
+endTime         0.005;
+
+deltaT          1e-05;
+
+writeControl    adjustableRunTime;
+writeInterval   2.5e-04;
+purgeWrite      40;
+writeFormat     ascii;
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+maxCo           0.4;
+maxDeltaT       1e-05;
+
+libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" );
+
+propSanity      true;
+propSanityInterval 20;
+
+
+// ************************************************************************* //

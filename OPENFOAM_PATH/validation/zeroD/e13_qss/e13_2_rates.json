@@ -1,0 +1,43 @@
+{
+  "n_states": 100,
+  "max_fwd": 1.0870318761357486e-15,
+  "max_rev": 0.0012315247651299497,
+  "max_Kc": 0.00495916521700024,
+  "worst": {
+    "fwd": {
+      "T": 1972.9474439201003,
+      "i": 111,
+      "rel": 1.0870318761357486e-15,
+      "reaction": "2 ch3 (+M) <=> c2h6 (+M)",
+      "k0": 3509278199.99698,
+      "k1": 3509278199.9969764
+    },
+    "rev": {
+      "T": 1739.1972254187547,
+      "i": 269,
+      "rel": 0.0012315247651299497,
+      "reaction": "nc3h7 <=> c2h4 + ch3",
+      "k0": 400327457.8418854,
+      "k1": 399834444.6633916
+    },
+    "Kc": {
+      "T": 1753.8161758564688,
+      "i": 656,
+      "rel": 0.00495916521700024,
+      "reaction": "c8h17coch2 => c8h17-1 + ch2co",
+      "k0": 0.014900176717178196,
+      "k1": 0.014974069155281183
+    }
+  },
+  "gate_0p1pct": false,
+  "T_range": [
+    1564.8913216119151,
+    2899.2198056633533
+  ],
+  "mechanisms": {
+    "orig": "mechanisms/n-dodecane.yaml",
+    "refit": "mechanisms/refit/n-dodecane_refit.yaml"
+  },
+  "gate_threshold": 0.001,
+  "note": "Cantera original vs Cantera-refit at identical (T,P,Y). OF rate export uses chemkin path; OF-vs-Cantera deferred to E7 chemkin dump."
+}

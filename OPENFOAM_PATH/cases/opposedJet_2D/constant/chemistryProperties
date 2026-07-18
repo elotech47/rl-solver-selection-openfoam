@@ -16,7 +16,7 @@ FoamFile
 
 chemistryType
 {
-    solver          ode;
+    solver          cvode;
 }
 
 chemistry       on;

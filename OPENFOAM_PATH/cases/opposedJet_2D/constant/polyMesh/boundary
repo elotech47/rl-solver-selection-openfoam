@@ -22,26 +22,26 @@ FoamFile
     {
         type            patch;
         nFaces          40;
-        startFace       7860;
+        startFace       6280;
     }
     air
     {
         type            patch;
         nFaces          40;
-        startFace       7900;
+        startFace       6320;
     }
     outlet
     {
         type            patch;
-        nFaces          200;
-        startFace       7940;
+        nFaces          160;
+        startFace       6360;
     }
     frontAndBack
     {
         type            empty;
         inGroups        1(empty);
-        nFaces          8000;
-        startFace       8140;
+        nFaces          6400;
+        startFace       6520;
     }
 )
 

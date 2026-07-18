@@ -1,0 +1,2 @@
+#t,Tprev,sumY,minY,minYname,hsSum,cpSum,hsCell,cpCell,f,R2sum,R2cell,rhoChem,rhoThermo,rhoFromC,dQdot_dt_over_rho,dIntegratedHeat,neg0,neg0Y,neg1,neg1Y,neg2,neg2Y,neg3,neg3Y,neg4,neg4Y
+1e-06,2000.57,1.00001,5.15701e-19,nc3h7coch2,2.18561e+06,1421.66,2.18558e+06,1421.64,2.3655e+06,179889,179912,1.6507,1.6507,1.65072,183727,183727,nc3h7coch2,5.15701e-19,nc4ket13,6.30681e-19,nc6h13cho,6.91761e-19,c4h8ooh1-3o2,7.33712e-19,c4h7o1-4,8.6883e-19

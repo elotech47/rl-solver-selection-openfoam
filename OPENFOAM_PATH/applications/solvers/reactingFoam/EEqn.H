@@ -34,4 +34,6 @@
 
     Info<< "min/max(T) = "
         << min(T).value() << ", " << max(T).value() << endl;
+
+    #include "propertySanityLog.H"
 }

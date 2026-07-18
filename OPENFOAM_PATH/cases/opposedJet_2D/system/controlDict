@@ -1,18 +1,18 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2312                                  |
+|  \\    /   O peration     | Version:  v2312                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 FoamFile
 {
-    version         2;
-    format          ascii;
-    class           dictionary;
-    object          controlDict;
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
 }
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 application     reactingFoamDebug;
 
@@ -22,15 +22,16 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         2e-05;
+// E12.1: 3200 cells, CVODE, MidP 10 atm, air 1100 K
+endTime         0.005;
 
-deltaT          1e-06;
+deltaT          1e-05;
 
 writeControl    adjustableRunTime;
 
-writeInterval   1e-05;
+writeInterval   2.5e-04;
 
-purgeWrite      20;
+purgeWrite      40;
 
 writeFormat     ascii;
 
@@ -38,11 +39,15 @@ runTimeModifiable true;
 
 adjustTimeStep  yes;
 
-maxCo           0.3;
+maxCo           0.4;
 
-maxDeltaT       1e-06;
+maxDeltaT       1e-05;
 
 libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" );
+
+propSanity      true;
+
+propSanityInterval 20;
 
 
 // ************************************************************************* //

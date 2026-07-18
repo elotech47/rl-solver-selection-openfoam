@@ -1,0 +1,1335 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _c39a0f64-20231220 OPENFOAM=2312 version=2312
+Arch   : "LSB;label=32;scalar=64"
+Exec   : reactingFoamDebug
+Date   : Jul 18 2026
+Time   : 16:26:51
+Host   : fd6e9c8e0cb4
+PID    : 232
+I/O    : uncollated
+Case   : /work/cases/opposedJet_2D
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+PIMPLE: Operating solver in PISO mode
+
+Reading thermophysical properties
+
+Selecting thermodynamics package 
+{
+    type            hePsiThermo;
+    mixture         reactingMixture;
+    transport       sutherland;
+    thermo          janaf;
+    energy          sensibleEnthalpy;
+    equationOfState perfectGas;
+    specie          specie;
+}
+
+Selecting chemistryReader foamChemistryReader
+Reading field U
+
+Reading/calculating face flux field phi
+
+Creating turbulence model.
+
+Selecting turbulence model type laminar
+Selecting laminar stress model Stokes
+Creating reaction model
+
+Selecting combustion model laminar
+Selecting chemistry solver 
+{
+    solver          cvode;
+    method          standard;
+}
+
+StandardChemistryModel: Number of species = 106 and reactions = 678
+    using integrated reaction rate
+Creating field dpdt
+
+Creating field kinetic energy K
+
+No MRF models present
+
+No finite volume options present
+Courant Number mean: 4.11949e-05 max: 0.00630028
+
+Starting time loop
+
+Courant Number mean: 4.11949e-05 max: 0.00630028
+deltaT = 1e-06
+Time = 1e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for h2, Initial residual = 1.25851e-54, Final residual = 1.25851e-54, No Iterations 0
+DILUPBiCGStab:  Solving for o, Initial residual = 2.60471e-06, Final residual = 5.89396e-22, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 1, Final residual = 8.24943e-17, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 9.03572e-39, Final residual = 9.03572e-39, No Iterations 0
+DILUPBiCGStab:  Solving for h2o, Initial residual = 4.6616e-80, Final residual = 4.6616e-80, No Iterations 0
+DILUPBiCGStab:  Solving for ho2, Initial residual = 1.74806e-36, Final residual = 1.74806e-36, No Iterations 0
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 1.68752e-78, Final residual = 1.68752e-78, No Iterations 0
+DILUPBiCGStab:  Solving for co, Initial residual = 3.45143e-37, Final residual = 3.45143e-37, No Iterations 0
+DILUPBiCGStab:  Solving for co2, Initial residual = 1.11785e-46, Final residual = 1.11785e-46, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 6.59118e-39, Final residual = 6.59118e-39, No Iterations 0
+DILUPBiCGStab:  Solving for hco, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 8.69003e-40, Final residual = 8.69003e-40, No Iterations 0
+DILUPBiCGStab:  Solving for ch4, Initial residual = 8.13404e-99, Final residual = 8.13404e-99, No Iterations 0
+DILUPBiCGStab:  Solving for ch3, Initial residual = 5.11565e-43, Final residual = 5.11565e-43, No Iterations 0
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 1.23385e-81, Final residual = 1.23385e-81, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 1.4136e-39, Final residual = 1.4136e-39, No Iterations 0
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 1.25559e-38, Final residual = 1.25559e-38, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 1.63749e-40, Final residual = 1.63749e-40, No Iterations 0
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 3.421e-45, Final residual = 3.421e-45, No Iterations 0
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 2.65403e-39, Final residual = 2.65403e-39, No Iterations 0
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for hcco, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 3.73188e-108, Final residual = 3.73188e-108, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 8.44225e-154, Final residual = 8.44225e-154, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 8.31324e-43, Final residual = 8.31324e-43, No Iterations 0
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 9.13235e-41, Final residual = 9.13235e-41, No Iterations 0
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 2.92338e-50, Final residual = 2.92338e-50, No Iterations 0
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 1.42148e-55, Final residual = 1.42148e-55, No Iterations 0
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 3.75787e-39, Final residual = 3.75787e-39, No Iterations 0
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 6.09881e-79, Final residual = 6.09881e-79, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 3.31188e-40, Final residual = 3.31188e-40, No Iterations 0
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 6.00111e-41, Final residual = 6.00111e-41, No Iterations 0
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 4.40992e-47, Final residual = 4.40992e-47, No Iterations 0
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 4.6927e-48, Final residual = 4.6927e-48, No Iterations 0
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 1.22052e-38, Final residual = 1.22052e-38, No Iterations 0
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 2.14466e-206, Final residual = 2.14466e-206, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 7.55889e-42, Final residual = 7.55889e-42, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 2.18486e-39, Final residual = 2.18486e-39, No Iterations 0
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 2.55732e-40, Final residual = 2.55732e-40, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 1.74453e-41, Final residual = 1.74453e-41, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 6.08421e-226, Final residual = 6.08421e-226, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 1, Final residual = 3.18268e-17, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 5.91187e-68, Final residual = 5.91187e-68, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 1, Final residual = 4.55964e-17, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 785.647 800.18  cp 1105.57 1129.55  alphaEff 0 0  max|cpBlend-cpSum|/cpSum = 2.05662e-16 (cell 8)
+DICPCG:  Solving for p, Initial residual = 1, Final residual = 0.0656159, No Iterations 4
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 0.000187137, global = -0.000177754, cumulative = -0.000177754
+DICPCG:  Solving for p, Initial residual = 0.0161031, Final residual = 4.39104e-07, No Iterations 11
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 0.000182044, global = -0.000179234, cumulative = -0.000356988
+ExecutionTime = 32.55 s  ClockTime = 33 s
+
+Courant Number mean: 0.000313716 max: 0.0136534
+deltaT = 1e-06
+Time = 2e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0898011, Final residual = 1.98794e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.431441, Final residual = 9.56473e-08, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0706377, Final residual = 1.56522e-08, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.199828, Final residual = 4.47227e-08, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.999853, Final residual = 2.21601e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.999993, Final residual = 2.21732e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 1, Final residual = 2.22045e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.999427, Final residual = 2.21819e-07, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.953712, Final residual = 2.11539e-07, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 5.51629e-09, Final residual = 5.51629e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.986966, Final residual = 2.1986e-07, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 9.16717e-11, Final residual = 9.16717e-11, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00777939, Final residual = 1.7393e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.926853, Final residual = 2.07166e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.999641, Final residual = 2.23513e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.080514, Final residual = 1.78725e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.995459, Final residual = 2.21276e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.999967, Final residual = 2.21304e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 4.76974e-10, Final residual = 4.76974e-10, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.00277446, Final residual = 6.20056e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.995382, Final residual = 2.21302e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000184915, Final residual = 4.10375e-11, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.991318, Final residual = 2.19959e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.999929, Final residual = 2.21701e-07, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 2.3587e-09, Final residual = 2.3587e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 1.04462e-09, Final residual = 1.04462e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 5.51897e-08, Final residual = 5.51897e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.999923, Final residual = 2.23568e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.000100831, Final residual = 2.25344e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 5.11859e-13, Final residual = 5.11859e-13, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.999959, Final residual = 2.26455e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 6.75682e-08, Final residual = 6.75682e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.998067, Final residual = 2.22452e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.999831, Final residual = 2.22829e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.563289, Final residual = 1.25932e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 4.71475e-06, Final residual = 1.05369e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 6.67255e-12, Final residual = 6.67255e-12, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.99999, Final residual = 2.23168e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 3.57065e-07, Final residual = 3.57065e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.999996, Final residual = 2.21441e-07, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.999576, Final residual = 2.22314e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.019621, Final residual = 4.34188e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00213209, Final residual = 4.71613e-10, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.999997, Final residual = 2.22077e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 1.3778e-16, Final residual = 1.3778e-16, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.991336, Final residual = 2.20135e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.999975, Final residual = 2.21893e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.999727, Final residual = 2.21811e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.999979, Final residual = 2.14877e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 5.1619e-07, Final residual = 5.1619e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.999966, Final residual = 2.20925e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.999965, Final residual = 2.21473e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.999895, Final residual = 2.25092e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.991335, Final residual = 2.24352e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 1.74136e-08, Final residual = 1.74136e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 6.75207e-17, Final residual = 6.75207e-17, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.998856, Final residual = 2.22834e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.999946, Final residual = 2.16231e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.999992, Final residual = 2.23347e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.998328, Final residual = 2.23013e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.999975, Final residual = 2.26456e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 6.12909e-06, Final residual = 1.3875e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.999975, Final residual = 2.26456e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.999249, Final residual = 2.23379e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 6.92739e-06, Final residual = 1.54859e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.199828, Final residual = 4.47227e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.999971, Final residual = 2.19329e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.999999, Final residual = 2.2177e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.999973, Final residual = 2.20434e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.999979, Final residual = 2.15932e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.999988, Final residual = 2.22209e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.999888, Final residual = 2.18985e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.999996, Final residual = 2.19214e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.994775, Final residual = 2.22348e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.99993, Final residual = 2.25094e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.999975, Final residual = 2.16298e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 1, Final residual = 2.21561e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 1, Final residual = 2.23491e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 1, Final residual = 2.153e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.999999, Final residual = 2.17884e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.999529, Final residual = 2.22233e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.999539, Final residual = 2.24502e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.999525, Final residual = 2.24473e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.999691, Final residual = 2.15151e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.999998, Final residual = 2.2317e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.999998, Final residual = 2.25848e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.999998, Final residual = 2.25837e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.999999, Final residual = 2.14961e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.999958, Final residual = 2.23506e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.999973, Final residual = 2.14979e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.999957, Final residual = 2.26304e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.999995, Final residual = 2.23532e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.999995, Final residual = 2.26379e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.999994, Final residual = 2.26375e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.999997, Final residual = 2.14891e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 1.73985e-14, Final residual = 1.73985e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.99998, Final residual = 2.26459e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.999986, Final residual = 2.14878e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 1.19491e-12, Final residual = 1.19491e-12, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.999983, Final residual = 2.23586e-07, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 8.93708e-06, Final residual = 1.99752e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 1.5924e-09, Final residual = 1.5924e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 1.91625e-08, Final residual = 1.91625e-08, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.239542, Final residual = 4.72762e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 772.629 800.387  cp 1105.57 1152.43  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.68662, Final residual = 0.052476, No Iterations 3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 2.59568e-05, global = -7.06087e-06, cumulative = -0.000364049
+DICPCG:  Solving for p, Initial residual = 0.0440984, Final residual = 4.44151e-07, No Iterations 12
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 2.44918e-10, global = -4.41474e-11, cumulative = -0.000364049
+ExecutionTime = 65.27 s  ClockTime = 66 s
+
+Courant Number mean: 0.000284358 max: 0.0116955
+deltaT = 1e-06
+Time = 3e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.081976, Final residual = 1.63807e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.228834, Final residual = 3.05914e-10, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0503813, Final residual = 1.25088e-08, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.106391, Final residual = 1.4223e-10, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.436642, Final residual = 7.17151e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.2904, Final residual = 7.05963e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.231839, Final residual = 1.79082e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.395277, Final residual = 4.95526e-10, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.225125, Final residual = 6.93046e-09, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 5.39382e-09, Final residual = 5.39382e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.867283, Final residual = 1.96536e-09, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 2.69309e-09, Final residual = 2.69309e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00672839, Final residual = 1.90633e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.369752, Final residual = 4.79135e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.219202, Final residual = 4.08977e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.0955492, Final residual = 1.29586e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.102867, Final residual = 5.13555e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.189969, Final residual = 3.58344e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 5.04776e-09, Final residual = 5.04776e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.58562, Final residual = 7.68534e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.206068, Final residual = 5.81665e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000208199, Final residual = 8.79765e-12, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.20327, Final residual = 6.52531e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.217938, Final residual = 4.21168e-09, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 7.33915e-07, Final residual = 7.33915e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 1.47656e-09, Final residual = 1.47656e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 8.55255e-08, Final residual = 8.55255e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.246097, Final residual = 2.76039e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.0446514, Final residual = 5.95201e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 1.17121e-10, Final residual = 1.17121e-10, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.236824, Final residual = 3.28452e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 9.645e-09, Final residual = 9.645e-09, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.357924, Final residual = 5.44812e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.192275, Final residual = 3.4569e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.99763, Final residual = 1.24477e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.00208882, Final residual = 2.80518e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 8.19322e-06, Final residual = 1.03742e-14, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.225228, Final residual = 2.81369e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 5.18642e-08, Final residual = 5.18642e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.233074, Final residual = 2.05628e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.357397, Final residual = 4.91159e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.0181378, Final residual = 2.86524e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00264394, Final residual = 3.38487e-11, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.220239, Final residual = 2.61302e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 4.17756e-15, Final residual = 4.17756e-15, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.359647, Final residual = 7.37028e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.267815, Final residual = 3.1281e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.253627, Final residual = 3.86502e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.233448, Final residual = 3.11634e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.43703e-07, Final residual = 8.43703e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.160568, Final residual = 2.32199e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.168682, Final residual = 2.56807e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.187174, Final residual = 3.1735e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.205337, Final residual = 3.70386e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 2.58902e-08, Final residual = 2.58902e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 1.7794e-14, Final residual = 1.7794e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.358273, Final residual = 5.63778e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.190307, Final residual = 3.22292e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.227888, Final residual = 2.89493e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.20174, Final residual = 3.40755e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.237517, Final residual = 3.24033e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 6.63317e-06, Final residual = 1.52962e-13, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.237533, Final residual = 3.23942e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.202478, Final residual = 4.85721e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 7.69556e-06, Final residual = 2.73624e-13, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.106391, Final residual = 1.4223e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.0749269, Final residual = 1.96572e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.185427, Final residual = 1.31991e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.0795051, Final residual = 1.93409e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.244441, Final residual = 2.16753e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.164709, Final residual = 2.46852e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.357144, Final residual = 4.6863e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.24046, Final residual = 2.34527e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.20285, Final residual = 3.81418e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.187008, Final residual = 3.17027e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.216161, Final residual = 3.10397e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.239914, Final residual = 1.69721e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.242484, Final residual = 1.66243e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.247782, Final residual = 1.63664e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.255198, Final residual = 2.22873e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.356946, Final residual = 4.57433e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.356889, Final residual = 4.5361e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.356808, Final residual = 4.47576e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.356723, Final residual = 4.36269e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.285256, Final residual = 1.96646e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.287885, Final residual = 1.94471e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.288842, Final residual = 1.92011e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.284564, Final residual = 1.85656e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.228225, Final residual = 3.17173e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.226894, Final residual = 2.97228e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.231161, Final residual = 3.08454e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.288021, Final residual = 2.05378e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.290602, Final residual = 2.02835e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.291551, Final residual = 2.00285e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.286433, Final residual = 1.93303e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 2.67512e-16, Final residual = 2.67512e-16, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 1.9202e-11, Final residual = 1.9202e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.240084, Final residual = 3.08622e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.236623, Final residual = 2.9293e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 4.02298e-11, Final residual = 4.02298e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.234887, Final residual = 3.32887e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 9.68368e-06, Final residual = 2.28567e-13, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 1.33355e-08, Final residual = 1.33355e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 2.80894e-07, Final residual = 2.80894e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.181599, Final residual = 1.14704e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 759.946 800.586  cp 1105.51 1172.7  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.579711, Final residual = 0.0322371, No Iterations 3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.51276e-05, global = -4.72485e-06, cumulative = -0.000368774
+DICPCG:  Solving for p, Initial residual = 0.0250017, Final residual = 6.39974e-07, No Iterations 11
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 3.81162e-10, global = -6.24094e-11, cumulative = -0.000368774
+ExecutionTime = 105.34 s  ClockTime = 106 s
+
+Courant Number mean: 0.000562582 max: 0.016399
+deltaT = 1e-06
+Time = 4e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0684764, Final residual = 3.9095e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.0846347, Final residual = 4.48654e-11, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0639733, Final residual = 4.90414e-08, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.0720056, Final residual = 1.40098e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.456336, Final residual = 3.19677e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.116831, Final residual = 7.18112e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.104746, Final residual = 2.40444e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.207979, Final residual = 1.37733e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.100487, Final residual = 2.01495e-08, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 4.31639e-09, Final residual = 4.31639e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00253764, Final residual = 1.52714e-09, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 1.62702e-09, Final residual = 1.62702e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00380351, Final residual = 8.91326e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.198758, Final residual = 4.95202e-11, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0979026, Final residual = 1.02139e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.0536221, Final residual = 2.97434e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.0959854, Final residual = 1.04583e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.0764746, Final residual = 7.66568e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 3.16819e-09, Final residual = 3.16819e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.157459, Final residual = 7.15846e-11, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.077194, Final residual = 1.57562e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000249698, Final residual = 2.76429e-11, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.0690288, Final residual = 1.84381e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0964706, Final residual = 1.08223e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 7.47223e-07, Final residual = 7.47223e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 1.21622e-09, Final residual = 1.21622e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 8.66921e-08, Final residual = 8.66921e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.115458, Final residual = 5.41758e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.0295691, Final residual = 1.85448e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 9.15959e-11, Final residual = 9.15959e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.108152, Final residual = 7.14608e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 9.64151e-08, Final residual = 9.64151e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.859047, Final residual = 1.95237e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.0828795, Final residual = 7.10845e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.00661341, Final residual = 2.36651e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.00152547, Final residual = 1.09386e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 2.4876e-06, Final residual = 1.43629e-18, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.0565822, Final residual = 4.71324e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 4.26659e-07, Final residual = 4.26659e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.10198, Final residual = 3.19874e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.920898, Final residual = 2.63287e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.0120205, Final residual = 1.01181e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00261444, Final residual = 1.4204e-10, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.0483667, Final residual = 4.04702e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 1.12944e-14, Final residual = 1.12944e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.89095, Final residual = 2.75669e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.0766819, Final residual = 5.73053e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.0932391, Final residual = 8.30262e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0995005, Final residual = 7.0307e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.97088e-07, Final residual = 8.97088e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.0471496, Final residual = 3.16105e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.0558577, Final residual = 4.15058e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.0849503, Final residual = 6.14405e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.0806423, Final residual = 8.00451e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 2.56673e-08, Final residual = 2.56673e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 3.54072e-14, Final residual = 3.54072e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.860964, Final residual = 2.18109e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.0726665, Final residual = 6.78931e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.0580843, Final residual = 5.03084e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.0354084, Final residual = 6.80992e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.108793, Final residual = 7.01204e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 1.03139e-05, Final residual = 3.40563e-13, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.108802, Final residual = 7.00893e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.0687151, Final residual = 1.18055e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 8.26241e-06, Final residual = 8.71596e-13, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.0720056, Final residual = 1.40098e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.358765, Final residual = 4.43626e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.063436, Final residual = 8.4166e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.358777, Final residual = 4.31177e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.583981, Final residual = 8.72592e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.053584, Final residual = 3.63801e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.899777, Final residual = 1.41595e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.119879, Final residual = 4.18729e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.0805944, Final residual = 8.47094e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.0848764, Final residual = 6.1284e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.0808954, Final residual = 6.23129e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.1451, Final residual = 2.02802e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.144234, Final residual = 1.90248e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.120044, Final residual = 2.05355e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.0725655, Final residual = 3.17989e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.950054, Final residual = 9.56697e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.950308, Final residual = 9.47331e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.951442, Final residual = 9.00834e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.950722, Final residual = 9.75951e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.137935, Final residual = 2.80141e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.136584, Final residual = 2.6995e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.137998, Final residual = 2.64292e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.11916, Final residual = 2.72037e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.0995657, Final residual = 6.43281e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.0877268, Final residual = 6.18111e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.099717, Final residual = 6.07989e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.152468, Final residual = 3.19217e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.15158, Final residual = 3.07596e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.152699, Final residual = 3.01355e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.136638, Final residual = 3.0631e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 3.85407e-12, Final residual = 3.85407e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 1.65853e-11, Final residual = 1.65853e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.109943, Final residual = 6.44953e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.100819, Final residual = 6.35367e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 5.4688e-11, Final residual = 5.4688e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.108575, Final residual = 7.39249e-09, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 1.48879e-05, Final residual = 5.26706e-13, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 4.24773e-08, Final residual = 4.24773e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 5.8377e-07, Final residual = 5.8377e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.117879, Final residual = 1.25129e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 749.058 800.77  cp 1105.39 1191.67  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.316862, Final residual = 0.025735, No Iterations 3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.68615e-05, global = -3.293e-06, cumulative = -0.000372067
+DICPCG:  Solving for p, Initial residual = 0.0192622, Final residual = 8.64578e-07, No Iterations 10
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 7.6457e-10, global = -1.36418e-10, cumulative = -0.000372067
+ExecutionTime = 145.46 s  ClockTime = 146 s
+
+Courant Number mean: 0.000892232 max: 0.0173025
+deltaT = 1e-06
+Time = 5e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0616166, Final residual = 6.2884e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.0619509, Final residual = 8.82387e-11, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0419894, Final residual = 8.08854e-08, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.0548757, Final residual = 2.39663e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.225359, Final residual = 3.66331e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.0903795, Final residual = 1.52367e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.0605906, Final residual = 3.61562e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.13701, Final residual = 2.11811e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.0737067, Final residual = 4.94568e-08, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 4.38656e-09, Final residual = 4.38656e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00248559, Final residual = 4.52411e-09, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 1.08943e-09, Final residual = 1.08943e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.0020568, Final residual = 2.81574e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.135607, Final residual = 9.56657e-11, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0580048, Final residual = 2.31755e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.0366502, Final residual = 6.54233e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.0660453, Final residual = 2.62606e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.0425876, Final residual = 1.52544e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 2.19552e-09, Final residual = 2.19552e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.0859609, Final residual = 1.61054e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.0501545, Final residual = 3.82731e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.00031093, Final residual = 2.69566e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.0464351, Final residual = 4.59018e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0585597, Final residual = 2.50174e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 7.01454e-07, Final residual = 7.01454e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 1.50171e-09, Final residual = 1.50171e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 8.78174e-08, Final residual = 8.78174e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.0678401, Final residual = 1.04218e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.0210065, Final residual = 5.97832e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 7.15016e-11, Final residual = 7.15016e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.0641179, Final residual = 1.47866e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 1.35395e-08, Final residual = 1.35395e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.353439, Final residual = 3.33844e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.0373826, Final residual = 1.40857e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.00634194, Final residual = 7.31743e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.00114456, Final residual = 3.88619e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 1.66745e-07, Final residual = 1.66745e-07, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.0592933, Final residual = 8.21583e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 6.70985e-08, Final residual = 6.70985e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.0586634, Final residual = 5.15285e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.378621, Final residual = 5.30889e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.0081961, Final residual = 2.61562e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00264118, Final residual = 4.21868e-10, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.0532941, Final residual = 6.62071e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 2.02995e-14, Final residual = 2.02995e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.355362, Final residual = 4.54849e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.0826992, Final residual = 1.06849e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.0766112, Final residual = 1.71083e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0647239, Final residual = 1.48148e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.95545e-07, Final residual = 8.95545e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.0143867, Final residual = 4.40553e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.0196222, Final residual = 7.36696e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.0312494, Final residual = 1.15948e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.0435118, Final residual = 1.64417e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 2.38045e-08, Final residual = 2.38045e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 1.20584e-14, Final residual = 1.20584e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.353765, Final residual = 3.74814e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.0399248, Final residual = 1.31267e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.0599238, Final residual = 9.18866e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.0308528, Final residual = 1.3753e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.0643892, Final residual = 1.44587e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 1.14013e-05, Final residual = 2.8217e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.0643945, Final residual = 1.44507e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.047004, Final residual = 2.64873e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 9.91963e-06, Final residual = 7.41587e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.0548757, Final residual = 2.39664e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.997097, Final residual = 6.73279e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.0288582, Final residual = 6.23882e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.997208, Final residual = 6.20927e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.473568, Final residual = 2.26602e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.0177286, Final residual = 5.59707e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.352171, Final residual = 1.71954e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.0680733, Final residual = 7.28906e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.0434501, Final residual = 1.77367e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.0312242, Final residual = 1.15381e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.0529289, Final residual = 1.20259e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.053119, Final residual = 2.65476e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.0528042, Final residual = 2.38754e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.075786, Final residual = 2.64638e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.0720146, Final residual = 5.04824e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.363353, Final residual = 1.96002e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.362739, Final residual = 1.81591e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.363153, Final residual = 1.80208e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.364358, Final residual = 2.10732e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.0922779, Final residual = 4.26395e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.0922381, Final residual = 4.03857e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.0928117, Final residual = 3.9294e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.100403, Final residual = 4.18561e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.0579088, Final residual = 1.25718e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.0605325, Final residual = 1.21109e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.0581621, Final residual = 1.16655e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.0978612, Final residual = 5.20875e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.097888, Final residual = 4.95003e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.0983909, Final residual = 4.82711e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.102274, Final residual = 5.05702e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 4.1917e-14, Final residual = 4.1917e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 6.26344e-12, Final residual = 6.26344e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.064993, Final residual = 1.29694e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.0657553, Final residual = 1.30229e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 5.54321e-11, Final residual = 5.54321e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.0642231, Final residual = 1.5483e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 1.65377e-05, Final residual = 4.29559e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 2.42113e-08, Final residual = 2.42113e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 2.8675e-07, Final residual = 2.8675e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0828032, Final residual = 1.32006e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 739.218 800.95  cp 1105.35 1209.66  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.171599, Final residual = 0.00862868, No Iterations 3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 8.18648e-06, global = -1.97113e-06, cumulative = -0.000374038
+DICPCG:  Solving for p, Initial residual = 0.0072242, Final residual = 3.6008e-07, No Iterations 10
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 4.16313e-10, global = -8.33107e-11, cumulative = -0.000374038
+ExecutionTime = 185.39 s  ClockTime = 186 s
+
+Courant Number mean: 0.00121968 max: 0.0175077
+deltaT = 1e-06
+Time = 6e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0337037, Final residual = 1.06991e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.0256919, Final residual = 1.3317e-10, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0414573, Final residual = 1.21635e-07, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.04429, Final residual = 2.71079e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.183048, Final residual = 5.20657e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.0508477, Final residual = 2.39389e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.0383879, Final residual = 4.39697e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.0994069, Final residual = 2.65855e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.0564288, Final residual = 8.78859e-08, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 4.90041e-09, Final residual = 4.90041e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00221151, Final residual = 6.91494e-09, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 7.72941e-10, Final residual = 7.72941e-10, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00107347, Final residual = 3.17912e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.102362, Final residual = 1.41834e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0390176, Final residual = 4.01759e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.0223731, Final residual = 1.06389e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.14552, Final residual = 4.89921e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.0266508, Final residual = 2.35741e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 1.38833e-09, Final residual = 1.38833e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.0567786, Final residual = 2.81754e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.0328369, Final residual = 6.81417e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000232732, Final residual = 3.34438e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.0294374, Final residual = 7.73453e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0399386, Final residual = 4.39249e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 6.38429e-07, Final residual = 6.38429e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 1.49582e-09, Final residual = 1.49582e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 9.08027e-08, Final residual = 9.08027e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.0438197, Final residual = 1.56298e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.0155293, Final residual = 1.28565e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 5.58498e-11, Final residual = 5.58498e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.0419755, Final residual = 2.37013e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 4.47516e-08, Final residual = 4.47516e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.653814, Final residual = 1.15057e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.024973, Final residual = 2.21861e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.0060409, Final residual = 1.54168e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.000870346, Final residual = 8.97416e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 7.3351e-07, Final residual = 7.3351e-07, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.0125201, Final residual = 1.16857e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 1.97484e-07, Final residual = 1.97484e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.0358904, Final residual = 6.57132e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.661024, Final residual = 9.32023e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.00548151, Final residual = 4.77259e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00265675, Final residual = 8.42426e-10, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.00648394, Final residual = 9.65051e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 3.09325e-14, Final residual = 3.09325e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.709616, Final residual = 1.42385e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.0303898, Final residual = 1.50063e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.045619, Final residual = 2.63293e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0405811, Final residual = 2.41215e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.60342e-07, Final residual = 8.60342e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.00249907, Final residual = 3.78337e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.00694536, Final residual = 1.17077e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.022295, Final residual = 1.7621e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.023214, Final residual = 2.68102e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 2.17101e-08, Final residual = 2.17101e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 2.04933e-14, Final residual = 2.04933e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.653473, Final residual = 1.35511e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.0209214, Final residual = 2.12531e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.0146333, Final residual = 1.36609e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.0140198, Final residual = 2.1676e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.0421638, Final residual = 2.31064e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 8.93787e-06, Final residual = 3.44418e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.0421663, Final residual = 2.3091e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.0269358, Final residual = 4.5137e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 6.7425e-06, Final residual = 5.84804e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.04429, Final residual = 2.71079e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.35684, Final residual = 9.67419e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.00797886, Final residual = 4.21955e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.357611, Final residual = 7.81167e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.545503, Final residual = 1.00566e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.00492035, Final residual = 7.49336e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.76589, Final residual = 6.66905e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.0466528, Final residual = 1.01944e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.0235587, Final residual = 2.94461e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.0222633, Final residual = 1.7483e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.0292122, Final residual = 1.83659e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.0560038, Final residual = 3.09784e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.0551104, Final residual = 2.66825e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.0435922, Final residual = 3.0337e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.0213943, Final residual = 6.2322e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.878922, Final residual = 4.94428e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.881603, Final residual = 4.57411e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.884866, Final residual = 4.40838e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.878867, Final residual = 4.96642e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.0518453, Final residual = 5.19694e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.0509466, Final residual = 4.81774e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.0516415, Final residual = 4.66374e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.0467111, Final residual = 5.09077e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.0333245, Final residual = 1.94381e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.0307437, Final residual = 1.88841e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.033119, Final residual = 1.76916e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.0677327, Final residual = 6.69314e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.0672482, Final residual = 6.26255e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.0677421, Final residual = 6.0846e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.0641421, Final residual = 6.49099e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 1.35754e-12, Final residual = 1.35754e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 1.22828e-11, Final residual = 1.22828e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.0422302, Final residual = 2.02256e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.0407565, Final residual = 2.06377e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 5.1837e-11, Final residual = 5.1837e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.0423114, Final residual = 2.51188e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 1.29643e-05, Final residual = 5.39945e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 3.85491e-08, Final residual = 3.85491e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 5.01366e-07, Final residual = 5.01366e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0648826, Final residual = 2.07414e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 730.056 801.129  cp 1105.36 1226.67  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.11936, Final residual = 0.0049305, No Iterations 3
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 5.97763e-06, global = -1.90341e-06, cumulative = -0.000375942
+DICPCG:  Solving for p, Initial residual = 0.00439744, Final residual = 7.78678e-07, No Iterations 9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.07798e-09, global = -1.61987e-10, cumulative = -0.000375942
+ExecutionTime = 227.56 s  ClockTime = 228 s
+
+Courant Number mean: 0.00153508 max: 0.0174353
+deltaT = 1e-06
+Time = 7e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0323127, Final residual = 1.27208e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.0218647, Final residual = 1.82129e-10, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.036289, Final residual = 1.39983e-07, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.0370275, Final residual = 2.73589e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.130661, Final residual = 4.98563e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.0477486, Final residual = 3.34659e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.0251876, Final residual = 4.93409e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.0759443, Final residual = 2.99699e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.0483447, Final residual = 1.31484e-07, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 5.95784e-09, Final residual = 5.95784e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00248832, Final residual = 9.98922e-09, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 6.43267e-10, Final residual = 6.43267e-10, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00202345, Final residual = 7.6947e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.0818147, Final residual = 1.84453e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0288467, Final residual = 6.05956e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.0106179, Final residual = 1.50245e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.0855612, Final residual = 1.05421e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.018143, Final residual = 3.2366e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 1.17549e-09, Final residual = 1.17549e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.0409551, Final residual = 4.33703e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.0269696, Final residual = 9.65131e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000339378, Final residual = 1.14484e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.024241, Final residual = 9.53031e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0302296, Final residual = 6.66659e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 5.61409e-07, Final residual = 5.61409e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 1.09001e-09, Final residual = 1.09001e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 9.90599e-08, Final residual = 9.90599e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.0308567, Final residual = 2.09014e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.0117303, Final residual = 2.27528e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 7.32425e-11, Final residual = 7.32425e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.0301188, Final residual = 3.37084e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 9.39223e-09, Final residual = 9.39223e-09, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.30724, Final residual = 6.98349e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.0136709, Final residual = 3.15619e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.00581769, Final residual = 2.68726e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.000663564, Final residual = 1.67625e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 1.22575e-06, Final residual = 8.62275e-17, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.0196185, Final residual = 1.40388e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 4.4741e-08, Final residual = 4.4741e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.0235291, Final residual = 7.67778e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.309825, Final residual = 5.39706e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.00361907, Final residual = 7.42205e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00266927, Final residual = 1.39008e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.0143293, Final residual = 1.09205e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 4.29677e-14, Final residual = 4.29677e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.318287, Final residual = 8.89182e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.0374605, Final residual = 1.89399e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.039272, Final residual = 3.5919e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0301635, Final residual = 3.46018e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.32071e-07, Final residual = 8.32071e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.00840502, Final residual = 5.27783e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.00512819, Final residual = 1.4619e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.00899212, Final residual = 2.46936e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.0159748, Final residual = 3.80675e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 2.02806e-08, Final residual = 2.02806e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 6.27573e-15, Final residual = 6.27573e-15, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.306456, Final residual = 8.73065e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.013629, Final residual = 2.92746e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.0217738, Final residual = 1.73231e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.0113183, Final residual = 3.1157e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.0302015, Final residual = 3.27781e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 9.26566e-06, Final residual = 5.58768e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.0302023, Final residual = 3.27526e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.0213572, Final residual = 6.46749e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 8.83827e-06, Final residual = 1.18895e-11, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.0370275, Final residual = 2.7359e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.831444, Final residual = 4.08887e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.000261251, Final residual = 3.37117e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.844897, Final residual = 3.15328e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.439744, Final residual = 1.09515e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.00493342, Final residual = 7.56697e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.333363, Final residual = 3.62639e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.0312746, Final residual = 1.26776e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.0164404, Final residual = 4.22421e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.00896723, Final residual = 2.44403e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.0218231, Final residual = 2.46616e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.0203414, Final residual = 3.24149e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.0195439, Final residual = 2.6686e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.0324111, Final residual = 3.05967e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.0274328, Final residual = 7.12785e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.354334, Final residual = 2.57016e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.354937, Final residual = 2.3089e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.355559, Final residual = 2.21223e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.354293, Final residual = 2.5653e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.0451557, Final residual = 5.82729e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.044631, Final residual = 5.2887e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.0450479, Final residual = 5.09342e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.0486293, Final residual = 5.68128e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.0244309, Final residual = 2.68043e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.0251254, Final residual = 2.57281e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.0241675, Final residual = 2.39597e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.0527315, Final residual = 7.76113e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.0524318, Final residual = 7.15234e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.0527529, Final residual = 6.9245e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.0539399, Final residual = 7.52028e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 9.97396e-18, Final residual = 9.97396e-18, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 3.87885e-12, Final residual = 3.87885e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.0300282, Final residual = 2.80244e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.0301053, Final residual = 2.8868e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 4.98638e-11, Final residual = 4.98638e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.0304701, Final residual = 3.6137e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 1.34724e-05, Final residual = 8.8797e-12, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 2.61353e-08, Final residual = 2.61353e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 2.84207e-07, Final residual = 2.84207e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0544711, Final residual = 2.3795e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 721.478 801.309  cp 1105.36 1242.75  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.0948642, Final residual = 0.0085932, No Iterations 2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.22803e-05, global = -4.61744e-06, cumulative = -0.000380559
+DICPCG:  Solving for p, Initial residual = 0.00783686, Final residual = 4.49524e-07, No Iterations 10
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 7.018e-10, global = -1.24242e-10, cumulative = -0.000380559
+ExecutionTime = 270.26 s  ClockTime = 271 s
+
+Courant Number mean: 0.00183516 max: 0.0171909
+deltaT = 1e-06
+Time = 8e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0170771, Final residual = 1.61986e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.0091227, Final residual = 2.27698e-10, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0360947, Final residual = 1.69588e-07, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.0317564, Final residual = 2.64015e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.104136, Final residual = 4.92289e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.028712, Final residual = 4.27482e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.0167733, Final residual = 5.31109e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.0600954, Final residual = 3.18965e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.0430427, Final residual = 1.72155e-07, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 7.54871e-09, Final residual = 7.54871e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00314815, Final residual = 1.37638e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 6.30465e-10, Final residual = 6.30465e-10, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.0028226, Final residual = 1.27416e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.0673801, Final residual = 2.22344e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0225809, Final residual = 8.11098e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.00539352, Final residual = 1.96019e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.10616, Final residual = 1.56053e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.0130818, Final residual = 4.08984e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 1.10882e-09, Final residual = 1.10882e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.0311009, Final residual = 6.15392e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.0230278, Final residual = 1.09652e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000268225, Final residual = 1.2561e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.0210437, Final residual = 9.91141e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0242899, Final residual = 8.93235e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 4.92695e-07, Final residual = 4.92695e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 8.75905e-10, Final residual = 8.75905e-10, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 1.13407e-07, Final residual = 1.13407e-07, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.0215772, Final residual = 2.62291e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.00898746, Final residual = 3.57791e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 3.38271e-11, Final residual = 3.38271e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.0219702, Final residual = 4.46856e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 1.86212e-08, Final residual = 1.86212e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.42097, Final residual = 2.04005e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.0104557, Final residual = 3.94859e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.005631, Final residual = 4.15994e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.000505614, Final residual = 2.74863e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 1.26163e-06, Final residual = 1.25465e-16, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.00280983, Final residual = 1.40537e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 8.35498e-08, Final residual = 8.35498e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.0151547, Final residual = 8.60551e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.428449, Final residual = 1.67234e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.0022873, Final residual = 9.68342e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00266799, Final residual = 2.04817e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.00486387, Final residual = 1.29631e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 5.61478e-14, Final residual = 5.61478e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.500854, Final residual = 2.51999e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.0161649, Final residual = 2.32251e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.0284029, Final residual = 4.58596e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0217778, Final residual = 4.64584e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.19512e-07, Final residual = 8.19512e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.0114381, Final residual = 5.15436e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.00775484, Final residual = 1.93377e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.00705741, Final residual = 2.94404e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.00951686, Final residual = 4.35017e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 1.95434e-08, Final residual = 1.95434e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 9.24852e-15, Final residual = 9.24852e-15, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.418029, Final residual = 2.5603e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.00822094, Final residual = 3.61355e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.00486804, Final residual = 2.15929e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.0244469, Final residual = 4.00503e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.0219893, Final residual = 4.33762e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 6.8802e-06, Final residual = 8.18447e-12, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.0219884, Final residual = 4.33384e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.0161235, Final residual = 7.47558e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 4.42112e-06, Final residual = 1.4033e-11, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.0317564, Final residual = 2.64015e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.351277, Final residual = 1.92483e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.00898494, Final residual = 2.47108e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.354081, Final residual = 1.40555e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.514332, Final residual = 1.9917e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.00732627, Final residual = 7.61454e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.584129, Final residual = 1.22959e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.0230195, Final residual = 1.50644e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.0101804, Final residual = 4.74149e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.00701534, Final residual = 2.90993e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.0142259, Final residual = 3.1723e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.0262673, Final residual = 3.33134e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.0254536, Final residual = 2.62827e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.0195415, Final residual = 3.13958e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.00741026, Final residual = 8.11458e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.782668, Final residual = 8.46425e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.790115, Final residual = 7.50296e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.796515, Final residual = 7.1848e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.784911, Final residual = 8.28673e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.0250884, Final residual = 6.16341e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.0243847, Final residual = 5.46295e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.0247939, Final residual = 5.2359e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.0233789, Final residual = 5.99307e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.014932, Final residual = 3.51635e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.0141319, Final residual = 3.41012e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.0144971, Final residual = 3.09569e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.0392739, Final residual = 8.46946e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.0389036, Final residual = 7.67727e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.0391782, Final residual = 7.40929e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.0382863, Final residual = 8.19338e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 2.51152e-18, Final residual = 2.51152e-18, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 6.26905e-12, Final residual = 6.26905e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.0215113, Final residual = 3.62986e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.0212954, Final residual = 3.79265e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 4.69638e-11, Final residual = 4.69638e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.0224082, Final residual = 4.84033e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 1.00721e-05, Final residual = 1.32106e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 3.00935e-08, Final residual = 3.00935e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 4.13123e-07, Final residual = 4.13123e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0475318, Final residual = 2.6106e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 713.424 801.488  cp 1105.37 1258  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.081642, Final residual = 0.00649112, No Iterations 2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.03813e-05, global = -3.21572e-06, cumulative = -0.000383775
+DICPCG:  Solving for p, Initial residual = 0.00608349, Final residual = 7.9877e-07, No Iterations 9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.36056e-09, global = -2.25055e-10, cumulative = -0.000383775
+ExecutionTime = 311.36 s  ClockTime = 312 s
+
+Courant Number mean: 0.00211894 max: 0.0168624
+deltaT = 1e-06
+Time = 9e-06
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0168345, Final residual = 1.7558e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.00805992, Final residual = 2.72414e-10, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0337913, Final residual = 1.84232e-07, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.0277658, Final residual = 2.45615e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.0849207, Final residual = 4.60027e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.0301955, Final residual = 5.19415e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.011146, Final residual = 5.55859e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.0487794, Final residual = 3.28047e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.0400937, Final residual = 2.03611e-07, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 9.72531e-09, Final residual = 9.72531e-09, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00408972, Final residual = 2.11314e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 6.94443e-10, Final residual = 6.94443e-10, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00342242, Final residual = 1.77102e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.0569253, Final residual = 2.55117e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0189525, Final residual = 9.49677e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.00155709, Final residual = 2.43736e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.0601321, Final residual = 2.28439e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.0100001, Final residual = 4.67313e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 1.30779e-09, Final residual = 1.30779e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.0244315, Final residual = 8.21699e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.0222196, Final residual = 1.21388e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000436159, Final residual = 2.38635e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.0226105, Final residual = 1.20799e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0209401, Final residual = 1.0518e-07, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 4.28594e-07, Final residual = 4.28594e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 5.99022e-10, Final residual = 5.99022e-10, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 1.34654e-07, Final residual = 1.34654e-07, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.0160555, Final residual = 3.13224e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.00695221, Final residual = 5.17615e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 2.66271e-11, Final residual = 2.66271e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.0171335, Final residual = 5.55564e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 5.95159e-09, Final residual = 5.95159e-09, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.244862, Final residual = 1.32339e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.00675096, Final residual = 3.73372e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.00545954, Final residual = 5.9232e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.000384065, Final residual = 4.11123e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 1.25729e-06, Final residual = 1.88368e-16, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.00721333, Final residual = 1.94863e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 2.81448e-08, Final residual = 2.81448e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.0101889, Final residual = 9.38648e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.248897, Final residual = 1.07566e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.00138992, Final residual = 7.73376e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00266258, Final residual = 2.78247e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.00301347, Final residual = 1.49027e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 7.02813e-14, Final residual = 7.02813e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.269597, Final residual = 1.60274e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.0204381, Final residual = 2.57804e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.024748, Final residual = 5.51138e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0172801, Final residual = 5.80811e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.32664e-07, Final residual = 8.32664e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.0121656, Final residual = 5.0154e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.00990968, Final residual = 2.37687e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.00418917, Final residual = 2.17756e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.00768236, Final residual = 4.24582e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 1.9604e-08, Final residual = 1.9604e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 3.96639e-15, Final residual = 3.96639e-15, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.242671, Final residual = 1.75921e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.00603595, Final residual = 3.30796e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.00956913, Final residual = 2.63247e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.0220729, Final residual = 5.173e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.0170982, Final residual = 5.39286e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 7.16683e-06, Final residual = 1.09077e-11, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.0170959, Final residual = 5.3879e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.0144341, Final residual = 7.92575e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 4.76202e-06, Final residual = 1.86651e-11, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.0277658, Final residual = 2.45615e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.712606, Final residual = 6.60401e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.0100654, Final residual = 2.43025e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.741512, Final residual = 4.74236e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.418842, Final residual = 1.96968e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.00887534, Final residual = 7.40143e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.2976, Final residual = 6.78074e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.0164279, Final residual = 1.70984e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.00849082, Final residual = 4.69038e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.0041187, Final residual = 2.13947e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.0111767, Final residual = 3.76615e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.00819919, Final residual = 3.33395e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.00728855, Final residual = 2.5185e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.0150775, Final residual = 3.02255e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.0114632, Final residual = 8.26236e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.344245, Final residual = 4.08546e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.346041, Final residual = 3.50178e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.347403, Final residual = 3.32903e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.344735, Final residual = 3.95982e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.0249858, Final residual = 6.31873e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.0243896, Final residual = 5.46962e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.0246887, Final residual = 5.22128e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.0265993, Final residual = 6.08523e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.0122285, Final residual = 4.25584e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.01235, Final residual = 4.08699e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.0117053, Final residual = 3.70992e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.0325576, Final residual = 8.87722e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.0322271, Final residual = 7.91097e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.0324373, Final residual = 7.6127e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.032917, Final residual = 8.55357e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 1.95932e-12, Final residual = 1.95932e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 2.39178e-12, Final residual = 2.39178e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.0164122, Final residual = 4.44365e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.0165492, Final residual = 4.67938e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 4.47053e-11, Final residual = 4.47053e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.0176482, Final residual = 6.05628e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 1.05358e-05, Final residual = 1.78539e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 2.82181e-08, Final residual = 2.82181e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 3.65621e-07, Final residual = 3.65621e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0425899, Final residual = 2.7842e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 705.839 801.667  cp 1105.37 1272.49  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.0738788, Final residual = 0.00503335, No Iterations 2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 8.70009e-06, global = -2.31144e-06, cumulative = -0.000386087
+DICPCG:  Solving for p, Initial residual = 0.00481778, Final residual = 6.3142e-07, No Iterations 9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 1.14136e-09, global = -1.98338e-10, cumulative = -0.000386087
+ExecutionTime = 351.59 s  ClockTime = 352 s
+
+Courant Number mean: 0.00238661 max: 0.016498
+deltaT = 1e-06
+Time = 1e-05
+
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+PIMPLE: iteration 1
+DILUPBiCGStab:  Solving for h, Initial residual = 0.00953541, Final residual = 2.05169e-08, No Iterations 1
+DILUPBiCGStab:  Solving for h2, Initial residual = 0.00261305, Final residual = 3.15849e-10, No Iterations 1
+DILUPBiCGStab:  Solving for o, Initial residual = 0.0333422, Final residual = 2.01624e-07, No Iterations 1
+DILUPBiCGStab:  Solving for o2, Initial residual = 0.0246427, Final residual = 2.25591e-11, No Iterations 1
+DILUPBiCGStab:  Solving for oh, Initial residual = 0.0702337, Final residual = 4.20897e-07, No Iterations 1
+DILUPBiCGStab:  Solving for h2o, Initial residual = 0.0179305, Final residual = 6.09044e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ho2, Initial residual = 0.00727134, Final residual = 5.77426e-09, No Iterations 1
+DILUPBiCGStab:  Solving for h2o2, Initial residual = 0.0403694, Final residual = 3.31068e-11, No Iterations 1
+DILUPBiCGStab:  Solving for co, Initial residual = 0.0383203, Final residual = 2.25494e-07, No Iterations 1
+DILUPBiCGStab:  Solving for co2, Initial residual = 1.25534e-08, Final residual = 1.25534e-08, No Iterations 0
+DILUPBiCGStab:  Solving for ch2o, Initial residual = 0.00511988, Final residual = 2.98155e-08, No Iterations 1
+DILUPBiCGStab:  Solving for hco, Initial residual = 7.82683e-10, Final residual = 7.82683e-10, No Iterations 0
+DILUPBiCGStab:  Solving for ch3o, Initial residual = 0.00390357, Final residual = 2.25881e-08, No Iterations 1
+DILUPBiCGStab:  Solving for ch4, Initial residual = 0.0488924, Final residual = 2.83941e-10, No Iterations 1
+DILUPBiCGStab:  Solving for ch3, Initial residual = 0.0167514, Final residual = 9.96896e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h6, Initial residual = 0.000195284, Final residual = 2.02464e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h5, Initial residual = 0.0600029, Final residual = 2.6117e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c2h4, Initial residual = 0.00804122, Final residual = 4.75031e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3, Initial residual = 1.15105e-09, Final residual = 1.15105e-09, No Iterations 0
+DILUPBiCGStab:  Solving for c2h2, Initial residual = 0.0196516, Final residual = 1.05392e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch3cho, Initial residual = 0.0220516, Final residual = 1.32628e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch3co, Initial residual = 0.000396648, Final residual = 2.34386e-09, No Iterations 1
+DILUPBiCGStab:  Solving for ch2cho, Initial residual = 0.0266766, Final residual = 1.59163e-07, No Iterations 1
+DILUPBiCGStab:  Solving for ch2co, Initial residual = 0.0189839, Final residual = 1.12597e-07, No Iterations 1
+DILUPBiCGStab:  Solving for hcco, Initial residual = 3.7752e-07, Final residual = 3.7752e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5o, Initial residual = 4.65307e-10, Final residual = 4.65307e-10, No Iterations 0
+DILUPBiCGStab:  Solving for c2h3o1-2, Initial residual = 1.63176e-07, Final residual = 1.63176e-07, No Iterations 0
+DILUPBiCGStab:  Solving for ch3coch2, Initial residual = 0.0118013, Final residual = 3.63545e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3cho, Initial residual = 0.00540765, Final residual = 7.08654e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c2h3co, Initial residual = 2.12964e-11, Final residual = 2.12964e-11, No Iterations 0
+DILUPBiCGStab:  Solving for c2h5cho, Initial residual = 0.0136308, Final residual = 6.43954e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h8, Initial residual = 8.33134e-09, Final residual = 8.33134e-09, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7, Initial residual = 0.24689, Final residual = 2.48229e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c3h6, Initial residual = 0.00581627, Final residual = 3.55346e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5-a, Initial residual = 0.00530759, Final residual = 7.97228e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c3h4-a, Initial residual = 0.0002898, Final residual = 5.7868e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c3h5o, Initial residual = 1.22978e-06, Final residual = 2.76291e-16, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7o2, Initial residual = 0.00402708, Final residual = 1.98953e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h10, Initial residual = 3.82082e-08, Final residual = 3.82082e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8-1, Initial residual = 0.00642762, Final residual = 1.02356e-08, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9, Initial residual = 0.252259, Final residual = 2.11851e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h71-3, Initial residual = 0.00198258, Final residual = 1.15975e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h6, Initial residual = 0.00265035, Final residual = 3.59118e-09, No Iterations 1
+DILUPBiCGStab:  Solving for pc4h9o2, Initial residual = 0.00666481, Final residual = 1.54201e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o, Initial residual = 8.52206e-14, Final residual = 8.52206e-14, No Iterations 0
+DILUPBiCGStab:  Solving for c4h8ooh1-3, Initial residual = 0.32348, Final residual = 3.16674e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c4h8ooh1-3o2, Initial residual = 0.00977121, Final residual = 3.01794e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4ket13, Initial residual = 0.0198262, Final residual = 6.44618e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7cho, Initial residual = 0.0138174, Final residual = 6.73822e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc3h7co, Initial residual = 8.72765e-07, Final residual = 8.72765e-07, No Iterations 0
+DILUPBiCGStab:  Solving for c5h11-1, Initial residual = 0.0121923, Final residual = 4.76253e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13-1, Initial residual = 0.0102285, Final residual = 2.86309e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h12-1, Initial residual = 0.0048329, Final residual = 2.82149e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9cho, Initial residual = 0.00666782, Final residual = 3.9037e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9co, Initial residual = 2.03128e-08, Final residual = 2.03128e-08, No Iterations 0
+DILUPBiCGStab:  Solving for nc3h7coch2, Initial residual = 5.06468e-15, Final residual = 5.06468e-15, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15-1, Initial residual = 0.243509, Final residual = 3.31384e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14-1, Initial residual = 0.00527458, Final residual = 2.94914e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h15o2-1, Initial residual = 0.00365159, Final residual = 2.10516e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c7h14ooh1-3, Initial residual = 0.027464, Final residual = 6.19045e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11cho, Initial residual = 0.0135498, Final residual = 6.27255e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc5h11co, Initial residual = 5.33538e-06, Final residual = 1.40855e-11, No Iterations 1
+DILUPBiCGStab:  Solving for nc4h9coch2, Initial residual = 0.0135463, Final residual = 6.26708e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7ooh1-4, Initial residual = 0.0131708, Final residual = 7.96583e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c4h7o1-4, Initial residual = 3.80375e-06, Final residual = 2.15571e-11, No Iterations 1
+DILUPBiCGStab:  Solving for nc12h26, Initial residual = 0.0246427, Final residual = 2.25591e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-2, Initial residual = 0.334086, Final residual = 3.15949e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-3, Initial residual = 0.0157291, Final residual = 2.63532e-10, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-5, Initial residual = 0.341044, Final residual = 2.13756e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25-6, Initial residual = 0.468089, Final residual = 3.05452e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h19-1, Initial residual = 0.00890764, Final residual = 7.0515e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17-1, Initial residual = 0.398883, Final residual = 1.61119e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12h24-5, Initial residual = 0.0124347, Final residual = 1.91008e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c10h20-1, Initial residual = 0.00754716, Final residual = 4.42167e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c9h18-1, Initial residual = 0.00475057, Final residual = 2.77163e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c8h16-1, Initial residual = 0.00817534, Final residual = 4.17723e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-2, Initial residual = 0.0126113, Final residual = 3.2595e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-5, Initial residual = 0.0118393, Final residual = 2.36819e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12h25o2-6, Initial residual = 0.00893451, Final residual = 2.90595e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c8h17o2-1, Initial residual = 0.00198776, Final residual = 9.71791e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4, Initial residual = 0.663963, Final residual = 1.11754e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3, Initial residual = 0.678026, Final residual = 9.5293e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7, Initial residual = 0.687756, Final residual = 9.10561e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4, Initial residual = 0.669777, Final residual = 1.0723e-07, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh2-4o2, Initial residual = 0.0132128, Final residual = 6.37284e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-3o2, Initial residual = 0.0126137, Final residual = 5.37372e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh5-7o2, Initial residual = 0.0128769, Final residual = 5.10484e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ooh6-4o2, Initial residual = 0.0126732, Final residual = 6.09228e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12o2-4, Initial residual = 0.00802444, Final residual = 4.51337e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o4-6, Initial residual = 0.00766027, Final residual = 4.34499e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12o5-7, Initial residual = 0.00738447, Final residual = 4.00655e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket2-4, Initial residual = 0.0253323, Final residual = 9.07608e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-3, Initial residual = 0.0250077, Final residual = 7.94561e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket5-7, Initial residual = 0.0251791, Final residual = 7.6245e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-4, Initial residual = 0.0250481, Final residual = 8.70941e-09, No Iterations 1
+DILUPBiCGStab:  Solving for c12ket6-8, Initial residual = 1.25694e-27, Final residual = 1.25694e-27, No Iterations 0
+DILUPBiCGStab:  Solving for c8h17coch2, Initial residual = 3.29757e-12, Final residual = 3.29757e-12, No Iterations 0
+DILUPBiCGStab:  Solving for c7h15coch2, Initial residual = 0.0126241, Final residual = 5.17144e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c6h13coch2, Initial residual = 0.0127796, Final residual = 5.4736e-08, No Iterations 1
+DILUPBiCGStab:  Solving for c5h11coch2, Initial residual = 4.24796e-11, Final residual = 4.24796e-11, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17cho, Initial residual = 0.014239, Final residual = 7.00703e-08, No Iterations 1
+DILUPBiCGStab:  Solving for nc6h13cho, Initial residual = 0, Final residual = 0, No Iterations 0
+DILUPBiCGStab:  Solving for nc8h17co, Initial residual = 7.95376e-06, Final residual = 2.33469e-11, No Iterations 1
+DILUPBiCGStab:  Solving for c9h17, Initial residual = 2.87487e-08, Final residual = 2.87487e-08, No Iterations 0
+DILUPBiCGStab:  Solving for c8h15, Initial residual = 4.75747e-07, Final residual = 4.75747e-07, No Iterations 0
+DILUPBiCGStab:  Solving for h, Initial residual = 0.0388683, Final residual = 2.89843e-08, No Iterations 1
+min/max(T) = 300, 1100
+propSanity: T 698.601 801.846  cp 1105.37 1286.28  alphaEff 0 0
+DICPCG:  Solving for p, Initial residual = 0.069222, Final residual = 0.00439001, No Iterations 2
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 7.9991e-06, global = -1.7369e-06, cumulative = -0.000387824
+DICPCG:  Solving for p, Initial residual = 0.0042592, Final residual = 4.60998e-07, No Iterations 9
+diagonal:  Solving for rho, Initial residual = 0, Final residual = 0, No Iterations 0
+time step continuity errors : sum local = 8.66481e-10, global = -1.94138e-10, cumulative = -0.000387824
+ExecutionTime = 394.02 s  ClockTime = 395 s
+
+
+    From virtual bool Foam::regIOobject::readIfModified()
+    in file db/regIOobject/regIOobjectRead.C at line 266
+        Re-reading object controlDict from file "/work/cases/opposedJet_2D/system/controlDict"
+--> FOAM Warning : 
+    From bool Foam::IOobject::readHeader(Foam::dictionary&, Foam::Istream&)
+    in file db/IOobject/IOobjectReadHeader.C at line 118
+    Reading "system/controlDict" at line 39
+    First token could not be read or is not 'FoamFile'
+
+Check header is of the form:
+
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+
+--> FOAM FATAL IO ERROR: (openfoam-2312)
+problem while reading header for object controlDict
+
+file: system/controlDict at line 39.
+
+    From virtual Foam::autoPtr<Foam::ISstream> Foam::fileOperations::uncollatedFileOperation::readStream(Foam::regIOobject&, const Foam::fileName&, const Foam::word&, bool) const
+    in file global/fileOperations/uncollatedFileOperation/uncollatedFileOperation.C at line 647.
+
+FOAM exiting
+
