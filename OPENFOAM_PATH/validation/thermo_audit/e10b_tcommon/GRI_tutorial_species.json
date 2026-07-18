@@ -1,0 +1,320 @@
+[
+  {
+    "name": "OH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CN",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "C2H3",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "N2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "HOCN",
+    "Tlow": 200.0,
+    "Tcommon": 1368.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "N",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "C2H",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "HNO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "CH2CO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CH3",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "C2H5",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "C2H4",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "C3H8",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "HCN",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "C2H6",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "NH3",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "CO2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "C2H2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CH2OH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "H2CN",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 4000.0
+  },
+  {
+    "name": "HCCOH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "H2O2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "HCO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "NNH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "N2O",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "CH2(S)",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "O2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CH2CHO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "HNCO",
+    "Tlow": 200.0,
+    "Tcommon": 1478.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "HCCO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 4000.0
+  },
+  {
+    "name": "H2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "NO2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "CH4",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "C",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "HO2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CH3CHO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "C3H7",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "CH3OH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CH2O",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "CH3O",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3000.0
+  },
+  {
+    "name": "O",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "HCNN",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "NCO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "CH2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "HCNO",
+    "Tlow": 200.0,
+    "Tcommon": 1382.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "NH2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "H2O",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "NH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "H",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "AR",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "NO",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 6000.0
+  },
+  {
+    "name": "CH",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  }
+]

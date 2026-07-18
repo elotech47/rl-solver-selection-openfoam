@@ -448,3 +448,38 @@ reactingFoam still uses `cellMixture` THE for energy; this chemFoam fix is the 0
 
 **Git:** commits on `main` through E8–E10 + fix.
 
+---
+
+## E10b — Tcommon histogram (COMPLETE; human gate before E11)
+
+**Date:** 2026-07-17  
+**Claim under test:** coefficient blend ≡ property average iff shared breakpoints; GRI works because (near-)uniform; Luo fails because heterogeneous.
+
+### Method
+
+Script `validation/thermo_audit/e10b_tcommon_hist.py` parses foam `thermo` with brace-aware extraction of `(Tlow, Tcommon, Thigh)` per species for Luo 106, skeletal 53 foam, and ESI GRI tutorial.
+
+### Results
+
+| Mechanism | n_sp | distinct tuples | distinct Tcommon | dominant Tcommon |
+|-----------|------|-----------------|------------------|------------------|
+| Luo 106 | 106 | **31** | **28** | 1000 K on **22/106** only |
+| skeletal foam | 52 | 8 | 5 | 1000 K on 35/52 |
+| GRI tutorial | 53 | 8 | **4** | 1000 K on **50/53** |
+
+GRI outliers (Tcommon ≠ 1000): **HOCN** (1368), **HCNO** (1382), **HNCO** (1478). Thigh also varies widely on both GRI and Luo.
+
+Artifacts: `validation/thermo_audit/e10b_tcommon/{SUMMARY.md,summary.json,*_species.json}`.
+
+### Thesis-ready root-cause paragraph
+
+> OpenFOAM evaluates mixture sensible enthalpy and heat capacity for `hePsiThermo::correct()` / `THE` by blending each species' NASA-7 *coefficient arrays* by mass fraction (`multiComponentMixture::cellMixture`) and then evaluating the resulting pseudo-species polynomials. That blend is algebraically identical to a mass-weighted property average (`Σ Yi·cp_i`, `Σ Yi·hs_i`) *only* when every species shares the same temperature breakpoints (especially a shared `Tcommon`). In the ESI GRI chemFoam tutorial thermo, **50/53** species share Tcommon = 1000 K (near-uniform; outliers: HOCN, HCNO, HNCO with Tcommon ∈ {1368, 1382, 1478}; Thigh also varies → 8 distinct full tuples). The Luo n-dodecane foam thermo has **31** distinct (Tlow,Tcommon,Thigh) tuples and **28** distinct Tcommon values across 106 species; the skeletal foam thermo shows **8** distinct tuples and **5** distinct Tcommon (52 species parsed). Above the lowest Tcommon in a mixed cell, some species are already on their high-range coefficients while others remain on low-range ones, so the blended coefficients no longer represent any physical mixture average: burnt-gas blended cp collapses toward zero and can change sign, while `Σ Yi·cp_i` stays O(1400) J/(kg·K). The h→T Newton then diverges (E8). This is **H6**: a representation defect exposed by OpenFOAM's coefficient blend under mechanism-heterogeneous JANAF breakpoints, not a corruption of per-species thermo tables (E2).
+
+### Claim check / stop
+
+- Luo heterogeneous: **PASS** (not uniform → E11 refit premise not void).
+- GRI exact-uniform: **FAIL**; GRI near-uniform (campaign “or near”): **PASS** (50/53).
+- Campaign stop condition *“E10b contradicts the uniformity claim”*: **soft hit** — exact GRI uniformity was overstated; severity still Luo ≫ GRI (28 vs 4 Tcommons; 22/106 vs 50/53 at 1000 K). Why GRI MidT still shows `hsSum≡hsCell`: the three N-outliers are typically trace in CH4/air, so the blend remains dominated by shared-breakpoint species.
+
+**Action:** do **not** start E11 until human acknowledges this nuance and green-lights Option R work.
+

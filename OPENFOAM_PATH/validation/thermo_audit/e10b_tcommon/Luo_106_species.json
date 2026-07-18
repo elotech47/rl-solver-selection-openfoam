@@ -1,0 +1,638 @@
+[
+  {
+    "name": "ch2cho",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "o",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ket5-3",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c9h17",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc8h17co",
+    "Tlow": 300.0,
+    "Tcommon": 1387.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "h2",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h5o",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h2",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh5-7o2",
+    "Tlow": 300.0,
+    "Tcommon": 1390.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "h2o",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c7h14ooh1-3",
+    "Tlow": 300.0,
+    "Tcommon": 1383.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc4h9coch2",
+    "Tlow": 300.0,
+    "Tcommon": 1387.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ket5-7",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "h",
+    "Tlow": 300.0,
+    "Tcommon": 5000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc4ket13",
+    "Tlow": 300.0,
+    "Tcommon": 1386.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c10h20-1",
+    "Tlow": 300.0,
+    "Tcommon": 1392.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h7o",
+    "Tlow": 300.0,
+    "Tcommon": 1395.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h10",
+    "Tlow": 300.0,
+    "Tcommon": 1392.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ket2-4",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h8-1",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch2o",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h4",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c7h15o2-1",
+    "Tlow": 300.0,
+    "Tcommon": 1388.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c3h5o",
+    "Tlow": 300.0,
+    "Tcommon": 1380.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc3h7co",
+    "Tlow": 300.0,
+    "Tcommon": 1380.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "n2",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c7h15-1",
+    "Tlow": 300.0,
+    "Tcommon": 1390.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh2-4",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c5h11-1",
+    "Tlow": 300.0,
+    "Tcommon": 1396.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh2-4o2",
+    "Tlow": 300.0,
+    "Tcommon": 1390.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h8ooh1-3",
+    "Tlow": 300.0,
+    "Tcommon": 1377.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ket6-8",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "hcco",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 4000.0
+  },
+  {
+    "name": "c8h17-1",
+    "Tlow": 300.0,
+    "Tcommon": 1382.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch2co",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c6h13-1",
+    "Tlow": 300.0,
+    "Tcommon": 1390.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh5-7",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "co",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc5h11co",
+    "Tlow": 300.0,
+    "Tcommon": 1383.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc3h7",
+    "Tlow": 300.0,
+    "Tcommon": 1386.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h5cho",
+    "Tlow": 300.0,
+    "Tcommon": 1378.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "pc4h9",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "h2o2",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25o2-6",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "hco",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc5h11cho",
+    "Tlow": 300.0,
+    "Tcommon": 1384.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch3o",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3000.0
+  },
+  {
+    "name": "c8h16-1",
+    "Tlow": 300.0,
+    "Tcommon": 1384.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c8h17o2-1",
+    "Tlow": 300.0,
+    "Tcommon": 1381.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12o2-4",
+    "Tlow": 300.0,
+    "Tcommon": 1393.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h5",
+    "Tlow": 300.0,
+    "Tcommon": 1394.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch3coch2",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh6-4",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h6",
+    "Tlow": 300.0,
+    "Tcommon": 1384.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h7o1-4",
+    "Tlow": 300.0,
+    "Tcommon": 1393.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch4",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc3h7o2",
+    "Tlow": 300.0,
+    "Tcommon": 1384.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "pc4h9o2",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc4h9co",
+    "Tlow": 300.0,
+    "Tcommon": 1382.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h3",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h6",
+    "Tlow": 300.0,
+    "Tcommon": 1398.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc6h13cho",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25-5",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc12h26",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25o2-5",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c9h19-1",
+    "Tlow": 300.0,
+    "Tcommon": 1382.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h3o1-2",
+    "Tlow": 300.0,
+    "Tcommon": 1492.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ho2",
+    "Tlow": 200.0,
+    "Tcommon": 1000.0,
+    "Thigh": 3500.0
+  },
+  {
+    "name": "nc8h17cho",
+    "Tlow": 300.0,
+    "Tcommon": 1387.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25-2",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c7h14-1",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh6-4o2",
+    "Tlow": 300.0,
+    "Tcommon": 1390.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh5-3o2",
+    "Tlow": 300.0,
+    "Tcommon": 1390.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25-3",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h3cho",
+    "Tlow": 300.0,
+    "Tcommon": 1393.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ket6-4",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c2h3co",
+    "Tlow": 300.0,
+    "Tcommon": 1402.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c3h6",
+    "Tlow": 300.0,
+    "Tcommon": 1388.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "co2",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c8h17coch2",
+    "Tlow": 300.0,
+    "Tcommon": 2042.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "o2",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12o5-7",
+    "Tlow": 300.0,
+    "Tcommon": 1393.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c3h4-a",
+    "Tlow": 300.0,
+    "Tcommon": 1400.0,
+    "Thigh": 4000.0
+  },
+  {
+    "name": "nc3h7cho",
+    "Tlow": 300.0,
+    "Tcommon": 1378.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c5h11coch2",
+    "Tlow": 300.0,
+    "Tcommon": 1386.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h71-3",
+    "Tlow": 300.0,
+    "Tcommon": 1392.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc3h7coch2",
+    "Tlow": 300.0,
+    "Tcommon": 1389.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25-6",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h7ooh1-4",
+    "Tlow": 300.0,
+    "Tcommon": 1393.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h24-5",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c6h12-1",
+    "Tlow": 300.0,
+    "Tcommon": 1392.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "oh",
+    "Tlow": 300.0,
+    "Tcommon": 1710.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12ooh5-3",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c3h5-a",
+    "Tlow": 300.0,
+    "Tcommon": 1397.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c8h15",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch3cho",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c9h18-1",
+    "Tlow": 300.0,
+    "Tcommon": 1384.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12h25o2-2",
+    "Tlow": 300.0,
+    "Tcommon": 1391.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c7h15coch2",
+    "Tlow": 300.0,
+    "Tcommon": 1382.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c3h8",
+    "Tlow": 300.0,
+    "Tcommon": 1387.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c6h13coch2",
+    "Tlow": 300.0,
+    "Tcommon": 1385.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch3",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c12o4-6",
+    "Tlow": 300.0,
+    "Tcommon": 1393.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "nc4h9cho",
+    "Tlow": 300.0,
+    "Tcommon": 1381.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "c4h8ooh1-3o2",
+    "Tlow": 300.0,
+    "Tcommon": 1387.0,
+    "Thigh": 5000.0
+  },
+  {
+    "name": "ch3co",
+    "Tlow": 300.0,
+    "Tcommon": 1000.0,
+    "Thigh": 5000.0
+  }
+]

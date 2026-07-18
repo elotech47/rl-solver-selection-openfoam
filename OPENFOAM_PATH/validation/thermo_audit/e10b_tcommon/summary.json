@@ -1,0 +1,722 @@
+[
+  {
+    "label": "Luo_106",
+    "n_species": 106,
+    "n_distinct_tuples": 31,
+    "n_distinct_Tcommon": 28,
+    "n_distinct_Thigh": 4,
+    "tuple_histogram": [
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1000.0,
+        "Thigh": 5000.0,
+        "count": 19
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1391.0,
+        "Thigh": 5000.0,
+        "count": 12
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1385.0,
+        "Thigh": 5000.0,
+        "count": 10
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1389.0,
+        "Thigh": 5000.0,
+        "count": 7
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1390.0,
+        "Thigh": 5000.0,
+        "count": 6
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1393.0,
+        "Thigh": 5000.0,
+        "count": 6
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1384.0,
+        "Thigh": 5000.0,
+        "count": 5
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1387.0,
+        "Thigh": 5000.0,
+        "count": 5
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1382.0,
+        "Thigh": 5000.0,
+        "count": 4
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1392.0,
+        "Thigh": 5000.0,
+        "count": 4
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1386.0,
+        "Thigh": 5000.0,
+        "count": 3
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1378.0,
+        "Thigh": 5000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1380.0,
+        "Thigh": 5000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1381.0,
+        "Thigh": 5000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1383.0,
+        "Thigh": 5000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1388.0,
+        "Thigh": 5000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 3500.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1000.0,
+        "Thigh": 3000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1000.0,
+        "Thigh": 4000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1377.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1394.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1395.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1396.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1397.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1398.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1400.0,
+        "Thigh": 4000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1402.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1492.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1710.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 2042.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 5000.0,
+        "Thigh": 5000.0,
+        "count": 1
+      }
+    ],
+    "Tcommon_histogram": [
+      {
+        "Tcommon": 1000.0,
+        "count": 22,
+        "example_species": [
+          "ch2cho",
+          "o",
+          "h2",
+          "c2h2",
+          "h2o",
+          "ch2o",
+          "c2h4",
+          "n2"
+        ]
+      },
+      {
+        "Tcommon": 1391.0,
+        "count": 12,
+        "example_species": [
+          "c4h8-1",
+          "c12ooh2-4",
+          "c12ooh5-7",
+          "pc4h9",
+          "c12h25o2-6",
+          "ch3coch2",
+          "c12ooh6-4",
+          "nc12h26"
+        ]
+      },
+      {
+        "Tcommon": 1385.0,
+        "count": 10,
+        "example_species": [
+          "c9h17",
+          "pc4h9o2",
+          "nc6h13cho",
+          "c12h25-5",
+          "c12h25-2",
+          "c7h14-1",
+          "c12h25-3",
+          "c12h25-6"
+        ]
+      },
+      {
+        "Tcommon": 1389.0,
+        "count": 7,
+        "example_species": [
+          "c12ket5-3",
+          "c2h5o",
+          "c12ket5-7",
+          "c12ket2-4",
+          "c12ket6-8",
+          "c12ket6-4",
+          "nc3h7coch2"
+        ]
+      },
+      {
+        "Tcommon": 1390.0,
+        "count": 6,
+        "example_species": [
+          "c12ooh5-7o2",
+          "c7h15-1",
+          "c12ooh2-4o2",
+          "c6h13-1",
+          "c12ooh6-4o2",
+          "c12ooh5-3o2"
+        ]
+      },
+      {
+        "Tcommon": 1393.0,
+        "count": 6,
+        "example_species": [
+          "c12o2-4",
+          "c4h7o1-4",
+          "c2h3cho",
+          "c12o5-7",
+          "c4h7ooh1-4",
+          "c12o4-6"
+        ]
+      },
+      {
+        "Tcommon": 1384.0,
+        "count": 5,
+        "example_species": [
+          "nc5h11cho",
+          "c8h16-1",
+          "c2h6",
+          "nc3h7o2",
+          "c9h18-1"
+        ]
+      },
+      {
+        "Tcommon": 1387.0,
+        "count": 5,
+        "example_species": [
+          "nc8h17co",
+          "nc4h9coch2",
+          "nc8h17cho",
+          "c3h8",
+          "c4h8ooh1-3o2"
+        ]
+      },
+      {
+        "Tcommon": 1382.0,
+        "count": 4,
+        "example_species": [
+          "c8h17-1",
+          "nc4h9co",
+          "c9h19-1",
+          "c7h15coch2"
+        ]
+      },
+      {
+        "Tcommon": 1392.0,
+        "count": 4,
+        "example_species": [
+          "c10h20-1",
+          "c4h10",
+          "c4h71-3",
+          "c6h12-1"
+        ]
+      },
+      {
+        "Tcommon": 1386.0,
+        "count": 3,
+        "example_species": [
+          "nc4ket13",
+          "nc3h7",
+          "c5h11coch2"
+        ]
+      },
+      {
+        "Tcommon": 1378.0,
+        "count": 2,
+        "example_species": [
+          "c2h5cho",
+          "nc3h7cho"
+        ]
+      },
+      {
+        "Tcommon": 1380.0,
+        "count": 2,
+        "example_species": [
+          "c3h5o",
+          "nc3h7co"
+        ]
+      },
+      {
+        "Tcommon": 1381.0,
+        "count": 2,
+        "example_species": [
+          "c8h17o2-1",
+          "nc4h9cho"
+        ]
+      },
+      {
+        "Tcommon": 1383.0,
+        "count": 2,
+        "example_species": [
+          "c7h14ooh1-3",
+          "nc5h11co"
+        ]
+      },
+      {
+        "Tcommon": 1388.0,
+        "count": 2,
+        "example_species": [
+          "c7h15o2-1",
+          "c3h6"
+        ]
+      },
+      {
+        "Tcommon": 1377.0,
+        "count": 1,
+        "example_species": [
+          "c4h8ooh1-3"
+        ]
+      },
+      {
+        "Tcommon": 1394.0,
+        "count": 1,
+        "example_species": [
+          "c2h5"
+        ]
+      },
+      {
+        "Tcommon": 1395.0,
+        "count": 1,
+        "example_species": [
+          "c4h7o"
+        ]
+      },
+      {
+        "Tcommon": 1396.0,
+        "count": 1,
+        "example_species": [
+          "c5h11-1"
+        ]
+      },
+      {
+        "Tcommon": 1397.0,
+        "count": 1,
+        "example_species": [
+          "c3h5-a"
+        ]
+      },
+      {
+        "Tcommon": 1398.0,
+        "count": 1,
+        "example_species": [
+          "c4h6"
+        ]
+      },
+      {
+        "Tcommon": 1400.0,
+        "count": 1,
+        "example_species": [
+          "c3h4-a"
+        ]
+      },
+      {
+        "Tcommon": 1402.0,
+        "count": 1,
+        "example_species": [
+          "c2h3co"
+        ]
+      },
+      {
+        "Tcommon": 1492.0,
+        "count": 1,
+        "example_species": [
+          "c2h3o1-2"
+        ]
+      },
+      {
+        "Tcommon": 1710.0,
+        "count": 1,
+        "example_species": [
+          "oh"
+        ]
+      },
+      {
+        "Tcommon": 2042.0,
+        "count": 1,
+        "example_species": [
+          "c8h17coch2"
+        ]
+      },
+      {
+        "Tcommon": 5000.0,
+        "count": 1,
+        "example_species": [
+          "h"
+        ]
+      }
+    ],
+    "Thigh_histogram": [
+      {
+        "Thigh": 5000.0,
+        "count": 102
+      },
+      {
+        "Thigh": 4000.0,
+        "count": 2
+      },
+      {
+        "Thigh": 3000.0,
+        "count": 1
+      },
+      {
+        "Thigh": 3500.0,
+        "count": 1
+      }
+    ],
+    "uniform_breakpoints": false
+  },
+  {
+    "label": "skeletal_53",
+    "n_species": 52,
+    "n_distinct_tuples": 8,
+    "n_distinct_Tcommon": 5,
+    "n_distinct_Thigh": 4,
+    "tuple_histogram": [
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 3500.0,
+        "count": 19
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1000.0,
+        "Thigh": 5000.0,
+        "count": 12
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1390.0,
+        "Thigh": 5000.0,
+        "count": 7
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1392.0,
+        "Thigh": 5000.0,
+        "count": 6
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 6000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1000.0,
+        "Thigh": 3000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1385.0,
+        "Thigh": 5000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 300.0,
+        "Tcommon": 1391.0,
+        "Thigh": 5000.0,
+        "count": 2
+      }
+    ],
+    "Tcommon_histogram": [
+      {
+        "Tcommon": 1000.0,
+        "count": 35,
+        "example_species": [
+          "OH",
+          "pC4H9",
+          "C2H3",
+          "N2",
+          "nC3H7",
+          "CH3",
+          "C2H5",
+          "O2C12H24OOH"
+        ]
+      },
+      {
+        "Tcommon": 1390.0,
+        "count": 7,
+        "example_species": [
+          "PXC12H25",
+          "PXC8H17",
+          "PXC10H21",
+          "PXC9H19",
+          "PXC6H13",
+          "PXC7H15",
+          "PXC5H11"
+        ]
+      },
+      {
+        "Tcommon": 1392.0,
+        "count": 6,
+        "example_species": [
+          "C7H14",
+          "C8H16",
+          "C10H20",
+          "C9H18",
+          "C6H12",
+          "C5H10"
+        ]
+      },
+      {
+        "Tcommon": 1385.0,
+        "count": 2,
+        "example_species": [
+          "SXC12H25",
+          "S3XC12H25"
+        ]
+      },
+      {
+        "Tcommon": 1391.0,
+        "count": 2,
+        "example_species": [
+          "NC12H26",
+          "C12H24"
+        ]
+      }
+    ],
+    "Thigh_histogram": [
+      {
+        "Thigh": 5000.0,
+        "count": 29
+      },
+      {
+        "Thigh": 3500.0,
+        "count": 19
+      },
+      {
+        "Thigh": 3000.0,
+        "count": 2
+      },
+      {
+        "Thigh": 6000.0,
+        "count": 2
+      }
+    ],
+    "uniform_breakpoints": false
+  },
+  {
+    "label": "GRI_tutorial",
+    "n_species": 53,
+    "n_distinct_tuples": 8,
+    "n_distinct_Tcommon": 4,
+    "n_distinct_Thigh": 5,
+    "tuple_histogram": [
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 3500.0,
+        "count": 27
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 6000.0,
+        "count": 13
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 5000.0,
+        "count": 7
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 4000.0,
+        "count": 2
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1000.0,
+        "Thigh": 3000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1368.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1382.0,
+        "Thigh": 5000.0,
+        "count": 1
+      },
+      {
+        "Tlow": 200.0,
+        "Tcommon": 1478.0,
+        "Thigh": 5000.0,
+        "count": 1
+      }
+    ],
+    "Tcommon_histogram": [
+      {
+        "Tcommon": 1000.0,
+        "count": 50,
+        "example_species": [
+          "OH",
+          "CN",
+          "C2H3",
+          "N2",
+          "N",
+          "C2H",
+          "HNO",
+          "CH2CO"
+        ]
+      },
+      {
+        "Tcommon": 1368.0,
+        "count": 1,
+        "example_species": [
+          "HOCN"
+        ]
+      },
+      {
+        "Tcommon": 1382.0,
+        "count": 1,
+        "example_species": [
+          "HCNO"
+        ]
+      },
+      {
+        "Tcommon": 1478.0,
+        "count": 1,
+        "example_species": [
+          "HNCO"
+        ]
+      }
+    ],
+    "Thigh_histogram": [
+      {
+        "Thigh": 3500.0,
+        "count": 27
+      },
+      {
+        "Thigh": 6000.0,
+        "count": 13
+      },
+      {
+        "Thigh": 5000.0,
+        "count": 10
+      },
+      {
+        "Thigh": 4000.0,
+        "count": 2
+      },
+      {
+        "Thigh": 3000.0,
+        "count": 1
+      }
+    ],
+    "uniform_breakpoints": false
+  }
+]
