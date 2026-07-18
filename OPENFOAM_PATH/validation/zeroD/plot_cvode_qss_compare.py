@@ -141,52 +141,84 @@ def main() -> int:
         t_of_qss=t_of_qs, T_of_qss=T_of_qs,
     )
 
-    # Main figure
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), sharey=True)
+    # Large, readable figure (stacked panels)
+    plt.rcParams.update({
+        "font.size": 14,
+        "axes.titlesize": 16,
+        "axes.labelsize": 15,
+        "legend.fontsize": 12,
+        "xtick.labelsize": 13,
+        "ytick.labelsize": 13,
+        "axes.linewidth": 1.2,
+    })
+
+    fig, axes = plt.subplots(2, 1, figsize=(14, 12), sharex=False)
+
+    styles = [
+        (t_cv, T_cv, "#1f77b4", "-", 2.8, "Python CVODE (Cantera)"),
+        (t_qs, T_qs, "#e67e00", "--", 2.8, "Python QSS (handoff)"),
+        (t_of_cv, T_of_cv, "#1a7f37", "-", 2.4, "OpenFOAM CVODE"),
+        (t_of_qs, T_of_qs, "#c41e3a", "--", 2.4, "OpenFOAM QSS"),
+    ]
 
     ax = axes[0]
-    ax.plot(t_cv * 1e3, T_cv, color="#1f77b4", lw=2.0, label="Python CVODE (Cantera)")
-    ax.plot(t_qs * 1e3, T_qs, color="#ff7f0e", lw=2.0, ls="--", label="Python QSS (handoff)")
-    ax.plot(t_of_cv * 1e3, T_of_cv, color="#2ca02c", lw=1.6, label="OpenFOAM CVODE")
-    ax.plot(t_of_qs * 1e3, T_of_qs, color="#d62728", lw=1.6, ls="--", label="OpenFOAM QSS")
-    ax.axhline(1200, color="0.5", ls=":", lw=0.8)
-    ax.set_xlabel("t [ms]")
+    for t, T, c, ls, lw, lab in styles:
+        ax.plot(t * 1e3, T, color=c, ls=ls, lw=lw, label=lab)
+    ax.axhline(1200, color="0.35", ls=":", lw=1.4, label="T = 1200 K")
     ax.set_ylabel("T [K]")
-    ax.set_title("MidT_MidP full history (800 K, 10 atm, Z=0.062)")
-    ax.legend(fontsize=8, loc="lower right")
+    ax.set_xlabel("t [ms]")
+    ax.set_title("MidT_MidP full history (800 K, 10 atm, Z = 0.062)")
+    ax.legend(loc="lower right", framealpha=0.95)
     ax.set_xlim(0, IC["t_end"] * 1e3)
-    ax.grid(True, alpha=0.3)
+    ax.set_ylim(750, 2700)
+    ax.grid(True, alpha=0.35)
 
     ax = axes[1]
-    # Zoom around ignition
     t0, t1 = 1.7, 2.6
-    ax.plot(t_cv * 1e3, T_cv, color="#1f77b4", lw=2.0, label="Python CVODE")
-    ax.plot(t_qs * 1e3, T_qs, color="#ff7f0e", lw=2.0, ls="--", label="Python QSS")
-    ax.plot(t_of_cv * 1e3, T_of_cv, color="#2ca02c", lw=1.6, label="OF CVODE")
-    ax.plot(t_of_qs * 1e3, T_of_qs, color="#d62728", lw=1.6, ls="--", label="OF QSS")
-    ax.axhline(1200, color="0.5", ls=":", lw=0.8)
-    for name, ign, c in [
-        ("Py CVODE", summary["python"]["cvode"]["ign_s"], "#1f77b4"),
-        ("Py QSS", summary["python"]["qss"]["ign_s"], "#ff7f0e"),
-        ("OF CVODE", summary["openfoam"]["cvode"]["ign_s"], "#2ca02c"),
-        ("OF QSS", summary["openfoam"]["qss"]["ign_s"], "#d62728"),
+    for t, T, c, ls, lw, lab in styles:
+        ax.plot(t * 1e3, T, color=c, ls=ls, lw=lw, label=lab)
+    ax.axhline(1200, color="0.35", ls=":", lw=1.4)
+    for lab, ign, c, ytxt in [
+        ("OF QSS", summary["openfoam"]["qss"]["ign_s"], "#c41e3a", 2100),
+        ("OF CVODE", summary["openfoam"]["cvode"]["ign_s"], "#1a7f37", 1950),
+        ("Py CVODE", summary["python"]["cvode"]["ign_s"], "#1f77b4", 1800),
+        ("Py QSS", summary["python"]["qss"]["ign_s"], "#e67e00", 1650),
     ]:
-        ax.axvline(ign * 1e3, color=c, ls=":", lw=0.9, alpha=0.7)
+        ax.axvline(ign * 1e3, color=c, ls=":", lw=1.5, alpha=0.9)
+        ax.annotate(
+            f"{lab}\n{ign*1e3:.3f} ms",
+            xy=(ign * 1e3, 1200),
+            xytext=(ign * 1e3, ytxt),
+            color=c,
+            fontsize=12,
+            fontweight="bold",
+            ha="center",
+            arrowprops=dict(arrowstyle="-", color=c, lw=1.2),
+        )
     ax.set_xlabel("t [ms]")
-    ax.set_title("Ignition window (τ_ign = T≥1200 K)")
+    ax.set_ylabel("T [K]")
+    ax.set_title("Ignition window (τ_ign = first time T ≥ 1200 K)")
     ax.set_xlim(t0, t1)
     ax.set_ylim(800, 2200)
-    ax.legend(fontsize=8, loc="upper left")
-    ax.grid(True, alpha=0.3)
+    ax.legend(loc="upper left", framealpha=0.95)
+    ax.grid(True, alpha=0.35)
 
     fig.suptitle(
         "CVODE vs QSS — OpenFOAM chemFoamDebug vs Python (Luo n-dodecane)",
-        fontsize=11,
+        fontsize=18,
+        fontweight="bold",
+        y=0.995,
     )
-    fig.tight_layout()
-    fig.savefig(OUTDIR / "cvode_qss_of_vs_python.png", dpi=160)
-    fig.savefig(OUTDIR / "cvode_qss_of_vs_python.pdf")
-    print("Wrote", OUTDIR / "cvode_qss_of_vs_python.png")
+    fig.tight_layout(rect=(0, 0, 1, 0.97))
+    png = OUTDIR / "cvode_qss_of_vs_python.png"
+    pdf = OUTDIR / "cvode_qss_of_vs_python.pdf"
+    fig.savefig(png, dpi=220, bbox_inches="tight")
+    fig.savefig(pdf, bbox_inches="tight")
+    # Extra large PNG for slides/reports
+    fig.set_size_inches(16, 14)
+    fig.savefig(OUTDIR / "cvode_qss_of_vs_python_large.png", dpi=250, bbox_inches="tight")
+    print("Wrote", png)
+    print("Wrote", OUTDIR / "cvode_qss_of_vs_python_large.png")
     print(json.dumps(summary, indent=2))
     return 0
 

@@ -67,12 +67,10 @@ QSS early bias in OF is the known behavior you already see in the Python baselin
 
 ### Graphic
 
-![CVODE vs QSS — OF and Python](validation/zeroD/cvode_qss_compare/cvode_qss_of_vs_python.png)
+![CVODE vs QSS — OF and Python](cvode_qss_compare/cvode_qss_of_vs_python.png)
 
-Also: `cvode_qss_of_vs_python.pdf`, `trajectories.npz`, `summary.json`  
-Regenerate: `conda activate rmg_env && python validation/zeroD/plot_cvode_qss_compare.py`  
-(handoff must be `pip install -e handoff/`; script stubs `SundialsPy` on import because this OpenMPI build aborts on unused `SundialsPy` init — QSS only needs `qss-integrator`.)
-
+Large slide-ready version: [`cvode_qss_of_vs_python_large.png`](cvode_qss_compare/cvode_qss_of_vs_python_large.png)  
+Also: `cvode_qss_of_vs_python.pdf`, `trajectories.npz`, `summary.json`
 ---
 
 ## How to run
