@@ -1,0 +1,4266 @@
+{
+  "Tc_1000": {
+    "Tc": 1000.0,
+    "n_species": 106,
+    "n_fail": 4,
+    "worst_species": "c8h17coch2",
+    "worst_rel_cp": 0.004295270020433228,
+    "worst_abs_hs": 3658.9000552697107,
+    "all_pass": false,
+    "species": [
+      {
+        "name": "h",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          5000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": true,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0,
+        "cp_min": 20621.187048611107,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "h2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0029859478836442577,
+        "cp_min": 14323.9343313921,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0003955852830586082,
+        "cp_min": 1301.2735868131344,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.00033130007591353205,
+        "cp_min": 916.6614745472715,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "oh",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1710.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0026193784074039906,
+        "max_abs_hs": 802.8285116599873,
+        "cp_cont": 1.5916157281026244e-12,
+        "cp_min": 1709.534989978167,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "h2o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 8.307539701490896e-06,
+        "cp_min": 1857.7792278449174,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "n2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0008752534538416512,
+        "cp_min": 1037.891097756961,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ho2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          200.0,
+          1000.0,
+          3500.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 1.0957980975945247e-05,
+        "cp_min": 1058.2922391018033,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "h2o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 3.9110778061512974e-05,
+        "cp_min": 1281.1906837344172,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.00010329999963687442,
+        "cp_min": 1038.147701435106,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "co2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0006858028875740274,
+        "cp_min": 847.1039694224404,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch2o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0005178193932806607,
+        "cp_min": 1170.8181555221513,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "hco",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.00034669859246605483,
+        "cp_min": 1188.8589074984297,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          3000.0
+        ],
+        "extrapolated_high": true,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.004302708952309331,
+        "cp_min": 1224.1719376823366,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.006618194081056572,
+        "cp_min": 2197.924616548539,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0024830021397974633,
+        "cp_min": 2569.195333320605,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h6",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019341134516940258,
+        "max_abs_hs": 2154.7506363517605,
+        "cp_cont": 0.0,
+        "cp_min": 1726.007164179571,
+        "gate_cp": true,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "c2h5",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1394.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0015060988618501004,
+        "max_abs_hs": 1489.8561706021428,
+        "cp_cont": 3.637978807091713e-12,
+        "cp_min": 1675.3268161840367,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0021872365487070056,
+        "cp_min": 1526.4142740406198,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.00022749028858015663,
+        "cp_min": 1480.3242769760402,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0016604656893832725,
+        "cp_min": 1706.9745160708533,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0077835434221924515,
+        "cp_min": 1258.329615162536,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.005879712907699286,
+        "cp_min": 1206.9033960944478,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch2cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0036255654163142026,
+        "cp_min": 1280.7906413972257,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch2co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.007156011549795949,
+        "cp_min": 1237.4807151585546,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "hcco",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          4000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 5.0662108606047696e-05,
+        "cp_min": 1290.1064382309892,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h5o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016933249676403474,
+        "max_abs_hs": 1246.4004573691636,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1344.0142170812715,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3o1-2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1492.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016196904051741141,
+        "max_abs_hs": 787.2089907331392,
+        "cp_cont": 0.0,
+        "cp_min": 1011.0962916751137,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016289959282110886,
+        "max_abs_hs": 1077.3747766744345,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1349.71757174479,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0014384847783449031,
+        "max_abs_hs": 872.6075647366233,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1274.2139428089504,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1402.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0013776315747951555,
+        "max_abs_hs": 417.26253646845,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1282.9539061710946,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h5cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1378.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018281429109886112,
+        "max_abs_hs": 1345.8947926890105,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1394.7605377509115,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h8",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001871319894685047,
+        "max_abs_hs": 1968.8927333750762,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1695.2865755285839,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1386.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018263759447360718,
+        "max_abs_hs": 1782.165191534441,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1660.2547410658735,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h6",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1388.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017802079836404428,
+        "max_abs_hs": 1595.770119509194,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1535.4358866716273,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h5-a",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1397.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0014303532979935154,
+        "max_abs_hs": 1177.5697985012084,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1515.69354474561,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h4-a",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1400.0,
+          4000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.003050973309061523,
+        "max_abs_hs": 2594.1478349184617,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1486.9903499238808,
+        "gate_cp": false,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "c3h5o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1380.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019868336723292955,
+        "max_abs_hs": 1261.5897208014503,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1290.9261883257755,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017148566145983697,
+        "max_abs_hs": 1207.516296941787,
+        "cp_cont": 0.0,
+        "cp_min": 1324.7441606967766,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h10",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018462798508082103,
+        "max_abs_hs": 1873.6681213714182,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1679.0627434403455,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h8-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016938944211037231,
+        "max_abs_hs": 1532.9709875411354,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1537.220318576273,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "pc4h9",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018125174811047433,
+        "max_abs_hs": 1732.6432424392551,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1652.580109536819,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h71-3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017680786536155028,
+        "max_abs_hs": 1517.9155676122755,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1445.7465521818076,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h6",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1398.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001497585941810949,
+        "max_abs_hs": 966.4556065062061,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1487.5199819907518,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "pc4h9o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017256241605062082,
+        "max_abs_hs": 1277.8017219230533,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1375.2265615596841,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h7o",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1395.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001722542072795607,
+        "max_abs_hs": 1302.996945313178,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1363.6248750375023,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h8ooh1-3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1377.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019981190737552892,
+        "max_abs_hs": 1440.654429427348,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1392.6612358942768,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h8ooh1-3o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0015608826677241778,
+        "max_abs_hs": 973.1296838074923,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1296.4853316574881,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4ket13",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1386.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00161981747890034,
+        "max_abs_hs": 1028.4164596027695,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1339.6429193543934,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1378.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018480367283426997,
+        "max_abs_hs": 1429.1309068566188,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1440.3729449390119,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1380.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017902965814157402,
+        "max_abs_hs": 1295.994321801234,
+        "cp_cont": 0.0,
+        "cp_min": 1413.1151317842746,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c5h11-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1396.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017420819816850207,
+        "max_abs_hs": 1679.2374073565006,
+        "cp_cont": 4.092726157978177e-12,
+        "cp_min": 1624.7307384204157,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c6h13-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017750624405744103,
+        "max_abs_hs": 1690.5081717092544,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1649.4316521347637,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c6h12-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017108353649405968,
+        "max_abs_hs": 1574.9811539761722,
+        "cp_cont": 0.0,
+        "cp_min": 1567.6015536171753,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4h9cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1381.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018189755101195213,
+        "max_abs_hs": 1450.5969850015827,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1471.8959152473908,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4h9co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001780776189444406,
+        "max_abs_hs": 1349.7803267766722,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1450.2492468262406,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001568437433983425,
+        "max_abs_hs": 1212.0611688285135,
+        "cp_cont": 0.0,
+        "cp_min": 1445.275389380505,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h15-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017664803663786748,
+        "max_abs_hs": 1684.054174900055,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1647.351917817379,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h14-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018400352308730109,
+        "max_abs_hs": 1707.9463899703696,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1581.7813430004908,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h15o2-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1388.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017309745675723363,
+        "max_abs_hs": 1392.03696943447,
+        "cp_cont": 0.0,
+        "cp_min": 1459.2384697413195,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h14ooh1-3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1383.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001883872532489054,
+        "max_abs_hs": 1500.6634246548638,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1470.4230778825968,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc5h11cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017943960066703366,
+        "max_abs_hs": 1464.5091212224215,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1495.5554966150328,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc5h11co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1383.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017853139431595526,
+        "max_abs_hs": 1393.591636728961,
+        "cp_cont": 0.0,
+        "cp_min": 1475.6537470136761,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4h9coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017144074967973388,
+        "max_abs_hs": 1358.6118820207193,
+        "cp_cont": 0.0,
+        "cp_min": 1470.9729508198745,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h7ooh1-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016166217003455116,
+        "max_abs_hs": 1108.0189167754725,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1372.9009657543672,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h7o1-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0015697406322223823,
+        "max_abs_hs": 1142.5843896633014,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1333.3488858266476,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc12h26",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017763473879256868,
+        "max_abs_hs": 1733.200133325532,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1651.1369726548621,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019319743770138131,
+        "max_abs_hs": 1814.8667218647897,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1621.0307651607482,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019319743770138131,
+        "max_abs_hs": 1814.8667218647897,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1621.0307651607482,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-5",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019319743770138131,
+        "max_abs_hs": 1814.8667218647897,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1621.0307651607482,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-6",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019319743770138131,
+        "max_abs_hs": 1814.8667218647897,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1621.0307651607482,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c9h19-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019300427974916984,
+        "max_abs_hs": 1836.7631079787388,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1652.4797615432171,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h17-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019208456656287542,
+        "max_abs_hs": 1831.020357313566,
+        "cp_cont": 0.0,
+        "cp_min": 1652.744643466198,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h24-5",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001742271975785858,
+        "max_abs_hs": 1631.8958005197346,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1586.0638579767638,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c10h20-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001729617487687704,
+        "max_abs_hs": 1618.8313992423937,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1594.4503084983621,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c9h18-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018824813783946642,
+        "max_abs_hs": 1753.212442806922,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1597.0294058956752,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h16-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001863942529884876,
+        "max_abs_hs": 1733.3818651828915,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1590.3628112507254,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25o2-2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017129122233322251,
+        "max_abs_hs": 1436.3898197710514,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1533.899980553607,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25o2-5",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017129122233322251,
+        "max_abs_hs": 1436.3898197710514,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1533.899980553607,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25o2-6",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017129122233322251,
+        "max_abs_hs": 1436.3898197710514,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1533.899980553607,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h17o2-1",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1381.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001908780791104782,
+        "max_abs_hs": 1532.4316366333514,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1495.0379681613317,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh2-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017484307061209614,
+        "max_abs_hs": 1495.2090776767582,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1541.6004085930663,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017484307061209614,
+        "max_abs_hs": 1495.2090776767582,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1541.6004085930663,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-7",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017484307061209614,
+        "max_abs_hs": 1495.2090776767582,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1541.6004085930663,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh6-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017484307061209614,
+        "max_abs_hs": 1495.2090776767582,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1541.6004085930663,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh2-4o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018600792839995486,
+        "max_abs_hs": 1453.7985494304448,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1470.4334248814557,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-3o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018600792839995486,
+        "max_abs_hs": 1453.7985494304448,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1470.4334248814557,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-7o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018600792839995486,
+        "max_abs_hs": 1453.7985494304448,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1470.4334248814557,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh6-4o2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018600792839995486,
+        "max_abs_hs": 1453.7985494304448,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1470.4334248814557,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12o2-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017546716374803749,
+        "max_abs_hs": 1537.0755299180746,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1475.4838090155936,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12o4-6",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017546716374803749,
+        "max_abs_hs": 1537.0755299180746,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1475.4838090155936,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12o5-7",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017546716374803749,
+        "max_abs_hs": 1537.0755299180746,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1475.4838090155936,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket2-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016394072758928058,
+        "max_abs_hs": 1288.9844303950667,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1495.0956524538876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket5-3",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016394072758928058,
+        "max_abs_hs": 1288.9844303950667,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1495.0956524538876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket5-7",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016394072758928058,
+        "max_abs_hs": 1288.9844303950667,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1495.0956524538876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket6-4",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016394072758928058,
+        "max_abs_hs": 1288.9844303950667,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1495.0956524538876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket6-8",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016394072758928058,
+        "max_abs_hs": 1288.9844303950667,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1495.0956524538876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h17coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          2042.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.004295270020433228,
+        "max_abs_hs": 3658.9000552697107,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1675.1862641334726,
+        "gate_cp": false,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "c7h15coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0018541837114360471,
+        "max_abs_hs": 1538.0174707383849,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1514.4214143132938,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c6h13coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001740363807823495,
+        "max_abs_hs": 1439.476068646647,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1535.4247279915205,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c5h11coch2",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1386.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016782247514820674,
+        "max_abs_hs": 1359.6476413821802,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1507.8780814906252,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc8h17cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001772664831746387,
+        "max_abs_hs": 1511.3377885199152,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1539.0332039056839,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc6h13cho",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017826579597218152,
+        "max_abs_hs": 1481.868923122529,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1513.4962134752052,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc8h17co",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001765063023620336,
+        "max_abs_hs": 1459.7763992776163,
+        "cp_cont": 0.0,
+        "cp_min": 1525.2484850203346,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c9h17",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001911248081219537,
+        "max_abs_hs": 1716.1584758693352,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1528.739552279247,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h15",
+        "Tc": 1000.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0019358531040999526,
+        "max_abs_hs": 1718.0577240493149,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1515.4697215146996,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      }
+    ]
+  },
+  "Tc_1400": {
+    "Tc": 1400.0,
+    "n_species": 106,
+    "n_fail": 13,
+    "worst_species": "ch4",
+    "worst_rel_cp": 0.006857302680128107,
+    "worst_abs_hs": 3439.399618729949,
+    "all_pass": false,
+    "species": [
+      {
+        "name": "h",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          5000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": true,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0,
+        "cp_min": 20621.187048611107,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "h2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0017570159237838528,
+        "max_abs_hs": 4263.489566281438,
+        "cp_cont": 9.094947017729282e-12,
+        "cp_min": 14319.906915149932,
+        "gate_cp": true,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0006528998768980425,
+        "max_abs_hs": 151.99797192169353,
+        "cp_cont": 4.547473508864641e-12,
+        "cp_min": 1301.423407343282,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001798627616486951,
+        "max_abs_hs": 246.93097069859505,
+        "cp_cont": 2.5011104298755527e-12,
+        "cp_min": 917.1750115779197,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "oh",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1710.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0009862751965243105,
+        "max_abs_hs": 286.7907620854676,
+        "cp_cont": 2.9558577807620168e-12,
+        "cp_min": 1709.455089261404,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "h2o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0022818156531927963,
+        "max_abs_hs": 1211.6388952275738,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1861.0722606275629,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "n2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.002546668038034308,
+        "max_abs_hs": 277.0134184299968,
+        "cp_cont": 1.1368683772161603e-12,
+        "cp_min": 1040.034869676927,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "ho2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          200.0,
+          1000.0,
+          3500.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.004285708212650818,
+        "max_abs_hs": 632.2261013654061,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1054.3084403766597,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "h2o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0011192202227499194,
+        "max_abs_hs": 164.93653506651754,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1279.7567492119829,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.002539621083764191,
+        "max_abs_hs": 287.7255239590013,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1040.471074583793,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "co2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0010940758582066983,
+        "max_abs_hs": 117.97871224978007,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 847.6882318594868,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch2o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.005404062552689278,
+        "max_abs_hs": 964.4171961843967,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1175.60169872928,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "hco",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.003253585633576446,
+        "max_abs_hs": 443.51864583877614,
+        "cp_cont": 4.774847184307873e-12,
+        "cp_min": 1192.5339395199703,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "ch3o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          3000.0
+        ],
+        "extrapolated_high": true,
+        "single_range_h": false,
+        "max_rel_cp": 0.002120912620728154,
+        "max_abs_hs": 906.8684204006568,
+        "cp_cont": 5.9117155615240335e-12,
+        "cp_min": 1223.3669032656014,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "ch4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.006857302680128107,
+        "max_abs_hs": 3439.399618729949,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 2209.968930735517,
+        "gate_cp": false,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "ch3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0032270048529536672,
+        "max_abs_hs": 2073.334287278354,
+        "cp_cont": 0.0,
+        "cp_min": 2576.222755971183,
+        "gate_cp": false,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "c2h6",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005146870023893924,
+        "max_abs_hs": 621.6234360793605,
+        "cp_cont": 3.637978807091713e-12,
+        "cp_min": 1726.2737319823425,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h5",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1394.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005561936466413853,
+        "max_abs_hs": 710.9314547292888,
+        "cp_cont": 3.637978807091713e-12,
+        "cp_min": 1675.084792137672,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.003564180044016406,
+        "max_abs_hs": 1122.9626041555312,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1530.6319603622726,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "c2h3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.004338884369012872,
+        "max_abs_hs": 2053.0854223007336,
+        "cp_cont": 8.185452315956354e-12,
+        "cp_min": 1479.9452255595413,
+        "gate_cp": false,
+        "gate_hs": false,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "c2h2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0008327043888110215,
+        "max_abs_hs": 431.8759955242276,
+        "cp_cont": 4.092726157978177e-12,
+        "cp_min": 1707.6062963793192,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0014792930562249798,
+        "max_abs_hs": 627.0606013741344,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1257.3613015629705,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.001540770257104994,
+        "max_abs_hs": 585.7820603186265,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1206.0715237903307,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch2cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0014732109937051021,
+        "max_abs_hs": 364.7734761862084,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1280.3665863188567,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch2co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0020629141037855495,
+        "max_abs_hs": 286.7038846516516,
+        "cp_cont": 0.0,
+        "cp_min": 1236.7419403645163,
+        "gate_cp": false,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": false
+      },
+      {
+        "name": "hcco",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1000.0,
+          4000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00176782345472059,
+        "max_abs_hs": 522.1524563520215,
+        "cp_cont": 1.1368683772161603e-12,
+        "cp_min": 1289.4826406036989,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h5o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00038649896159506674,
+        "max_abs_hs": 373.74973046034575,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1344.300034872318,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3o1-2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1492.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0002187012957936592,
+        "max_abs_hs": 89.88258803915232,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1011.8198328905204,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "ch3coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003981891301024937,
+        "max_abs_hs": 355.4556157067418,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1349.9174143866105,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005854811295171183,
+        "max_abs_hs": 495.829717990011,
+        "cp_cont": 5.9117155615240335e-12,
+        "cp_min": 1274.029675091831,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h3co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1402.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000699530737811865,
+        "max_abs_hs": 551.5122943278402,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1282.273271306266,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c2h5cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1378.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000359511035935115,
+        "max_abs_hs": 310.65965836681426,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1395.0762362808243,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h8",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004740373978075948,
+        "max_abs_hs": 576.3375618234277,
+        "cp_cont": 0.0,
+        "cp_min": 1695.6339983663215,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1386.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00044179249459966254,
+        "max_abs_hs": 523.2061101486906,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1660.5495547971107,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h6",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1388.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003971199750705958,
+        "max_abs_hs": 442.3088754089549,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1535.8112960568444,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h5-a",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1397.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005338420498509626,
+        "max_abs_hs": 613.0207970840856,
+        "cp_cont": 0.0,
+        "cp_min": 1515.5730411653608,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h4-a",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1400.0,
+          4000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0,
+        "max_abs_hs": 0.0,
+        "cp_cont": 0.0008316944608850463,
+        "cp_min": 1487.9129003013204,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c3h5o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1380.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00018791409444762663,
+        "max_abs_hs": 153.2483194284141,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1291.6634705642634,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005736293298292808,
+        "max_abs_hs": 493.92079898901284,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1324.5487510244348,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h10",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004167738516235234,
+        "max_abs_hs": 524.6767758568749,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1679.5700892962623,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h8-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005083814924864426,
+        "max_abs_hs": 581.9006433468312,
+        "cp_cont": 3.637978807091713e-12,
+        "cp_min": 1537.3321097162045,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "pc4h9",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00039114604692715,
+        "max_abs_hs": 482.80735091120005,
+        "cp_cont": 4.547473508864641e-12,
+        "cp_min": 1653.049517836654,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h71-3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00046603585436632644,
+        "max_abs_hs": 506.22562575899065,
+        "cp_cont": 5.002220859751105e-12,
+        "cp_min": 1446.0427788267991,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h6",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1398.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0007427803826520021,
+        "max_abs_hs": 823.4915591413155,
+        "cp_cont": 6.366462912410498e-12,
+        "cp_min": 1486.778236645964,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "pc4h9o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005538183933498117,
+        "max_abs_hs": 511.1368315415457,
+        "cp_cont": 5.4569682106375694e-12,
+        "cp_min": 1375.095702456221,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h7o",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1395.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003133085136819437,
+        "max_abs_hs": 317.56950254924595,
+        "cp_cont": 4.547473508864641e-12,
+        "cp_min": 1364.231871862929,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h8ooh1-3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1377.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0002844860695506594,
+        "max_abs_hs": 243.87455031834543,
+        "cp_cont": 4.547473508864641e-13,
+        "cp_min": 1393.2965601391159,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h8ooh1-3o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0006343509972741143,
+        "max_abs_hs": 511.92156225442886,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1296.195530712015,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4ket13",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1386.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005713899490468998,
+        "max_abs_hs": 469.20468552503735,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1339.4837421448294,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1378.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003511920243690924,
+        "max_abs_hs": 323.53724865987897,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1440.7726790852432,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1380.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003605019065716643,
+        "max_abs_hs": 315.56107706949115,
+        "cp_cont": 3.637978807091713e-12,
+        "cp_min": 1413.4272314644363,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c5h11-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1396.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004131453724080597,
+        "max_abs_hs": 520.5558447595686,
+        "cp_cont": 9.094947017729282e-13,
+        "cp_min": 1625.1683798593353,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c6h13-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004016161810115069,
+        "max_abs_hs": 489.89522787742317,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1649.8661573931818,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c6h12-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00043803275268186045,
+        "max_abs_hs": 517.8016244014725,
+        "cp_cont": 5.002220859751105e-12,
+        "cp_min": 1567.931507956376,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4h9cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1381.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00036468481176287447,
+        "max_abs_hs": 357.2760361786932,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1472.2879032148408,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4h9co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003820603553666767,
+        "max_abs_hs": 360.49884916841984,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1450.5499240215267,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc3h7coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005573146366867934,
+        "max_abs_hs": 560.875385359861,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1445.1001037194924,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h15-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00039716062757885013,
+        "max_abs_hs": 485.2155861854553,
+        "cp_cont": 3.637978807091713e-12,
+        "cp_min": 1647.8032456413669,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h14-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003920875237774753,
+        "max_abs_hs": 435.6577784810215,
+        "cp_cont": 4.547473508864641e-12,
+        "cp_min": 1582.3110901907523,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h15o2-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1388.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005342427039704606,
+        "max_abs_hs": 551.0663634147495,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1459.1918163404928,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h14ooh1-3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1383.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003475140048791786,
+        "max_abs_hs": 347.28854623250663,
+        "cp_cont": 5.4569682106375694e-12,
+        "cp_min": 1470.9443629183681,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc5h11cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000390772341349269,
+        "max_abs_hs": 402.0637962324545,
+        "cp_cont": 0.0,
+        "cp_min": 1495.8961532257733,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc5h11co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1383.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003737518748404181,
+        "max_abs_hs": 366.2388652609661,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1476.0070989476906,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc4h9coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005375164160587562,
+        "max_abs_hs": 549.5825865967199,
+        "cp_cont": 5.9117155615240335e-12,
+        "cp_min": 1470.926256301591,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h7ooh1-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00042078314819609015,
+        "max_abs_hs": 392.29652613960207,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1373.0902149913552,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c4h7o1-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004330869766073117,
+        "max_abs_hs": 422.6990393875167,
+        "cp_cont": 4.547473508864641e-12,
+        "cp_min": 1333.5262542104035,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc12h26",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003918033291580216,
+        "max_abs_hs": 480.90180860087276,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1651.661193106371,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003072620179876204,
+        "max_abs_hs": 352.1971340281889,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1621.8334174958568,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003072620179876204,
+        "max_abs_hs": 352.1971340281889,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1621.8334174958568,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-5",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003072620179876204,
+        "max_abs_hs": 352.1971340281889,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1621.8334174958568,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25-6",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003072620179876204,
+        "max_abs_hs": 352.1971340281889,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1621.8334174958568,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c9h19-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003814933314988335,
+        "max_abs_hs": 430.9272806160152,
+        "cp_cont": 6.366462912410498e-12,
+        "cp_min": 1653.0780458050112,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h17-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003743513545916708,
+        "max_abs_hs": 422.3898455714807,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1653.3547969908043,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h24-5",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000421432188902826,
+        "max_abs_hs": 500.5782023826614,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1586.4807452781306,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c10h20-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1392.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000407355969787783,
+        "max_abs_hs": 487.168288981542,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1594.8857586414024,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c9h18-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003990799085039316,
+        "max_abs_hs": 444.8248199829832,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1597.5680900788384,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h16-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1384.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003960710722610638,
+        "max_abs_hs": 440.8486215211451,
+        "cp_cont": 0.0,
+        "cp_min": 1590.8974852463798,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25o2-2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000468792601516055,
+        "max_abs_hs": 525.9817085610703,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1534.0530272996064,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25o2-5",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000468792601516055,
+        "max_abs_hs": 525.9817085610703,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1534.0530272996064,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12h25o2-6",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.000468792601516055,
+        "max_abs_hs": 525.9817085610703,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1534.0530272996064,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h17o2-1",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1381.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00035840335257119373,
+        "max_abs_hs": 355.14452770072967,
+        "cp_cont": 5.4569682106375694e-12,
+        "cp_min": 1495.519666298754,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh2-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00034567550736610636,
+        "max_abs_hs": 388.29233155958354,
+        "cp_cont": 4.092726157978177e-12,
+        "cp_min": 1542.1190416089503,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00034567550736610636,
+        "max_abs_hs": 388.29233155958354,
+        "cp_cont": 4.092726157978177e-12,
+        "cp_min": 1542.1190416089503,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-7",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00034567550736610636,
+        "max_abs_hs": 388.29233155958354,
+        "cp_cont": 4.092726157978177e-12,
+        "cp_min": 1542.1190416089503,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh6-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1391.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00034567550736610636,
+        "max_abs_hs": 388.29233155958354,
+        "cp_cont": 4.092726157978177e-12,
+        "cp_min": 1542.1190416089503,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh2-4o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003660961716234529,
+        "max_abs_hs": 377.3630666686222,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1470.9204339978876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-3o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003660961716234529,
+        "max_abs_hs": 377.3630666686222,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1470.9204339978876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh5-7o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003660961716234529,
+        "max_abs_hs": 377.3630666686222,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1470.9204339978876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ooh6-4o2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1390.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003660961716234529,
+        "max_abs_hs": 377.3630666686222,
+        "cp_cont": 2.2737367544323206e-12,
+        "cp_min": 1470.9204339978876,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12o2-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005992438664948688,
+        "max_abs_hs": 670.6295598549768,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1475.509900243101,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12o4-6",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005992438664948688,
+        "max_abs_hs": 670.6295598549768,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1475.509900243101,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12o5-7",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1393.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0005992438664948688,
+        "max_abs_hs": 670.6295598549768,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1475.509900243101,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket2-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004936942902772236,
+        "max_abs_hs": 515.0049480153248,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1495.133735134755,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket5-3",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004936942902772236,
+        "max_abs_hs": 515.0049480153248,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1495.133735134755,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket5-7",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004936942902772236,
+        "max_abs_hs": 515.0049480153248,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1495.133735134755,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket6-4",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004936942902772236,
+        "max_abs_hs": 515.0049480153248,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1495.133735134755,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c12ket6-8",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1389.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004936942902772236,
+        "max_abs_hs": 515.0049480153248,
+        "cp_cont": 1.3642420526593924e-12,
+        "cp_min": 1495.133735134755,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h17coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          2042.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0016607146203904458,
+        "max_abs_hs": 1415.0065422374755,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1676.1634909942263,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c7h15coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1382.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00036837590871553896,
+        "max_abs_hs": 381.62543431762606,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1514.872862486944,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c6h13coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003974266357739827,
+        "max_abs_hs": 421.17294376622885,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1535.7697308149397,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c5h11coch2",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1386.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0003965309270922873,
+        "max_abs_hs": 413.32449697423726,
+        "cp_cont": 6.366462912410498e-12,
+        "cp_min": 1508.1774776786772,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc8h17cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00042492647912482483,
+        "max_abs_hs": 469.47736965026706,
+        "cp_cont": 1.8189894035458565e-12,
+        "cp_min": 1539.3162600147077,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc6h13cho",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.0004057680374253193,
+        "max_abs_hs": 430.7800143994391,
+        "cp_cont": 3.183231456205249e-12,
+        "cp_min": 1513.8109208376848,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "nc8h17co",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1387.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00041229166815853345,
+        "max_abs_hs": 442.01173083949834,
+        "cp_cont": 2.7284841053187847e-12,
+        "cp_min": 1525.5464370110058,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c9h17",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00032313191287817365,
+        "max_abs_hs": 349.25900157447904,
+        "cp_cont": 6.821210263296962e-12,
+        "cp_min": 1529.4660580234608,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      },
+      {
+        "name": "c8h15",
+        "Tc": 1400.0,
+        "original_Trange": [
+          300.0,
+          1385.0,
+          5000.0
+        ],
+        "extrapolated_high": false,
+        "single_range_h": false,
+        "max_rel_cp": 0.00031786148142088494,
+        "max_abs_hs": 338.3155350377783,
+        "cp_cont": 4.547473508864641e-12,
+        "cp_min": 1516.2110756383524,
+        "gate_cp": true,
+        "gate_hs": true,
+        "gate_cont": true,
+        "gate_pos": true,
+        "pass_all": true
+      }
+    ]
+  },
+  "selected": "Tc_1000",
+  "selection_rule": "minimize worst-species max|\u0394cp|/cp on [300,3000]"
+}

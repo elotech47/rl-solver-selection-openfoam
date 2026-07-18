@@ -15,3 +15,5 @@
 | 2026-07-15 | ELEMENTS one-per-line; `REACTIONS CAL/MOLE` only | Fixes ESI chemkinLexer parse of yaml2ck output |
 | 2026-07-15 | Docker `--entrypoint /bin/bash` | Image entrypoint `/openfoam/run` breaks nested bash quoting |
 | 2026-07-15 | MidT Python QSS slower than CVODE in one spot-check | Binding/config overhead possible; keep profiling gate when OF port is timed |
+| 2026-07-17 | E10b CLOSED: GRI near-uniform (50/53); Luo 28 Tcommons; severity GRI~0% vs Luo −681% at burnt Y | Human ack → Option R; species[0]=h (Tcommon=5000) amplifies Luo crash band |
+| 2026-07-17 | **PENDING human:** E11 Option R vs P — refit Tc=1000 selected; blend identity restored; kinetic Δτ_max=0.016% PASS; **4/106 species miss strict cp/hs gates** (worst c8h17coch2 0.43%/3.7 kJ/kg) | Need: (A) R + relax gate to ≈0.5% cp / 4 kJ/kg, (B) Option P ship massWeighted patch, or (C) other |

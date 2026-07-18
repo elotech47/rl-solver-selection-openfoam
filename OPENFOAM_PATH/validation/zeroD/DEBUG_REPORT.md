@@ -507,3 +507,51 @@ Artifacts: `validation/thermo_audit/e10b_tcommon/{severity.json,SUMMARY.md}`.
 
 GRI survives because the blend identity holds at burnt Y (near-uniform Tcommon + species[0] aligned). Luo collapses because species[0]=`h` forces Tcommon_mix=5000 K → mixture always evaluates blended *low* coeffs through the 1700–1850 K crash band; Luo `oh` Tcommon=1710 K sits in that band. **Claim-check status: CLOSED.**
 
+---
+
+## E11.1 — Harmonized-Tcommon refit (COMPLETE; quality gate SOFT-FAIL)
+
+**Date:** 2026-07-17  
+**Script:** `mechanisms/refit/refit_tcommon.py`  
+**Window:** shared **[300, Tc, 3500]**; trade Tc ∈ {1000, 1400}; select by worst-species max|Δcp|/cp.
+
+### Trade study
+
+| Tc | worst species | max\|Δcp\|/cp | max\|Δhs\| [kJ/kg] | fails |
+|---:|---------------|---------------:|-------------------:|------:|
+| **1000** ← selected | c8h17coch2 | **0.430%** | 3.66 | **4/106** |
+| 1400 | ch4 | 0.686% | 3.44 | 13/106 |
+
+**Gate failures at Tc=1000** (campaign gate: ≤0.2% cp, ≤2 kJ/kg hs):
+- `c8h17coch2` (orig Tcommon=2042): 0.430% cp, 3.66 kJ/kg hs
+- `c3h4-a` (1400): 0.305% cp, 2.59 kJ/kg hs
+- `oh` (1710): 0.262% cp (hs OK)
+- `c2h6` (1384): cp OK (0.193%), hs 2.15 kJ/kg
+
+`ch3o` Thigh=3000→3500: documented high-poly extrapolation; passed gates.  
+`h` single-range cp=5/2·R: both polys identical @ machine precision.
+
+**Artifacts:** `mechanisms/refit/{n-dodecane_refit.yaml,E11_1_SUMMARY.md,trade_study.json,chemkin/,foam/}`  
+Foam breakpoints: **106/106** at (300, 1000, 3500).
+
+### Blend-identity check on refit foam (bonus)
+
+Burnt MidT Y, OF blend vs ΣYi·cp: **0.0000%** at T∈{1200…2600} (was −681% on original). Direct confirmation of E10b claim under uniform Tcommon.
+
+### Stop / human decision
+
+E11.1 **strict quality gates not met** (4 species). Campaign stop: choose **R-with-relaxed-gate** vs **Option P**. E11.2 kinetic evidence below still collected for the decision package. **E11.3 stock OF MidT deferred until gate call.**
+
+---
+
+## E11.2 — Kinetic invariance (COMPLETE; PASS)
+
+Cantera original vs refit YAML:
+
+| Gate | Result |
+|------|--------|
+| \|Δτ_ign\| ≤ 0.5% on T0∈{750,800,1000}×p∈{10,30,60} atm | **PASS** — max **0.016%** |
+| Spot rates/Kc (50 states, 800–2800 K) | max \|Δkf\|=0, \|Δkr\|=0.12%, \|ΔKc\|=0.50% |
+
+Artifacts: `mechanisms/refit/e11_2_kinetic/`.
+
