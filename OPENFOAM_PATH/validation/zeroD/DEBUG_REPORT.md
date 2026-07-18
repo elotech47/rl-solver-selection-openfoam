@@ -401,7 +401,7 @@ Artifacts: `validation/zeroD/e9_constprop/`.
 
 ### Root-cause statement
 
-> **Root cause (H6):** During Luo n-dodecane thermal runaway, OpenFOAM’s mass-fraction blend of JANAF coefficients (`multiComponentMixture::cellMixture`) produces a pseudo-species whose `Cp(T)` collapses toward zero and becomes negative above ~2000 K, while the physically correct mixture `Σ Yi Cp_i(T)` remains ~1400 J/(kg·K). `hePsiThermo::correct()` inverts T with `mixture.THE(h,p,T)` on that blended surface, so the h→T Newton fails. Stock and custom chemistry solvers only supply (Y, Qdot); they are not the defect. GRI’s blend stays faithful (`hsSum≡hsCell`), so the tutorial survives.
+> **Root cause (H6):** OpenFOAM’s `multiComponentMixture::cellMixture` builds a pseudo-species by Y-weighted blending of each species’ NASA-7 *coefficient arrays* (`janafThermo::operator+=`). The mixture inherits **Tcommon from species[0]** (equality of Tcommons is only FATAL when `janafThermo::debug` is on). Property evaluation then switches low/high on that single Tcommon_mix. The blend equals the physical mass-weighted average `Σ Yi·cp_i` **iff all species share the same breakpoints**. Luo n-dodecane foam thermo has **28 distinct Tcommons**; species[0]=`h` has Tcommon=**5000 K**, so through the 1700–1850 K crash band the Newton always sees blended *low*-range coeffs while `Σ Yi·cp_i` correctly uses each species’ own range — burnt-gas `cpCell` collapses / goes negative (E10b severity: **−151% at 2000 K**, −681% at 2600 K) while `cpSum` stays ~1400 J/(kg·K). GRI MidT survives because it is near-uniform (50/53 at Tcommon=1000; species[0]=CH4 aligned) and burnt blend error is ~0%. `hePsiThermo::correct()` / `THE` inverts T on the blended surface → Newton FATAL. Solvers only supply (Y, Qdot). **Fix (Option R):** harmonized-Tcommon refit [300, 1000, 3500] restores blend identity to round-off; stock THE ships.
 
 ---
 
@@ -541,6 +541,43 @@ Burnt MidT Y, OF blend vs ΣYi·cp: **0.0000%** at T∈{1200…2600} (was −681
 ### Stop / human decision
 
 E11.1 **strict quality gates not met** (4 species). Campaign stop: choose **R-with-relaxed-gate** vs **Option P**. E11.2 kinetic evidence below still collected for the decision package. **E11.3 stock OF MidT deferred until gate call.**
+
+---
+
+## E11.1 add-ons + Option R decision (COMPLETE)
+
+**Date:** 2026-07-17  
+**Decision:** **Option R ships** with relaxed fidelity gates (0.5% cp / 4 kJ/kg).
+
+### Add-on (1) Equilibrium invariance — PASS
+max\|ΔT_equil\|=**0.0079 K**, max\|ΔY_major\|=**2.9e-7** on Z∈[0.02,0.12]×p∈{10,30,60}.
+
+### Add-on (2) Effect-size of 4 strict-gate misses — PASS
+Worst mixture-relative contribution: **oh** 1.1e-5 ≪ 1e-4. See `mechanisms/refit/e11_1_addons/` and `DECISIONS.md`.
+
+---
+
+## E11.3 — Stock THE MidT on refit thermo (COMPLETE; GREEN)
+
+**Config:** case `chemFoam_0D` with refit foam; `OFRL_STOCK_THE` path = stock `thermo.correct()` (no massWeighted).
+
+| Run | App | Outcome | τ_ign | T_end | vs Cantera-refit |
+|-----|-----|---------|------:|------:|------------------|
+| stock ode | ESI `chemFoam` | **End** (92 s) | 2.151 ms | 2601.1 K | — |
+| custom cvode | `chemFoamDebug` + stock THE | **End** (20 s) | 2.144 ms | 2608.8 K | **−0.65%** (PASS ≤1%) |
+
+Cantera-refit MidT: τ_ign=2.158 ms, T_eq≈2601 K.
+
+### Blend-vs-ΣYi·cp along trajectory
+Pre-ignition: **exact 0**. Post-ignition max \|cpCell−cpSum\|/cpSum ≈ **0.10%** — tracks ΣY≈1.001 chemistry drift (cpCell uses Y-normalized blend), **not** H6 collapse. When ΣY=1, identity holds (Python burnt check 0.0000%). No Newton FATAL, no JANAF warnings.
+
+### Production config
+- `mechanisms/foam/{thermo,reactions}` ← refit [300,1000,3500]
+- Original heterogeneous archived: `mechanisms/foam_original_heterogeneous/`
+- `massWeighted*.H` retired to `diagnostics/h6_massWeighted/`
+- chemFoam / reactingFoam `hEqn`/`EEqn` use stock `thermo.correct()`
+
+Artifacts: `validation/zeroD/e11_3/{stock_ode,cvode_stockTHE,summary.json}`.
 
 ---
 

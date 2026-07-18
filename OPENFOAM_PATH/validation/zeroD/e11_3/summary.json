@@ -1,0 +1,25 @@
+{
+  "stock_ode": {
+    "tau_ign": 0.0021511,
+    "Tend": 2601.11,
+    "wall_s": 92
+  },
+  "cvode": {
+    "tau_ign": 0.002144,
+    "Tend": 2608.75,
+    "wall_s": 20
+  },
+  "cantera_refit": {
+    "tau_ign": 0.0021581129956291492,
+    "Tend": 2601.0249670042085
+  },
+  "drel_cvode_vs_cantera": -0.006539507272201393,
+  "blend": {
+    "n": 3522,
+    "max_rel_cp": 0.0010137571609356564,
+    "max_abs_cp": 1.490000000000009,
+    "max_rel_hs": 0.0010132606400538662
+  },
+  "pass_ign": true,
+  "pass_blend": false
+}

@@ -12,8 +12,7 @@
 
     #include "debugStateDump.H"
 
-    // FIX (E8 H6): do not call thermo.correct() — its THE uses cellMixture
-    // JANAF blending with pathological cp for Luo runaway. Invert T from
-    // Σ Yi·Hs_i instead (matches h0 construction).
-    #include "massWeightedT.H"
+    // Option R: harmonized-Tcommon refit thermo → stock THE is correct.
+    // Legacy mass-weighted Newton lives in diagnostics/h6_massWeighted/.
+    thermo.correct();
 }

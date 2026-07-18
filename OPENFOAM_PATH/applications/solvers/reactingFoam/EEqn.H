@@ -29,8 +29,8 @@
 
     fvOptions.correct(he);
 
-    // FIX (H6): mass-weighted ΣYi·Hs Newton + THE no-op, then correct() for psi
-    #include "massWeightedCorrect.H"
+    // Option R: refit thermo → stock THE. Legacy patch in diagnostics/h6_massWeighted/.
+    thermo.correct();
 
     Info<< "min/max(T) = "
         << min(T).value() << ", " << max(T).value() << endl;
