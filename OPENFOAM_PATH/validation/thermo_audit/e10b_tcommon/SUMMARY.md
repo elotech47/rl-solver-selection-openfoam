@@ -132,10 +132,47 @@
 
 OpenFOAM evaluates mixture sensible enthalpy and heat capacity for `hePsiThermo::correct()` / `THE` by blending each species' NASA-7 *coefficient arrays* by mass fraction (`multiComponentMixture::cellMixture`) and then evaluating the resulting pseudo-species polynomials. That blend is algebraically identical to a mass-weighted property average (`Σ Yi·cp_i`, `Σ Yi·hs_i`) *only* when every species shares the same temperature breakpoints (especially a shared `Tcommon`). In the ESI GRI chemFoam tutorial thermo, **50/53** species share Tcommon = 1000 K (near-uniform; outliers: HOCN, HCNO, HNCO with Tcommon ∈ {1368, 1382, 1478}; Thigh also varies → 8 distinct full tuples). The Luo n-dodecane foam thermo has **31** distinct (Tlow,Tcommon,Thigh) tuples and **28** distinct Tcommon values across 106 species; the skeletal foam thermo shows **8** distinct tuples and **5** distinct Tcommon (52 species parsed). Above the lowest Tcommon in a mixed cell, some species are already on their high-range coefficients while others remain on low-range ones, so the blended coefficients no longer represent any physical mixture average: burnt-gas blended cp collapses toward zero and can change sign, while `Σ Yi·cp_i` stays O(1400) J/(kg·K). The h→T Newton then diverges (E8). This is **H6**: a representation defect exposed by OpenFOAM's coefficient blend under mechanism-heterogeneous JANAF breakpoints, not a corruption of per-species thermo tables (E2).
 
+## Weighted severity (blended cp vs Σ Yi·cpᵢ)
+
+Cantera HP-equilibrium burnt mass fractions; OpenFOAM `janafThermo` blend (Tcommon_mix = species[0] Tcommon; Y-weighted low/high coeff arrays).
+
+### Luo_106
+
+- species[0] = `h` → Tcommon_mix = **5000 K**
+- equilibrium T_eq ≈ 2601.8 K; Y_OH ≈ 3.998e-03
+- worst |Δcp|/cp_sum = **680.52%** at T=2600 K
+
+| T [K] | cp_cell | cp_sum | (cell−sum)/sum |
+|------:|--------:|-------:|---------------:|
+| 1200 | 1295.8 | 1320.5 | -1.87% |
+| 1600 | 926.0 | 1386.5 | -33.21% |
+| 2000 | -733.6 | 1430.7 | -151.28% |
+| 2400 | -4952.8 | 1459.8 | -439.29% |
+| 2600 | -8536.2 | 1470.5 | -680.52% |
+
+### GRI_tutorial
+
+- species[0] = `ch4` → Tcommon_mix = **1000 K**
+- equilibrium T_eq ≈ 2660.0 K; Y_OH ≈ 4.421e-03
+- worst |Δcp|/cp_sum = **0.00%** at T=1200 K
+
+| T [K] | cp_cell | cp_sum | (cell−sum)/sum |
+|------:|--------:|-------:|---------------:|
+| 1200 | 1366.4 | 1366.4 | +0.00% |
+| 1600 | 1440.5 | 1440.5 | +0.00% |
+| 2000 | 1491.5 | 1491.5 | -0.00% |
+| 2400 | 1525.9 | 1525.9 | +0.00% |
+| 2600 | 1538.8 | 1538.8 | +0.00% |
+
+### Why near-uniform GRI survives
+
+At burnt compositions, GRI max |rel cp error| is **0.000%** while Luo reaches **680.5%** (and can change sign). GRI species[0]=`ch4` has Tcommon=1000 K aligned with the 50/53 majority; Luo species[0]=`h` has Tcommon=**5000 K**, so the mixture always selects the blended *low*-range coefficient array for all T below 5000 K — including the 1700–1850 K crash band — while Σ Yi·cpᵢ correctly switches each species at its own Tcommon. Luo `oh` has Tcommon=**1710 K**, sitting inside that crash band, so burnt-gas OH (Y≈4.00e-03) is one of many species whose high-range physics is invisible to the blended object.
+
 ## Claim check
 
-- GRI Tcommon exact-uniform: **False** (4 distinct; dominant 50/53 = 94.3% at 1000 K)
+- GRI Tcommon exact-uniform: **False** (4 distinct; dominant 50/53 at 1000 K)
 - GRI Tcommon near-uniform (campaign 'or near'): **True**
-- Luo heterogeneous: **True** (28 Tcommon, 31 tuples; only 22/106 at 1000 K)
+- Luo heterogeneous: **True** (28 Tcommon, 31 tuples)
 - Expected claim (GRI near-uniform ∧ Luo heterogeneous): **PASS**
-- **STOP (human gate):** GRI is near-uniform, not exact (outliers: HOCN, HCNO, HNCO). H6 mechanism story still holds (severity of heterogeneity: Luo ≫ GRI), and E11 refit remains a valid cure for Luo — but campaign stop condition requires human ack before E11.
+- Severity table (GRI ≪ Luo at burnt Y): **PASS** — quantifies why GRI MidT shows hsSum≡hsCell while Luo collapses
+- **Status: CLOSED** (human ack 2026-07-17; proceed E11 Option R)

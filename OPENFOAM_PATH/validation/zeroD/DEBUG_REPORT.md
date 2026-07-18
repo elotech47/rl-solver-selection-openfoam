@@ -483,3 +483,27 @@ Artifacts: `validation/thermo_audit/e10b_tcommon/{SUMMARY.md,summary.json,*_spec
 
 **Action:** do **not** start E11 until human acknowledges this nuance and green-lights Option R work.
 
+---
+
+## E10b add-on — weighted severity (COMPLETE; claim-check CLOSED)
+
+**Date:** 2026-07-17  
+**Human ack:** proceed Option R + severity table + dual-Tc refit directives.
+
+### Method
+
+`validation/thermo_audit/e10b_severity.py` — Cantera HP-equilibrium burnt Y (Luo MidT moles; GRI tutorial CH4/air); OpenFOAM `janafThermo` blend replica (Tcommon_mix = species[0] Tcommon; Y-weighted low/high mass-basis coeffs).
+
+### Severity table (blended cp vs Σ Yi·cpᵢ)
+
+| Mech | species[0] / Tcommon_mix | T=1200 | T=1600 | T=2000 | T=2400 | T=2600 | worst |
+|------|--------------------------|--------|--------|--------|--------|--------|-------|
+| Luo | `h` / **5000 K** | −1.9% | −33% | **−151%** | −439% | −681% | 681% @2600 |
+| GRI | `CH4` / 1000 K | 0.00% | 0.00% | 0.00% | 0.00% | 0.00% | ~0 |
+
+Artifacts: `validation/thermo_audit/e10b_tcommon/{severity.json,SUMMARY.md}`.
+
+### Interpretation
+
+GRI survives because the blend identity holds at burnt Y (near-uniform Tcommon + species[0] aligned). Luo collapses because species[0]=`h` forces Tcommon_mix=5000 K → mixture always evaluates blended *low* coeffs through the 1700–1850 K crash band; Luo `oh` Tcommon=1710 K sits in that band. **Claim-check status: CLOSED.**
+
