@@ -31,8 +31,28 @@ OPENFOAM_PATH/applications/solvers/chemFoam/Make/linux*/
 OPENFOAM_PATH/cases/chemFoam_0D/e8_*.csv
 OPENFOAM_PATH/cases/chemFoam_0D/e8_*.dat
 
+# E15 conformance — multi-GB trajectory dumps / scratch worktrees (maps & gates are tracked)
+OPENFOAM_PATH/validation/zeroD/e15_conformance/of_runs/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/of_runs_tfreeze/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/of_work/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/of_work_tfreeze/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2_runs/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2_work/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2b_runs/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2b_work/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2c_runs/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2c_work/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/*.log
+OPENFOAM_PATH/validation/zeroD/e15_conformance/*.tsv.bak*
+OPENFOAM_PATH/validation/zeroD/e15_conformance/colima_start.log
+OPENFOAM_PATH/validation/zeroD/e15_conformance/recover_platforms.log
+
 # OS / IDE
 .DS_Store
 .cursor/
 *.swp
 .env
+
+handoff/
+PELE_PATH/
+PelePhysics/
