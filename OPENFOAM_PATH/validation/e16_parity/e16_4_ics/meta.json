@@ -1,0 +1,38 @@
+[
+  {
+    "T0": 650.0,
+    "p_atm": 1.0,
+    "Z": 0.062,
+    "phi": 0.9858512254307391,
+    "path": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/e16_parity/e16_4_ics/C1_LowT_LowP_initialConditions",
+    "id": "C1",
+    "label": "LowT_LowP"
+  },
+  {
+    "T0": 800.0,
+    "p_atm": 10.0,
+    "Z": 0.062,
+    "phi": 0.9858512254307391,
+    "path": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/e16_parity/e16_4_ics/C2_MidT_MidP_initialConditions",
+    "id": "C2",
+    "label": "MidT_MidP"
+  },
+  {
+    "T0": 1000.0,
+    "p_atm": 30.0,
+    "Z": 0.042,
+    "phi": 0.6538924317642499,
+    "path": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/e16_parity/e16_4_ics/C3_HighT_HighP_initialConditions",
+    "id": "C3",
+    "label": "HighT_HighP"
+  },
+  {
+    "T0": 750.0,
+    "p_atm": 60.0,
+    "Z": 0.042,
+    "phi": 0.6538924317642499,
+    "path": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/e16_parity/e16_4_ics/C4_LowT_VeryHighP_initialConditions",
+    "id": "C4",
+    "label": "LowT_VeryHighP"
+  }
+]

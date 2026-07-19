@@ -30,8 +30,8 @@ E17 + E17b green → E18 (production, LONI only)
 
 ## Compute placement
 
-- **Mac:** development, unit tests, 0D, E16, E17 smoke ONLY. Not thesis production.
-- **LONI:** ALL E18 + mesh-independence + scaling. Production figures cite HPC only.
+- **Mac:** development, unit tests, 0D, E16, E17 smoke. Thesis production numbers wait for LONI.
+- **LONI (E17b/E18):** **DEFERRED** until allocation access is granted. Scaffold remains under `container/`.
 
 ## Stop conditions
 

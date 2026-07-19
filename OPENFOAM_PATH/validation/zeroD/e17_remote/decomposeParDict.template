@@ -1,0 +1,23 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| decomposeParDict — E17 opposedJet_2D multi-core template                    |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Overwritten by 01_run_ignition_scout.sh from env NPROC
+numberOfSubdomains  8;
+
+method          scotch;
+
+distributed     no;
+
+roots           ( );
+
+
+// ************************************************************************* //

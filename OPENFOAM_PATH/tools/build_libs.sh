@@ -28,6 +28,18 @@ else
   echo "WARN: SUNDIALS not found at $SUNDIALS_DIR — skipping cvodeChemistrySolver"
 fi
 
+# LibTorch (optional for policyRuntime / rlChemistryModel)
+export LIBTORCH_DIR="${LIBTORCH_DIR:-$ROOT/opt/libtorch}"
+if [[ -f "$LIBTORCH_DIR/include/torch/script.h" ]]; then
+  export LD_LIBRARY_PATH="$LIBTORCH_DIR/lib:${LD_LIBRARY_PATH:-}"
+  echo "LIBTORCH_DIR=$LIBTORCH_DIR"
+  (cd "$ROOT/src/policyRuntime" && wmake libso)
+  (cd "$ROOT/src/rlChemistryModel" && wmake libso)
+else
+  echo "WARN: LibTorch not found at $LIBTORCH_DIR — skipping policyRuntime/rlChemistryModel"
+  echo "      Run: bash tools/install_libtorch.sh"
+fi
+
 (cd "$ROOT/applications/solvers/chemFoam" && wmake)
 
 ls -la "$FOAM_USER_LIBBIN"

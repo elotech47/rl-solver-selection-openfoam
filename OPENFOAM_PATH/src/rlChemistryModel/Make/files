@@ -1,3 +1,4 @@
+rlChemistryModel.C
 rlChemistryModels.C
 
 LIB = $(FOAM_USER_LIBBIN)/librlChemistryModel

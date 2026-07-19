@@ -57,3 +57,9 @@ OPENFOAM_PATH/validation/zeroD/e15_conformance/recover_platforms.log
 handoff/
 PELE_PATH/
 PelePhysics/
+# E16/E17 runtime dumps (gates/figures/scripts stay tracked)
+OPENFOAM_PATH/validation/e16_parity/e16_*_runs/
+OPENFOAM_PATH/validation/zeroD/e17_ignition_scout*/
+OPENFOAM_PATH/cases/chemFoam_0D/core
+OPENFOAM_PATH/cases/chemFoam_0D/rl_decisions.csv
+OPENFOAM_PATH/**/lnInclude/

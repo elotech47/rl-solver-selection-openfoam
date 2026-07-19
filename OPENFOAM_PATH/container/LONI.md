@@ -8,9 +8,9 @@ tag passing environment `hpc-baseline-v1` before any E18 production.
 | Item | Status |
 |------|--------|
 | Apptainer definition | **DRAFT** — `container/loni-of-rl.def` |
-| Build on LONI | **NOT STARTED** — needs allocation login / build node |
+| Build on LONI | **DEFERRED** — waiting on allocation membership |
 | Spot re-validation | blocked on build |
-| SLURM templates | scaffold under `hpc/` (next) |
+| SLURM templates | later, with build |
 | Tag `hpc-baseline-v1` | pending green spot set |
 
 ## Version pins (match Mac Docker / validation-baseline-v1)
@@ -19,7 +19,7 @@ tag passing environment `hpc-baseline-v1` before any E18 production.
 |-----------|-----|
 | OpenFOAM | ESI **v2312** (`opencfd/openfoam-default:2312` lineage) |
 | SUNDIALS | as in `OPENFOAM_PATH/opt` / container build |
-| LibTorch | CPU, version recorded at build |
+| LibTorch | CPU **2.2.2** wheel lineage (`opt/libtorch`), ABI=0 |
 | Mechanism | Option R refit + stock THE |
 | QSS | T-freeze ON, epsmin=0.02 |
 | Policy | `policy/policy.ts` + `policy_manifest.json` hashes in E16.1 |

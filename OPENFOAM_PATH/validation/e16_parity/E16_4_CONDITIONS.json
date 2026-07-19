@@ -1,0 +1,92 @@
+{
+  "source": "handoff/configs/example_ndodecane.yaml",
+  "source_note": "Paper 0D evaluation conditions — pulled verbatim (T0, p, Z, dt, t_end). Mixture via Z, not phi.",
+  "policy": {
+    "num_steps": 20,
+    "source": "handoff/configs/example_ndodecane.yaml policy.num_steps",
+    "note": "Decision every num_steps chemistry windows at the condition dt. C1: every 20 x 1e-5 s (do NOT sub-cycle at 1e-6)."
+  },
+  "feature_dt_semantics": {
+    "builder": "OPENFOAM_PATH/src/policyRuntime/policyFeatures.H buildObservation19",
+    "temporal": "Delta log10 (T and Ykey) between decision epochs — NOT divided by Delta t",
+    "c1_flag": "SAFE at dt=1e-5: no 1e-6 normalization assumed in gradient stencils"
+  },
+  "qss_internal": {
+    "dtmax": 1.0e-6,
+    "note": "Matches handoff solver.qss_dtmax even when outer window dt=1e-5 (C1)"
+  },
+  "conditions": [
+    {
+      "id": "C1",
+      "label": "LowT_LowP",
+      "T0": 650.0,
+      "p_atm": 1.0,
+      "Z": 0.062,
+      "dt": 1.0e-5,
+      "t_end": 0.12,
+      "maxChemDeltaT": 1.0e-5,
+      "num_steps": 20,
+      "decision_interval_s": 2.0e-4,
+      "n_steps": 12000
+    },
+    {
+      "id": "C2",
+      "label": "MidT_MidP",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "Z": 0.062,
+      "dt": 1.0e-6,
+      "t_end": 3.5e-3,
+      "maxChemDeltaT": 1.0e-6,
+      "num_steps": 20,
+      "decision_interval_s": 2.0e-5,
+      "n_steps": 3500,
+      "note": "MidT anchor"
+    },
+    {
+      "id": "C3",
+      "label": "HighT_HighP",
+      "T0": 1000.0,
+      "p_atm": 30.0,
+      "Z": 0.042,
+      "dt": 1.0e-6,
+      "t_end": 3.0e-3,
+      "maxChemDeltaT": 1.0e-6,
+      "num_steps": 20,
+      "decision_interval_s": 2.0e-5,
+      "n_steps": 3000
+    },
+    {
+      "id": "C4",
+      "label": "LowT_VeryHighP",
+      "T0": 750.0,
+      "p_atm": 60.0,
+      "Z": 0.042,
+      "dt": 1.0e-6,
+      "t_end": 2.5e-3,
+      "maxChemDeltaT": 1.0e-6,
+      "num_steps": 20,
+      "decision_interval_s": 2.0e-5,
+      "n_steps": 2500,
+      "note": "60 atm family — pre-conform QSS stall watch; note qssOnly wall time"
+    }
+  ],
+  "gates": {
+    "of_cvode_tau_vs_py_cvode_pct": 1.0,
+    "of_rl_dT_final_K": 50.0,
+    "of_rl_vs_py_rl_pct": 5.0,
+    "of_rl_qss_bound_slack_pts": 3.0,
+    "of_rl_gate_note": "Two-part: |tau(OF-rl)-tau(Py-rl)|/tau(Py-rl)<=5% OR |err(OF-rl vs OF-cvode)| <= |err(OF-qssOnly vs OF-cvode)| + 3 pts; plus |Delta T_final|<=50 K vs OF-cvodeOnly. Rationale: published AdaptiveRL is itself ~+15% at C3; matching the published instrument is the validation claim.",
+    "of_qss_tau_vs_py_qss_pct": 15.0,
+    "of_qss_sign_floor_K": 25.0,
+    "of_qss_envelope_note": "Conform-family: |Delta tau|<=15% vs Py-QSS. Delta Teq sign criterion only where |Delta Teq|>=25 K in both frameworks; otherwise magnitude family only.",
+    "retired_gates": [
+      "Hard |Delta tau_rl vs OF-cvode|<=5% alone — retired: published AdaptiveRL exceeds that vs CVODE at some paper conditions",
+      "Unconditional QSS late-sign — retired: apply only when |Delta Teq|>=25 K both sides"
+    ],
+    "rl_cheaper_than_cvode": true,
+    "cheapness_metric": "chemistry-only (chemCpuTime / Py cpu_time); wall secondary",
+    "ood_metric": "|p-0.5| < 0.1 decision fraction (logged, not hard fail)",
+    "reverse_tf_pct": 99.0
+  }
+}

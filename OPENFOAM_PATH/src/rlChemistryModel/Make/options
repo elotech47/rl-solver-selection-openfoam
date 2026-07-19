@@ -2,18 +2,33 @@ EXE_INC = \
     -I../policyRuntime \
     -I../qssChemistrySolver \
     -I../cvodeChemistrySolver \
-    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
-    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
-    -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
-    -I$(LIB_SRC)/thermophysicalModels/chemistryModel/lnInclude \
+    -I../ofRlInvariants \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
-    -I$(LIBTORCH_DIR)/include \
-    -I$(LIBTORCH_DIR)/include/torch/csrc/api/include
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/ODE/lnInclude \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/reactionThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/thermophysicalProperties/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/chemistryModel/lnInclude \
+    -I$(SUNDIALS_DIR)/include \
+    -std=c++17
 
 LIB_LIBS = \
-    -lchemistryModel \
-    -lreactionThermophysicalModels \
-    -lfluidThermophysicalModels \
-    -lspecie \
     -lfiniteVolume \
-    -L$(FOAM_USER_LIBBIN) -lpolicyRuntime
+    -lmeshTools \
+    -lODE \
+    -lcompressibleTransportModels \
+    -lfluidThermophysicalModels \
+    -lreactionThermophysicalModels \
+    -lspecie \
+    -lthermophysicalProperties \
+    -lchemistryModel \
+    -L$(FOAM_USER_LIBBIN) -lpolicyRuntime -lofRlInvariants \
+    -L$(LIBTORCH_DIR)/lib \
+    -Wl,-rpath,$(LIBTORCH_DIR)/lib \
+    -ltorch -ltorch_cpu -lc10 \
+    -L$(SUNDIALS_DIR)/lib \
+    -Wl,-rpath,$(SUNDIALS_DIR)/lib \
+    -lsundials_cvode -lsundials_nvecserial -lsundials_sunmatrixdense -lsundials_sunlinsoldense

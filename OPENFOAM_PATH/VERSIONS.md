@@ -5,7 +5,7 @@
 | OpenFOAM (ESI) | **v2312** | Image `opencfd/openfoam-default:2312` |
 | Base OS (container) | Ubuntu (image default) | amd64; Apple Silicon via Docker QEMU |
 | SUNDIALS / CVODE | ≥ 6.x | Installed in custom Dockerfile layer |
-| LibTorch (CPU) | 2.1+ (CPU wheel) | Policy inference; see container build |
+| LibTorch (CPU) | **2.2.2** (pip `torch` cpu wheel → `opt/libtorch`) | Linux **arm64**; `_GLIBCXX_USE_CXX11_ABI=0`. Install: `tools/install_libtorch.sh`. |
 | Cantera (host oracle) | ≥ 3.0 | `rlEnv` / handoff dependency |
 | PyTorch (host export) | 2.x | Policy `.pt` → TorchScript export |
 | qss-integrator | research C++ CHEMEQ2 | Host oracle via handoff |

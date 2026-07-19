@@ -1,0 +1,230 @@
+[
+  {
+    "id": "C1",
+    "label": "LowT_LowP",
+    "figure": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/analysis/e16_4_figures/E16_4_C1_LowT_LowP.png",
+    "of": {
+      "cvodeOnly": {
+        "tau": 0.09685,
+        "T_final": 2452.87,
+        "wall": 189.0,
+        "chem_cpu": 53.205,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "qssOnly": {
+        "tau": 0.10474,
+        "T_final": 2415.96,
+        "wall": 137.0,
+        "chem_cpu": 13.0274,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "rlAdaptive": {
+        "tau": 0.10689,
+        "T_final": 2415.95,
+        "wall": 161.0,
+        "chem_cpu": 15.5457,
+        "cvode_frac": 0.03666666666666667,
+        "ood_frac": 0.03
+      }
+    },
+    "py": {
+      "CVODE": {
+        "tau": 0.09712999999999504,
+        "T_final": 2452.28969031087,
+        "wall": 26.551355249946937,
+        "chem_cpu": 26.427483081817627,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "QSS": {
+        "tau": 0.10993999999999007,
+        "T_final": 2425.533693791222,
+        "wall": 9.238295917166397,
+        "chem_cpu": 9.18093729019165,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "AdaptiveRL": {
+        "tau": 0.09421999999999617,
+        "T_final": 2454.83531204107,
+        "wall": 9.622221041005105,
+        "chem_cpu": 9.475075483322144,
+        "cvode_frac": 0.04,
+        "ood_frac": 0.03
+      }
+    }
+  },
+  {
+    "id": "C2",
+    "label": "MidT_MidP",
+    "figure": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/analysis/e16_4_figures/E16_4_C2_MidT_MidP.png",
+    "of": {
+      "cvodeOnly": {
+        "tau": 0.002281,
+        "T_final": 2607.22,
+        "wall": 56.0,
+        "chem_cpu": 17.2715,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "qssOnly": {
+        "tau": 0.002436,
+        "T_final": 2587.84,
+        "wall": 41.0,
+        "chem_cpu": 1.01101,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "rlAdaptive": {
+        "tau": 0.002429,
+        "T_final": 2589.81,
+        "wall": 41.0,
+        "chem_cpu": 1.12416,
+        "cvode_frac": 0.005714285714285714,
+        "ood_frac": 0.0
+      }
+    },
+    "py": {
+      "CVODE": {
+        "tau": 0.0022879999999999793,
+        "T_final": 2604.994622027953,
+        "wall": 7.65347991604358,
+        "chem_cpu": 7.599218845367432,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "QSS": {
+        "tau": 0.0025090000000000086,
+        "T_final": 2620.2323149723175,
+        "wall": 0.6040752080734819,
+        "chem_cpu": 0.5894994735717773,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "AdaptiveRL": {
+        "tau": 0.0021929999999999667,
+        "T_final": 2654.815483111804,
+        "wall": 1.1930791249033064,
+        "chem_cpu": 1.1478302478790283,
+        "cvode_frac": 0.07386363636363637,
+        "ood_frac": 0.017045454545454544
+      }
+    }
+  },
+  {
+    "id": "C3",
+    "label": "HighT_HighP",
+    "figure": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/analysis/e16_4_figures/E16_4_C3_HighT_HighP.png",
+    "of": {
+      "cvodeOnly": {
+        "tau": 0.00161,
+        "T_final": 2374.95,
+        "wall": 49.0,
+        "chem_cpu": 15.4729,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "qssOnly": {
+        "tau": 0.001916,
+        "T_final": 2337.2,
+        "wall": 34.0,
+        "chem_cpu": 0.888627,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "rlAdaptive": {
+        "tau": 0.001847,
+        "T_final": 2339.77,
+        "wall": 35.0,
+        "chem_cpu": 2.04855,
+        "cvode_frac": 0.08,
+        "ood_frac": 0.07333333333333333
+      }
+    },
+    "py": {
+      "CVODE": {
+        "tau": 0.0016149999999999635,
+        "T_final": 2375.53016886556,
+        "wall": 6.4197858748957515,
+        "chem_cpu": 6.368558168411255,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "QSS": {
+        "tau": 0.0020339999999999456,
+        "T_final": 2382.974531443104,
+        "wall": 0.45726775005459785,
+        "chem_cpu": 0.4454495906829834,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "AdaptiveRL": {
+        "tau": 0.0018569999999999431,
+        "T_final": 2394.450603495289,
+        "wall": 0.68183554103598,
+        "chem_cpu": 0.6441166400909424,
+        "cvode_frac": 0.35333333333333333,
+        "ood_frac": 0.34
+      }
+    }
+  },
+  {
+    "id": "C4",
+    "label": "LowT_VeryHighP",
+    "figure": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/analysis/e16_4_figures/E16_4_C4_LowT_VeryHighP.png",
+    "of": {
+      "cvodeOnly": {
+        "tau": 0.001523,
+        "T_final": 2172.71,
+        "wall": 40.0,
+        "chem_cpu": 13.4158,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "qssOnly": {
+        "tau": 0.001612,
+        "T_final": 2136.14,
+        "wall": 28.0,
+        "chem_cpu": 0.825899,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "rlAdaptive": {
+        "tau": 0.001558,
+        "T_final": 2179.43,
+        "wall": 36.0,
+        "chem_cpu": 3.30971,
+        "cvode_frac": 0.128,
+        "ood_frac": 0.12
+      }
+    },
+    "py": {
+      "CVODE": {
+        "tau": 0.0015229999999999712,
+        "T_final": 2177.565461627929,
+        "wall": 5.279834707966074,
+        "chem_cpu": 5.235574007034302,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "QSS": {
+        "tau": 0.001643999999999961,
+        "T_final": 2141.282735165522,
+        "wall": 0.4835581670049578,
+        "chem_cpu": 0.472243070602417,
+        "cvode_frac": null,
+        "ood_frac": null
+      },
+      "AdaptiveRL": {
+        "tau": 0.0015429999999999695,
+        "T_final": 2193.3905363371982,
+        "wall": 1.1379817088600248,
+        "chem_cpu": 1.1090362071990967,
+        "cvode_frac": 0.208,
+        "ood_frac": 0.136
+      }
+    }
+  }
+]

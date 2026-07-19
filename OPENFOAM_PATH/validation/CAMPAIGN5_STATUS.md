@@ -18,18 +18,25 @@ Canonical freeze tag: **`validation-baseline-v1`** (alias `e15-conform-baseline-
 
 ## Live trackers
 
-| Track | Status | Notes |
-|-------|--------|-------|
-| E16.1 interface freeze | **DONE** | `validation/e16_parity/E16_1_INTERFACE_FREEZE.md` + DECISIONS |
-| E16.2 replay ≥99.9% | **PASS (contract+TS)** | 800/800 decisions; max feature abs 9.5e-7. Native OF LibTorch path still needs Ykey/obs_rms wiring |
-| E16.3 0D rlAdaptive | **BLOCKED** — `rlChemistryModel` still scaffolds (Ykey={}, parent solve only) |
-| E17.1 cvodeOnly smoke | **NEEDS IGNITING BC** — E12.1-redo @1250 K did **not** ignite |
-| E17 qss/rl smoke | waits E16.3 wiring + igniting case |
-| E17b LONI Apptainer | **SCAFFOLD** — `container/LONI.md` + `loni-of-rl.def` (build needs LONI login) |
-| E18 production | waits E16+E17+E17b green; **LONI only** |
+| Track                  | Status                                                                           | Notes                                                                                                  |
+| ------------------------| ----------------------------------------------------------------------------------| --------------------------------------------------------------------------------------------------------|
+| E16.1 interface freeze | **DONE**                                                                         | `validation/e16_parity/E16_1_INTERFACE_FREEZE.md` + DECISIONS                                          |
+| E16.2 replay ≥99.9%    | **PASS (contract+TS)**                                                           | 800/800 decisions; max feature abs 9.5e-7                                                              |
+| E16.3 0D rlAdaptive | **WIRING PASS / usage INCONCLUSIVE** | ±5 retired; see `E16_3_GATE.md` |
+| E16.3b teacher-forced + extended free-run | **APPROVED** | TF **100%**. Free-run usage band **waived** (fork analysis). Binding gate = final-state vs cvodeOnly. Standing: accuracy hard gate + log \|p−0.5\|<0.1 OOD. `E16_3B_GATE.md` |
+| E16.4 0D paper-conditions suite | **GREEN — E16 CLOSED** | Recalibrated gates; chemCpuTime fix; reverse TF 100% C1/C2. `E16_4_GATE.md` |
+| E17.1 cvodeOnly smoke | **IN PROGRESS (remote kit)** | Mac scout slow; use `validation/zeroD/e17_remote/README.md` on multi-core linux/amd64 |
+| E17 qss/rl smoke | waits igniting BC from remote/Mac scout |
+| E17b LONI Apptainer | **DEFERRED** — waiting on allocation access; scaffold kept (`container/LONI.md`) |
+| E18 production | waits E16+E17+E17b; **LONI only when access lands** |
 
 ## Known blockers (do not paper over)
 
-1. **`rlChemistryModel::solve`**: Ykey extraction stubbed to zeros; no per-cell QSS/CVODE dispatch; `obs_rms` not loaded from manifest → near-identity normalize.
-2. **E17 ignition**: need Cantera-sized opposed-jet BC that actually runs away (E12.1-redo failed).
-3. **E16.2 true gate**: must compare Python pipeline vs C++ `buildObservation19` + TorchScript `policy.ts`, not Python vs Python contract clone.
+1. **E17 ignition:** need Cantera-sized opposed-jet BC that actually runs away (E12.1-redo failed).
+2. **LibTorch in OF process (arm64):** requires `LD_PRELOAD` + MKLDNN off (`e16_4_run_one.sh`).
+
+## Standing conditions (post–E16.3b / E16.4)
+
+1. Accuracy vs **cvodeOnly** = hard gate on subsequent runs.
+2. Log **OOD** = fraction of decisions with \|p−0.5\| < 0.1.
+3. **E16 CLOSED GREEN** (2026-07-19) — proceed to E17 rlAdaptive smoke when igniting BC exists.

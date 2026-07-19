@@ -7,6 +7,16 @@
 
 #include "StandardChemistryModel.H"
 #include "volFields.H"
+#include "rlIntegrators.H"
+#include <memory>
+#include <vector>
+#include <array>
+
+namespace ofRlChem
+{
+class PolicyRuntime;
+struct PolicyManifest;
+}
 
 namespace Foam
 {
@@ -26,19 +36,32 @@ private:
     scalar maxChemDeltaT_;
     label numSteps_;
     scalar confidenceThreshold_;
-    word policyManifestPath_;
-    word policyTorchPath_;
+    fileName policyManifestPath_;
+    fileName policyTorchPath_;
 
-    //- Solver map: 0=CVODE, 1=QSS
+    ofRlChem::QssCoeffs qssCoeffs_;
+    ofRlChem::CvodeCoeffs cvodeCoeffs_;
+
     mutable volScalarField solverFlag_;
     mutable volScalarField chemCpuTime_;
     mutable volScalarField Tconsistency_;
 
-    // Per-cell history for temporal features
     mutable scalarField Tprev_;
-    mutable PtrList<scalarField> YkeyPrev_;
+    mutable List<FixedList<scalar, 8>> YkeyPrev_;
     mutable labelField stepsSinceDecision_;
-    mutable labelField lastDecision_; // sticky until next policy query
+    mutable labelField lastDecision_;
+    mutable label chemCallCount_;
+
+    mutable labelList keyIndices_;
+    mutable bool keysResolved_;
+
+    mutable std::unique_ptr<ofRlChem::PolicyRuntime> policy_;
+    mutable ofRlChem::CvodeWorkspace cvodeWs_;
+    // User-data for CVODE RHS (model pointer filled in integrateCvode)
+    mutable void* cvodeUdStorage_;
+
+    void resolveKeySpecies() const;
+    void ensurePolicy() const;
 
 public:
 
@@ -47,16 +70,11 @@ public:
     rlChemistryModel(ReactionThermo& thermo);
     virtual ~rlChemistryModel();
 
-    //- Integrate chemistry over deltaT with sub-stepping / RL dispatch
     virtual scalar solve(const scalar deltaT);
 
     const volScalarField& solverFlag() const { return solverFlag_; }
 };
 
 } // End namespace Foam
-
-#ifdef NoRepository
-    #include "rlChemistryModel.C"
-#endif
 
 #endif

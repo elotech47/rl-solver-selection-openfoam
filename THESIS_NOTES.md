@@ -203,3 +203,27 @@ table: `FROZEN_RUNG_BC_ACCEPTANCE.md`. Code freeze tag: **`validation-baseline-v
 *This finding is main-chapter support for the RL deployment claim: the deployed
 OpenFOAM chemistry core now matches the training-time reference across the
 operating envelope after one documented ODE correction.*
+
+---
+
+## 0D validation of deployed stack — CVODE ≤0.31% at 4/4; QSS conform-family at 4/4; AdaptiveRL matches published behavior at C3/C4 and degrades gracefully to the qssOnly bound under closed-loop forks at C1/C2 (bidirectional TF evidence); deployed policy achieved published accuracy at 4× lower CVODE usage at C3 (2026-07-19)
+
+**Finding.** The frozen conform OpenFOAM stack was validated on the four paper 0-D
+conditions (`handoff/configs/example_ndodecane.yaml`). OF-CVODE ignition delays
+agree with Py-CVODE to ≤0.31% at all four. OF-QSS sits in the conform-family
+envelope of Py-QSS at all four (ΔTeq sign criterion only where |ΔTeq|≥25 K both
+sides). OF-rlAdaptive matches published AdaptiveRL timing at C3/C4 and, where
+closed-loop forks appear (C1/C2), stays within a qssOnly-bounded error of
+OF-CVODE while keeping |ΔT_final|≤50 K. Bidirectional teacher-forcing (Python
+tape→OF in E16.3b; OF tape→Python in E16.4) shows the decision path is
+state-driven, not an instrument bug. At C3 the deployed policy reached published
+adaptive accuracy at roughly 4× lower CVODE usage than the Python free-run.
+
+**Evidence.** `E16_4_GATE.md`, `E16_4_SUMMARY.json`, reverse-TF summaries under
+`e16_4_runs/{C1,C2}_rlAdaptive/`, figures `analysis/e16_4_figures/E16_4_C1_LowT_LowP.png`, `analysis/e16_4_figures/E16_4_C2_MidT_MidP.png`, `analysis/e16_4_figures/E16_4_C3_HighT_HighP.png`, `analysis/e16_4_figures/E16_4_C4_LowT_VeryHighP.png`. Verdict: GREEN.
+
+**Post-E18 optional:** in-situ fine-tuning of the policy on OpenFOAM closed-loop
+trajectories to shrink C1/C2 fork residuals — logged as optional work, not a
+blocker for E17.
+
+*Closes 0-D instrument parity for the deployed stack before 2-D rlAdaptive smoke.*

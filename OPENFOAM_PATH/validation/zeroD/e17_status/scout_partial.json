@@ -1,0 +1,8 @@
+{
+  "last_Time": 0.00062,
+  "n_steps": 62,
+  "max_internal_T": 936.917,
+  "last_internal_T": 936.917,
+  "verdict": "NO_IGNITION_SCOUT_STOPPED",
+  "note": "T_air=1350, U=\u00b10.05; internal T climbed slowly (~936K @ 0.61ms). Same mixing-without-runaway pattern as E12. Next: hot premixed kernel IC."
+}
