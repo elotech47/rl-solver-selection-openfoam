@@ -29,7 +29,7 @@ boundaryField
     air
     {
         type            fixedValue;
-        value           uniform 1250;
+        value           uniform 1100;
     }
 
     outlet
