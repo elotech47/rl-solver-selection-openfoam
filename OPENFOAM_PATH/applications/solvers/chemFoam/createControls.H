@@ -23,3 +23,4 @@ scalar e14MaxAbsDeltaYDiff = 0;
 word e14MaxAbsDeltaYRRName;
 word e14MaxAbsDeltaYDiffName;
 autoPtr<OFstream> e14InvCsv;
+autoPtr<OFstream> e14YCsv;

@@ -39,11 +39,11 @@ QSS-path NASA `ha`/`cp` vs Cantera-refit at 5 pins × 10 species:
 
 ## E14.4 Re-acceptance
 
-| Gate | Result |
-|------|--------|
-| Teq ≤ 2 K | FAIL (+40.3 K) |
-| Ledger / ΔY | green |
-| ΣY | (unchanged Option R path) |
+| Gate               | Result                             |
+| --------------------| ------------------------------------|
+| Teq ≤ 2 K          | FAIL (+40.3 K)                     |
+| Ledger / ΔY        | green                              |
+| ΣY                 | (unchanged Option R path)          |
 | CVODE MidT control | Tend=2608.75 K (matches prior E13) |
 
 **Component B (−19% / +4.2% / +39 K) not explained by accounting or NASA range.**
@@ -54,3 +54,10 @@ Escalation packet for advisor: full CSV under `e14_midt/{qss,cvode}/e14_invarian
 
 E15 toggles **blocked** until advisor disposition of this escalation (plan: E15
 only after E14.4 green). E15.1 config-diff table may still be drafted offline.
+
+
+## E14.5 resolution (gate revised)
+
+See `E14_5_ELEMENT_DRIFT.md`. The Teq≤2K gate was wrong for α-QSS: element drift
+explains the hot endpoint (HP@drifted elems recovers Teq). Component B → algorithm
+property; OF/Py amplitude ratio is Component A (E15).

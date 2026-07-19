@@ -73,11 +73,13 @@ EOF
   echo "wall_s=$((END-START))" | tee "$OUT/wall.txt"
   cp -f chemFoam.out "$OUT/chemFoam.out" 2>/dev/null || true
   cp -f e14_invariants.csv "$OUT/" 2>/dev/null || true
+  cp -f e14_Y.csv "$OUT/" 2>/dev/null || true
   cp -f constant/chemistryProperties "$OUT/"
   cp -f constant/initialConditions "$OUT/"
   grep -E "End$|FOAM FATAL|JANAF|Maximum number" "$OUT/log.chemFoam" | tail -20 || true
   tail -3 "$OUT/chemFoam.out" 2>/dev/null || true
   wc -l "$OUT/e14_invariants.csv" 2>/dev/null || echo "MISSING e14_invariants.csv"
+  wc -l "$OUT/e14_Y.csv" 2>/dev/null || echo "MISSING e14_Y.csv"
 }
 
 case "$MODE" in

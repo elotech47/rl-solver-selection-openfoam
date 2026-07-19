@@ -1,0 +1,190 @@
+{
+  "campaign": "E14.5",
+  "thesis": "Teq\u22642K gate assumed element-conserving integration; \u03b1-QSS/CHEMEQ2 does not conserve atoms exactly.",
+  "of": {
+    "cvode": {
+      "Teq": 2608.75,
+      "drift": {
+        "tag": "OF-cvode-normY",
+        "dZ_C": 0.0006306879079295696,
+        "maxAbs_dZ_C": 0.0006308610771792247,
+        "dZ_H": 9.081577291278689e-05,
+        "maxAbs_dZ_H": 9.081732345575348e-05,
+        "dZ_O": 5.604591442415208e-06,
+        "maxAbs_dZ_O": 6.049145735653738e-06,
+        "dZ_N": -0.0007271082722847266,
+        "maxAbs_dZ_N": 0.00072766355994347,
+        "sumY_0": 1.0,
+        "sumY_end": 0.9999999999999998,
+        "maxAbs_dZ": 0.00072766355994347
+      },
+      "sumY_end": 1.0010116839492988,
+      "closing": {
+        "T_obs": 2608.75,
+        "T_HP_drifted_elems": 2609.4286802964452,
+        "T_HP_original_elems": 2602.8614635792537,
+        "dT_obs_minus_HP_drifted": -0.6786802964452363,
+        "PASS_closing": true,
+        "Z_end": {
+          "C": 0.05309240055410233,
+          "H": 0.009630103127773066,
+          "O": 0.21856660459147068,
+          "N": 0.718710891726654
+        },
+        "equilibrate_ok": true,
+        "error": null,
+        "h_target": 472128.69310333824,
+        "p": 1013250.0
+      },
+      "mechanism": "element_drift"
+    },
+    "qss": {
+      "Teq": 2647.95,
+      "drift": {
+        "tag": "OF-qss-normY",
+        "dZ_C": 0.002863823023397931,
+        "maxAbs_dZ_C": 0.0030713368752322764,
+        "dZ_H": 0.0009525168759714295,
+        "maxAbs_dZ_H": 0.0009705817503333023,
+        "dZ_O": 0.002340896636480294,
+        "maxAbs_dZ_O": 0.00255030846995552,
+        "dZ_N": -0.006157236535849431,
+        "maxAbs_dZ_N": 0.006369953043069754,
+        "sumY_0": 1.0,
+        "sumY_end": 1.0,
+        "maxAbs_dZ": 0.006369953043069754
+      },
+      "sumY_end": 1.0086322761692716,
+      "closing": {
+        "T_obs": 2647.95,
+        "T_HP_drifted_elems": 2648.5812155329404,
+        "T_HP_original_elems": 2611.4691354618108,
+        "dT_obs_minus_HP_drifted": -0.6312155329405869,
+        "PASS_closing": true,
+        "Z_end": {
+          "C": 0.055325535669154144,
+          "H": 0.010491804230758925,
+          "O": 0.2209018966365333,
+          "N": 0.7132807634635537
+        },
+        "equilibrate_ok": true,
+        "error": null,
+        "h_target": 492526.5058241377,
+        "p": 1013250.0
+      },
+      "mechanism": "element_drift"
+    }
+  },
+  "python": {
+    "cvode": {
+      "drift": {
+        "tag": "Py-cvode",
+        "dZ_C": 1.41483352811278e-12,
+        "maxAbs_dZ_C": 9.892822672163959e-12,
+        "dZ_H": -2.3375270469250253e-11,
+        "maxAbs_dZ_H": 2.3761289810741992e-11,
+        "dZ_O": -4.195410685525758e-11,
+        "maxAbs_dZ_O": 8.91465234964528e-11,
+        "dZ_N": 0.0,
+        "maxAbs_dZ_N": 0.0,
+        "sumY_0": 1.0,
+        "sumY_end": 0.9999999999360855,
+        "maxAbs_dZ": 8.91465234964528e-11
+      },
+      "closing": {
+        "T_obs": 2601.0249626020995,
+        "T_HP_drifted_elems": 2601.772914718673,
+        "T_HP_original_elems": 2601.772915085382,
+        "dT_obs_minus_HP_drifted": -0.7479521165732876,
+        "PASS_closing": true,
+        "Z_end": {
+          "C": 0.05246086650705739,
+          "H": 0.009539133474944877,
+          "O": 0.21855373277337642,
+          "N": 0.7194462672446214
+        },
+        "equilibrate_ok": true,
+        "error": null,
+        "h_target": 469560.00600996055,
+        "p": 1013250.0
+      },
+      "Teq": 2601.0249626020995,
+      "major_Y_minus_HP": {
+        "nc12h26": -4.212867894276232e-163,
+        "o2": 4.507933288416463e-05,
+        "n2": 1.3455903058456897e-13,
+        "co2": -0.00014388764894637807,
+        "h2o": -1.2914727739413157e-05,
+        "co": 9.157695279572026e-05,
+        "oh": 1.96364821604322e-05
+      },
+      "mechanism": "pseudo_equilibrium_or_other",
+      "wall_s": 0.16549858299999975
+    },
+    "qss": {
+      "drift": {
+        "tag": "Py-qss",
+        "dZ_C": -0.0008101345090849033,
+        "maxAbs_dZ_C": 0.003223717200006075,
+        "dZ_H": -0.00010001311314730872,
+        "maxAbs_dZ_H": 0.0005739588899691863,
+        "dZ_O": 0.0008748345715017536,
+        "maxAbs_dZ_O": 0.0016460523962538998,
+        "dZ_N": 3.531305073078972e-05,
+        "maxAbs_dZ_N": 0.002970558514091448,
+        "sumY_0": 1.0,
+        "sumY_end": 1.0000000000000002,
+        "maxAbs_dZ": 0.003223717200006075
+      },
+      "closing": {
+        "T_obs": 2611.699162314281,
+        "T_HP_drifted_elems": 2612.7023638364703,
+        "T_HP_original_elems": 2620.0453193411026,
+        "dT_obs_minus_HP_drifted": -1.0032015221895563,
+        "PASS_closing": true,
+        "Z_end": {
+          "C": 0.05165073199320463,
+          "H": 0.009439120384563151,
+          "O": 0.21942856737286345,
+          "N": 0.7194815802493689
+        },
+        "equilibrate_ok": true,
+        "error": null,
+        "h_target": 513002.3214396929,
+        "p": 1013250.0
+      },
+      "Teq": 2611.699162314281,
+      "major_Y_minus_HP": {
+        "nc12h26": 1.0000747286125803e-20,
+        "o2": 4.7122732521505395e-05,
+        "n2": 9.992007221626409e-16,
+        "co2": -0.00014847904488066166,
+        "h2o": -3.739653892696759e-05,
+        "co": 9.449924558605632e-05,
+        "oh": 4.342735040046945e-05
+      },
+      "mechanism": "element_drift",
+      "wall_s": 0.9264451249999999
+    },
+    "delta_Teq_qss_minus_cvode": 10.674199712181235
+  },
+  "verdict": {
+    "E14_bookkeeping": "ruled_out",
+    "OF_note": "Z on sumY-normalized Y; closing uses h=h(T,Y) Cantera-consistent",
+    "OF_QSS_maxAbs_dZ": 0.006369953043069754,
+    "OF_CVODE_maxAbs_dZ": 0.00072766355994347,
+    "OF_QSS_closing_PASS": true,
+    "OF_QSS_T_obs": 2647.95,
+    "OF_QSS_T_HP_drifted": 2648.5812155329404,
+    "OF_QSS_T_HP_original_elems": 2611.4691354618108,
+    "OF_delta_Teq": 39.19999999999982,
+    "OF_QSS_mechanism": "element_drift",
+    "Py_delta_Teq": 10.674199712181235,
+    "Py_QSS_maxAbs_dZ": 0.003223717200006075,
+    "Py_closing_PASS": true,
+    "Py_mechanism": "element_drift",
+    "ratio_OF_over_Py_deltaTeq": 3.6724064620287526,
+    "Component_B": "closed_as_CHEMEQ2_element_drift",
+    "Component_A_next": "OF/Py \u0394Teq amplitude ratio is per-window slack (E15 map)"
+  }
+}

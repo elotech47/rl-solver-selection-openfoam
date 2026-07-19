@@ -60,5 +60,29 @@
             << e14MaxAbsDeltaYDiffName
             << nl;
         e14InvCsv().flush();
+
+        // E14.5: full Y for elemental-drift audit (CHEMEQ2 atom conservation)
+        if (!e14YCsv.valid())
+        {
+            e14YCsv.reset(new OFstream(args.path()/"e14_Y.csv"));
+            *e14YCsv << "#t,sumY";
+            forAll(Y, i)
+            {
+                *e14YCsv << ',' << Y[i].name();
+            }
+            *e14YCsv << nl;
+        }
+        scalar sumYdump = 0;
+        forAll(Y, i)
+        {
+            sumYdump += Y[i][0];
+        }
+        *e14YCsv << runTime.value() << ',' << sumYdump;
+        forAll(Y, i)
+        {
+            *e14YCsv << ',' << Y[i][0];
+        }
+        *e14YCsv << nl;
+        e14YCsv().flush();
     }
 }
