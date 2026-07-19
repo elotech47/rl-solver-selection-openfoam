@@ -1,0 +1,72 @@
+{
+  "campaign": "E14.2",
+  "summaries": {
+    "cvode": {
+      "tag": "cvode",
+      "n_steps": 3522,
+      "T_end": 2608.75,
+      "T_int_end": 2608.75,
+      "T_newton_end": 2608.75,
+      "max_abs_dY_diff": 1.11022e-16,
+      "max_abs_heat_resid_dIH_vs_negHcRR": 0.0,
+      "max_abs_negHc_app_vs_RR": 9.999999999940612e-09,
+      "max_abs_negHc_int_vs_RR_nSub1": 0.0,
+      "frac_nSub_gt1": 0.0,
+      "integratedHeat_total": 2501639.649133724,
+      "PASS_dY": true,
+      "PASS_heat": true,
+      "PASS_app": true
+    },
+    "qss": {
+      "tag": "qss",
+      "n_steps": 3523,
+      "T_end": 2649.06,
+      "T_int_end": 2648.55,
+      "T_newton_end": 2647.95,
+      "max_abs_dY_diff": 1.11022e-16,
+      "max_abs_heat_resid_dIH_vs_negHcRR": 0.0,
+      "max_abs_negHc_app_vs_RR": 1.0000000000699553e-10,
+      "max_abs_negHc_int_vs_RR_nSub1": 0.0,
+      "frac_nSub_gt1": 0.0,
+      "integratedHeat_total": 2585042.6106902324,
+      "PASS_dY": true,
+      "PASS_heat": true,
+      "PASS_app": true
+    }
+  },
+  "branch": {
+    "teq_K": 40.309999999999945,
+    "rows": [
+      {
+        "row": 1,
+        "test": "\u0394Y_applied vs \u0394Y_RR",
+        "qss_pass": true,
+        "cvode_pass": true,
+        "action_if_fail": "RR/YEqn bookkeeping"
+      },
+      {
+        "row": 2,
+        "test": "dIH vs \u2212\u03a3 Hc\u00b7\u0394Y_RR",
+        "qss_pass": true,
+        "cvode_pass": true,
+        "action_if_fail": "Qdot/Hc path"
+      },
+      {
+        "row": 3,
+        "test": "\u2212\u03a3 Hc\u00b7\u0394Y_app vs RR",
+        "qss_pass": true,
+        "cvode_pass": true,
+        "action_if_fail": "YEqn vs RR inconsistency"
+      },
+      {
+        "row": 4,
+        "test": "Teq(QSS)\u2212Teq(CVODE) \u2264 2 K",
+        "qss_pass": false,
+        "cvode_pass": true,
+        "teq_K": 40.309999999999945,
+        "action_if_fail": "escalate if 1\u20133 green; else E14.3 thermo-range"
+      }
+    ],
+    "fix_scope": "escalate_or_E14.3_thermo_range"
+  }
+}
