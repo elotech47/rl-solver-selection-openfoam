@@ -636,6 +636,6 @@ Artifacts: `mechanisms/refit/e11_2_kinetic/`.
 | 38-condition T-freeze map | **38/38 QSS ok**; timeouts cleared; ΔTeq sign match vs Py **15→29** |
 | Equilibration audit (800/10/1.5, 1000/10/0.5) | Both **settled**; anomalies **real — no fix** |
 | CVODE 1000/1 holes | Rerun wall_cap=3600 (fill ΔTeq) |
-| Frozen baseline | `e15-conform-baseline-v1` + `FROZEN_VALIDATION_BASELINE_v1.md` |
+| Frozen baseline | **`validation-baseline-v1`** (`823b1c2`; alias `e15-conform-baseline-v1`) + `FROZEN_VALIDATION_BASELINE_v1.md` + `FROZEN_RUNG_BC_ACCEPTANCE.md` |
 
 **2D QSS production: UNBLOCKED.** Proceed to opposed-jet `qssOnly` + `rlAdaptive` smoke per master spec §5.2. Prior E13/E14 “2D QSS blocked” stop conditions are superseded by this conform close-out.

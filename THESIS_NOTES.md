@@ -193,7 +193,9 @@ timeouts at 700 K and 900 K / 60 atm / φ=1 finished in tens of seconds; Mid-T
 
 **Figures.** Before/after freeze scatter and table (`E15_BEFORE_AFTER_TFREEZE.md`,
 `e15_drift_vs_dTeq.png` vs `e15_drift_vs_dTeq_tfreeze.png`); frozen envelope
-maps (`E15_OF_VS_PY_DIFFS.md`); equilibration audit note.
+maps (`E15_OF_VS_PY_DIFFS.md`); equilibration audit note. Thesis 0D acceptance
+table: `FROZEN_RUNG_BC_ACCEPTANCE.md`. Code freeze tag: **`validation-baseline-v1`**
+(alias `e15-conform-baseline-v1` → same commit).
 
 *This finding is main-chapter support for the RL deployment claim: the deployed
 OpenFOAM chemistry core now matches the training-time reference across the

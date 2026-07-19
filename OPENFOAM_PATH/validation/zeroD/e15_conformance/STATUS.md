@@ -7,7 +7,9 @@
 | Equilibration audit | **DONE** — anomalies real, no fix |
 | CVODE 1000/1 fill | **DONE** — both `ok`; ΔTeq holes=0 |
 | Frozen baseline v1 maps | **DONE** — `FROZEN_VALIDATION_BASELINE_v1.md` |
-| Git tag `e15-conform-baseline-v1` | **PENDING** (say when to tag/commit) |
+| Frozen 0D rung (b)/(c) table | **DONE** — `FROZEN_RUNG_BC_ACCEPTANCE.md` (+ JSON) |
+| Git tag `validation-baseline-v1` | **DONE** → `823b1c2` (alias `e15-conform-baseline-v1`) |
+| Trajectory MANIFEST + sync | **DONE** — `MANIFEST.md`; Lexar: see `ARCHIVE_SYNC.md` |
 | 2D QSS | **UNBLOCKED** |
 
 ΔTeq sign match vs Py: **30/38** (was 15 pre-freeze).

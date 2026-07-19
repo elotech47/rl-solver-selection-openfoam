@@ -42,6 +42,7 @@ OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2b_runs/
 OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2b_work/
 OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2c_runs/
 OPENFOAM_PATH/validation/zeroD/e15_conformance/e15_2c_work/
+OPENFOAM_PATH/validation/zeroD/e15_conformance/rung_b_midt/
 OPENFOAM_PATH/validation/zeroD/e15_conformance/*.log
 OPENFOAM_PATH/validation/zeroD/e15_conformance/*.tsv.bak*
 OPENFOAM_PATH/validation/zeroD/e15_conformance/colima_start.log

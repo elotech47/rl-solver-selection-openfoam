@@ -12,6 +12,18 @@
     },
     "dt": 1e-06
   },
+  "rung_b_of_step": {
+    "qss": {
+      "T0": 800.0,
+      "T1": 800.0,
+      "path": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e15_conformance/rung_b_midt/qss"
+    },
+    "cvode": {
+      "T0": 800.0,
+      "T1": 800.0,
+      "path": "/Users/el0tech/Documents/research_code/solver_selection/OPENFOAM_PATH/validation/zeroD/e15_conformance/rung_b_midt/cvode"
+    }
+  },
   "rung_c": [
     {
       "label": "NTC_lowT",
@@ -68,5 +80,6 @@
       "dteq_of": -50.179999999999836,
       "dteq_py": -28.215416908017232
     }
-  ]
+  ],
+  "tag": "validation-baseline-v1"
 }

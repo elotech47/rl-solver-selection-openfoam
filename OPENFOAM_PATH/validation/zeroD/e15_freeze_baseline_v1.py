@@ -96,7 +96,7 @@ def main() -> int:
     lines = [
         "# Frozen validation baseline v1 — OF-QSS CONFORM (T-freeze)",
         "",
-        "**Tag:** `e15-conform-baseline-v1`  ",
+        "**Tag:** `validation-baseline-v1` (alias `e15-conform-baseline-v1`)  ",
         "**Date:** 2026-07-19  ",
         "**Config:** production QSS = corrector T-freeze ON, `epsmin=0.02` (see DECISIONS.md)",
         "",
@@ -178,7 +178,7 @@ def main() -> int:
         "",
         "## Rung (b) — single-step (see separate re-acceptance)",
         "",
-        "Recorded in `FROZEN_RUNG_B_ACCEPTANCE.md` after conform single-step harness.",
+        "Recorded in `FROZEN_RUNG_BC_ACCEPTANCE.md` (rung b MidT 1 µs + rung c map).",
         "",
         "## 2D QSS",
         "",

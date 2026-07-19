@@ -1,6 +1,7 @@
 # Frozen validation baseline v1 — OF-QSS CONFORM (T-freeze)
 
-**Tag:** `e15-conform-baseline-v1`  
+**Tag:** `validation-baseline-v1` → commit `823b1c2`  
+**Alias:** `e15-conform-baseline-v1` (same commit; prefer the canonical name in thesis citations)  
 **Date:** 2026-07-19  
 **Config:** production QSS = corrector T-freeze ON, `epsmin=0.02` (see DECISIONS.md)
 
@@ -62,9 +63,12 @@ Ignition marker: τ_main = argmax(dT/dt). Accept vs Py-QSS: τ within few %;
 | OF-QSS (conform) | 2.39 | 5% |
 | OF-QSS vs Py-QSS | — | -0.9% |
 
-## Rung (b) — single-step (see separate re-acceptance)
+## Rung (b)/(c) — frozen 0D validation table (thesis citation)
 
-Recorded in `FROZEN_RUNG_B_ACCEPTANCE.md` after conform single-step harness.
+**Artifact:** `FROZEN_RUNG_BC_ACCEPTANCE.md` (+ `frozen_rung_bc_acceptance.json`).
+
+Rung (b): MidT 800 K / 10 atm / φ=1, single 1 µs step under conform (`Tfreeze true`).  
+Rung (c): selected envelope trajectories from the T-freeze 38-map.
 
 ## 2D QSS
 

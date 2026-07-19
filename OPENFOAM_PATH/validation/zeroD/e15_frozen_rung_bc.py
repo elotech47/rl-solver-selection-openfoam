@@ -57,6 +57,47 @@ def py_step_midt():
     return dict(T0=T0, Y0=Y0, cvode=cv, qss=qs, dt=DT)
 
 
+def parse_of_t(path: Path) -> float | None:
+    if not path.is_file():
+        return None
+    for line in path.read_text().splitlines():
+        if "internalField" in line and "uniform" in line:
+            return float(line.split()[-1].rstrip(";"))
+    return None
+
+
+def parse_chemfoam_t0_t1(path: Path) -> tuple[float | None, float | None]:
+    """chemFoam.out: first/last temperature columns when present."""
+    if not path.is_file():
+        return None, None
+    rows = []
+    for line in path.read_text().splitlines():
+        parts = line.split()
+        if len(parts) >= 2:
+            try:
+                t = float(parts[0])
+                T = float(parts[1])
+                rows.append((t, T))
+            except ValueError:
+                continue
+    if not rows:
+        return None, None
+    return rows[0][1], rows[-1][1]
+
+
+def of_step_midt():
+    base = OUT / "rung_b_midt"
+    out = {}
+    for solver in ("qss", "cvode"):
+        d = base / solver
+        T1 = parse_of_t(d / "fields" / "T")
+        T0, T1b = parse_chemfoam_t0_t1(d / "chemFoam.out")
+        if T1 is None:
+            T1 = T1b
+        out[solver] = dict(T0=T0, T1=T1, path=str(d))
+    return out
+
+
 def main() -> int:
     sys.path.insert(0, "/Users/el0tech/Documents/research_code/solver_selection/handoff/src")
     of = json.loads((OUT / "e15_signature_map_of_tfreeze.json").read_text())
@@ -65,30 +106,44 @@ def main() -> int:
     of_by = {(r["T0"], r["p_atm"], r["phi"]): r for r in of["results"]}
 
     step = py_step_midt()
-    # OF single-step from e13 if present (update note: must have Tfreeze)
-    of_step_path = ROOT / "validation/zeroD/e13_qss/of_runs"
-    of_step_note = "Re-run with Tfreeze=true via run_e13_1_of.sh after template update if missing."
+    of_step = of_step_midt()
+    of_q = of_step.get("qss") or {}
+    of_c = of_step.get("cvode") or {}
 
     lines = [
         "# Frozen rung (b)/(c) acceptance — CONFORM baseline v1",
         "",
         "**Date:** 2026-07-19  ",
+        "**Tag:** `validation-baseline-v1` (alias `e15-conform-baseline-v1`)  ",
         "**Build:** OF-QSS corrector T-freeze ON, `epsmin=0.02`",
         "",
-        "## Rung (b) — single 1 µs step (MidT hard case 800 K / 10 atm / Z≈0.062)",
+        "## Rung (b) — single 1 µs step (MidT hard case 800 K / 10 atm / φ=1 ≈ Z≈0.062)",
         "",
-        "Python/Cantera references (training instrument):",
+        "IC: `of_ics/T800_p10_phi1p0_initialConditions`. OF harness: `e15_rung_b_midt_host.sh`.",
         "",
-        f"| Solver | T₀ [K] | T₁ [K] | ΔT [K] |",
-        f"|--------|-------:|-------:|-------:|",
-        f"| CVODE | {step['T0']:.4f} | {step['cvode']['T']:.4f} | {step['cvode']['T']-step['T0']:.4e} |",
-        f"| QSS (T-freeze in handoff ODE) | {step['T0']:.4f} | {step['qss']['T']:.4f} | {step['qss']['T']-step['T0']:.4e} |",
-        "",
-        f"OF single-step: see E13.1 harness with `Tfreeze true` in qssCoeffs. {of_step_note}",
+        "| Solver | T₀ [K] | T₁ [K] | ΔT [K] |",
+        "|--------|-------:|-------:|-------:|",
+        f"| Py-CVODE | {step['T0']:.4f} | {step['cvode']['T']:.4f} | {step['cvode']['T']-step['T0']:.4e} |",
+        f"| Py-QSS (T-freeze ODE) | {step['T0']:.4f} | {step['qss']['T']:.4f} | {step['qss']['T']-step['T0']:.4e} |",
+    ]
+    if of_c.get("T1") is not None and of_c.get("T0") is not None:
+        lines.append(
+            f"| OF-CVODE | {of_c['T0']:.4f} | {of_c['T1']:.4f} | {of_c['T1']-of_c['T0']:.4e} |"
+        )
+    else:
+        lines.append("| OF-CVODE | — | — | *run `e15_rung_b_midt_host.sh`* |")
+    if of_q.get("T1") is not None and of_q.get("T0") is not None:
+        lines.append(
+            f"| OF-QSS (Tfreeze) | {of_q['T0']:.4f} | {of_q['T1']:.4f} | {of_q['T1']-of_q['T0']:.4e} |"
+        )
+    else:
+        lines.append("| OF-QSS (Tfreeze) | — | — | *run `e15_rung_b_midt_host.sh`* |")
+
+    lines += [
         "",
         "Accept (spec): OF-QSS vs Py-QSS at float noise; OF-CVODE vs Py-CVODE within tol.",
-        "Envelope evidence that T-freeze is the dominant OF–Py gap closer is in the",
-        "38-condition map (τ_main OF/Py ≈ 1 across most of the grid).",
+        "At MidT IC the 1 µs ΔT is ~0 on all instruments (pre-ignition).",
+        "Envelope evidence that T-freeze closes the OF–Py gap is in the 38-condition map.",
         "",
         "## Rung (c) — 0D trajectories (conform map)",
         "",
@@ -151,13 +206,18 @@ def main() -> int:
         "",
         "## Verdict",
         "",
-        "Frozen as baseline v1 with production QSS = T-freeze + epsmin=0.02.",
+        "This file is the **frozen 0D validation table** for thesis citation under",
+        "`validation-baseline-v1`. Production QSS = T-freeze + epsmin=0.02.",
         "Full envelope: `FROZEN_VALIDATION_BASELINE_v1.md`, maps under `e15_conformance/`.",
         "",
     ]
     (OUT / "FROZEN_RUNG_BC_ACCEPTANCE.md").write_text("\n".join(lines) + "\n")
     (OUT / "frozen_rung_bc_acceptance.json").write_text(
-        json.dumps(dict(rung_b_py_step=step, rung_c=table), indent=2, default=str)
+        json.dumps(
+            dict(rung_b_py_step=step, rung_b_of_step=of_step, rung_c=table, tag="validation-baseline-v1"),
+            indent=2,
+            default=str,
+        )
     )
     print(f"Wrote {OUT / 'FROZEN_RUNG_BC_ACCEPTANCE.md'}")
     return 0
