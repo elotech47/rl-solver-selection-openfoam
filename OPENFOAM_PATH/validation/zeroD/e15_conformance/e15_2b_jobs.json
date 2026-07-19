@@ -1,0 +1,344 @@
+{
+  "n": 15,
+  "toggles": [
+    {
+      "name": "Tfreeze_on",
+      "Tfreeze": true,
+      "epsmin": 0.02
+    },
+    {
+      "name": "Tfreeze_off",
+      "Tfreeze": false,
+      "epsmin": 0.02
+    }
+  ],
+  "points": [
+    {
+      "label": "NTC_lowT",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5
+    },
+    {
+      "label": "MidT",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0
+    },
+    {
+      "label": "high_T0",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0
+    },
+    {
+      "label": "timeout_700_60_1",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 1.0
+    },
+    {
+      "label": "timeout_900_60_1",
+      "T0": 900.0,
+      "p_atm": 60.0,
+      "phi": 1.0
+    }
+  ],
+  "jobs": [
+    {
+      "idx": 0,
+      "point": "NTC_lowT",
+      "tag": "NTC_lowT_T700_p60_phi0p5",
+      "toggle": "Tfreeze_on",
+      "solver": "qss",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5,
+      "t_end_s": 0.009879999999999934,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/NTC_lowT_T700_p60_phi0p5_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/NTC_lowT_T700_p60_phi0p5_Tfreeze_on_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/NTC_lowT_T700_p60_phi0p5/Tfreeze_on",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/NTC_lowT_T700_p60_phi0p5_Tfreeze_on",
+      "coeffs": {
+        "name": "Tfreeze_on",
+        "Tfreeze": true,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 1,
+      "point": "NTC_lowT",
+      "tag": "NTC_lowT_T700_p60_phi0p5",
+      "toggle": "Tfreeze_off",
+      "solver": "qss",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5,
+      "t_end_s": 0.009879999999999934,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/NTC_lowT_T700_p60_phi0p5_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/NTC_lowT_T700_p60_phi0p5_Tfreeze_off_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/NTC_lowT_T700_p60_phi0p5/Tfreeze_off",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/NTC_lowT_T700_p60_phi0p5_Tfreeze_off",
+      "coeffs": {
+        "name": "Tfreeze_off",
+        "Tfreeze": false,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 2,
+      "point": "NTC_lowT",
+      "tag": "NTC_lowT_T700_p60_phi0p5",
+      "toggle": "cvode_ref",
+      "solver": "cvode",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5,
+      "t_end_s": 0.009879999999999934,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/NTC_lowT_T700_p60_phi0p5_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/NTC_lowT_T700_p60_phi0p5_cvode_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/NTC_lowT_T700_p60_phi0p5/cvode_ref",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/NTC_lowT_T700_p60_phi0p5_cvode_ref",
+      "coeffs": null
+    },
+    {
+      "idx": 3,
+      "point": "MidT",
+      "tag": "MidT_T800_p10_phi1p0",
+      "toggle": "Tfreeze_on",
+      "solver": "qss",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.004240000000000009,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/MidT_T800_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/MidT_T800_p10_phi1p0_Tfreeze_on_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/MidT_T800_p10_phi1p0/Tfreeze_on",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/MidT_T800_p10_phi1p0_Tfreeze_on",
+      "coeffs": {
+        "name": "Tfreeze_on",
+        "Tfreeze": true,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 4,
+      "point": "MidT",
+      "tag": "MidT_T800_p10_phi1p0",
+      "toggle": "Tfreeze_off",
+      "solver": "qss",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.004240000000000009,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/MidT_T800_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/MidT_T800_p10_phi1p0_Tfreeze_off_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/MidT_T800_p10_phi1p0/Tfreeze_off",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/MidT_T800_p10_phi1p0_Tfreeze_off",
+      "coeffs": {
+        "name": "Tfreeze_off",
+        "Tfreeze": false,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 5,
+      "point": "MidT",
+      "tag": "MidT_T800_p10_phi1p0",
+      "toggle": "cvode_ref",
+      "solver": "cvode",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.004240000000000009,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/MidT_T800_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/MidT_T800_p10_phi1p0_cvode_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/MidT_T800_p10_phi1p0/cvode_ref",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/MidT_T800_p10_phi1p0_cvode_ref",
+      "coeffs": null
+    },
+    {
+      "idx": 6,
+      "point": "high_T0",
+      "tag": "high_T0_T1000_p10_phi1p0",
+      "toggle": "Tfreeze_on",
+      "solver": "qss",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.009439999999999952,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/high_T0_T1000_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/high_T0_T1000_p10_phi1p0_Tfreeze_on_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/high_T0_T1000_p10_phi1p0/Tfreeze_on",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/high_T0_T1000_p10_phi1p0_Tfreeze_on",
+      "coeffs": {
+        "name": "Tfreeze_on",
+        "Tfreeze": true,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 7,
+      "point": "high_T0",
+      "tag": "high_T0_T1000_p10_phi1p0",
+      "toggle": "Tfreeze_off",
+      "solver": "qss",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.009439999999999952,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/high_T0_T1000_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/high_T0_T1000_p10_phi1p0_Tfreeze_off_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/high_T0_T1000_p10_phi1p0/Tfreeze_off",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/high_T0_T1000_p10_phi1p0_Tfreeze_off",
+      "coeffs": {
+        "name": "Tfreeze_off",
+        "Tfreeze": false,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 8,
+      "point": "high_T0",
+      "tag": "high_T0_T1000_p10_phi1p0",
+      "toggle": "cvode_ref",
+      "solver": "cvode",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.009439999999999952,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/high_T0_T1000_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/high_T0_T1000_p10_phi1p0_cvode_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/high_T0_T1000_p10_phi1p0/cvode_ref",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/high_T0_T1000_p10_phi1p0_cvode_ref",
+      "coeffs": null
+    },
+    {
+      "idx": 9,
+      "point": "timeout_700_60_1",
+      "tag": "timeout_700_60_1_T700_p60_phi1p0",
+      "toggle": "Tfreeze_on",
+      "solver": "qss",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.007080000000000017,
+      "wall_cap_s": 1800,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/timeout_700_60_1_T700_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/timeout_700_60_1_T700_p60_phi1p0_Tfreeze_on_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_700_60_1_T700_p60_phi1p0/Tfreeze_on",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/timeout_700_60_1_T700_p60_phi1p0_Tfreeze_on",
+      "coeffs": {
+        "name": "Tfreeze_on",
+        "Tfreeze": true,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 10,
+      "point": "timeout_700_60_1",
+      "tag": "timeout_700_60_1_T700_p60_phi1p0",
+      "toggle": "Tfreeze_off",
+      "solver": "qss",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.007080000000000017,
+      "wall_cap_s": 1800,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/timeout_700_60_1_T700_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/timeout_700_60_1_T700_p60_phi1p0_Tfreeze_off_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_700_60_1_T700_p60_phi1p0/Tfreeze_off",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/timeout_700_60_1_T700_p60_phi1p0_Tfreeze_off",
+      "coeffs": {
+        "name": "Tfreeze_off",
+        "Tfreeze": false,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 11,
+      "point": "timeout_700_60_1",
+      "tag": "timeout_700_60_1_T700_p60_phi1p0",
+      "toggle": "cvode_ref",
+      "solver": "cvode",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.007080000000000017,
+      "wall_cap_s": 1800,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/timeout_700_60_1_T700_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/timeout_700_60_1_T700_p60_phi1p0_cvode_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_700_60_1_T700_p60_phi1p0/cvode_ref",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/timeout_700_60_1_T700_p60_phi1p0_cvode_ref",
+      "coeffs": null
+    },
+    {
+      "idx": 12,
+      "point": "timeout_900_60_1",
+      "tag": "timeout_900_60_1_T900_p60_phi1p0",
+      "toggle": "Tfreeze_on",
+      "solver": "qss",
+      "T0": 900.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.0005,
+      "wall_cap_s": 1800,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/timeout_900_60_1_T900_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/timeout_900_60_1_T900_p60_phi1p0_Tfreeze_on_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_900_60_1_T900_p60_phi1p0/Tfreeze_on",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/timeout_900_60_1_T900_p60_phi1p0_Tfreeze_on",
+      "coeffs": {
+        "name": "Tfreeze_on",
+        "Tfreeze": true,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 13,
+      "point": "timeout_900_60_1",
+      "tag": "timeout_900_60_1_T900_p60_phi1p0",
+      "toggle": "Tfreeze_off",
+      "solver": "qss",
+      "T0": 900.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.0005,
+      "wall_cap_s": 1800,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/timeout_900_60_1_T900_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/timeout_900_60_1_T900_p60_phi1p0_Tfreeze_off_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_900_60_1_T900_p60_phi1p0/Tfreeze_off",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/timeout_900_60_1_T900_p60_phi1p0_Tfreeze_off",
+      "coeffs": {
+        "name": "Tfreeze_off",
+        "Tfreeze": false,
+        "epsmin": 0.02
+      }
+    },
+    {
+      "idx": 14,
+      "point": "timeout_900_60_1",
+      "tag": "timeout_900_60_1_T900_p60_phi1p0",
+      "toggle": "cvode_ref",
+      "solver": "cvode",
+      "T0": 900.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.0005,
+      "wall_cap_s": 1800,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2b_ics/timeout_900_60_1_T900_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2b_chem/timeout_900_60_1_T900_p60_phi1p0_cvode_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_900_60_1_T900_p60_phi1p0/cvode_ref",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2b_work/timeout_900_60_1_T900_p60_phi1p0_cvode_ref",
+      "coeffs": null
+    }
+  ]
+}

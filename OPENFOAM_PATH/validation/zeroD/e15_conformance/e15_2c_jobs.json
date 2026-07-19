@@ -1,0 +1,157 @@
+{
+  "n": 5,
+  "toggle": {
+    "name": "Tfreeze_epsmin_0p01",
+    "Tfreeze": true,
+    "epsmin": 0.01
+  },
+  "points": [
+    {
+      "label": "NTC_lowT",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5
+    },
+    {
+      "label": "MidT",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0
+    },
+    {
+      "label": "high_T0",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0
+    },
+    {
+      "label": "timeout_700_60_1",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 1.0
+    },
+    {
+      "label": "timeout_900_60_1",
+      "T0": 900.0,
+      "p_atm": 60.0,
+      "phi": 1.0
+    }
+  ],
+  "jobs": [
+    {
+      "idx": 0,
+      "point": "NTC_lowT",
+      "tag": "NTC_lowT_T700_p60_phi0p5",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "solver": "qss",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5,
+      "t_end_s": 0.009879999999999934,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2c_ics/NTC_lowT_T700_p60_phi0p5_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2c_chem/NTC_lowT_T700_p60_phi0p5_Tfreeze_epsmin_0p01_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2c_runs/NTC_lowT_T700_p60_phi0p5/Tfreeze_epsmin_0p01",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2c_work/NTC_lowT_T700_p60_phi0p5_Tfreeze_epsmin_0p01",
+      "coeffs": {
+        "name": "Tfreeze_epsmin_0p01",
+        "Tfreeze": true,
+        "epsmin": 0.01
+      },
+      "cvode_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/NTC_lowT_T700_p60_phi0p5/cvode_ref",
+      "tfreeze_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/NTC_lowT_T700_p60_phi0p5/Tfreeze_on"
+    },
+    {
+      "idx": 1,
+      "point": "MidT",
+      "tag": "MidT_T800_p10_phi1p0",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "solver": "qss",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.004240000000000009,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2c_ics/MidT_T800_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2c_chem/MidT_T800_p10_phi1p0_Tfreeze_epsmin_0p01_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2c_runs/MidT_T800_p10_phi1p0/Tfreeze_epsmin_0p01",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2c_work/MidT_T800_p10_phi1p0_Tfreeze_epsmin_0p01",
+      "coeffs": {
+        "name": "Tfreeze_epsmin_0p01",
+        "Tfreeze": true,
+        "epsmin": 0.01
+      },
+      "cvode_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/MidT_T800_p10_phi1p0/cvode_ref",
+      "tfreeze_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/MidT_T800_p10_phi1p0/Tfreeze_on"
+    },
+    {
+      "idx": 2,
+      "point": "high_T0",
+      "tag": "high_T0_T1000_p10_phi1p0",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "solver": "qss",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "t_end_s": 0.009439999999999952,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2c_ics/high_T0_T1000_p10_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2c_chem/high_T0_T1000_p10_phi1p0_Tfreeze_epsmin_0p01_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2c_runs/high_T0_T1000_p10_phi1p0/Tfreeze_epsmin_0p01",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2c_work/high_T0_T1000_p10_phi1p0_Tfreeze_epsmin_0p01",
+      "coeffs": {
+        "name": "Tfreeze_epsmin_0p01",
+        "Tfreeze": true,
+        "epsmin": 0.01
+      },
+      "cvode_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/high_T0_T1000_p10_phi1p0/cvode_ref",
+      "tfreeze_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/high_T0_T1000_p10_phi1p0/Tfreeze_on"
+    },
+    {
+      "idx": 3,
+      "point": "timeout_700_60_1",
+      "tag": "timeout_700_60_1_T700_p60_phi1p0",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "solver": "qss",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.007080000000000017,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2c_ics/timeout_700_60_1_T700_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2c_chem/timeout_700_60_1_T700_p60_phi1p0_Tfreeze_epsmin_0p01_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2c_runs/timeout_700_60_1_T700_p60_phi1p0/Tfreeze_epsmin_0p01",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2c_work/timeout_700_60_1_T700_p60_phi1p0_Tfreeze_epsmin_0p01",
+      "coeffs": {
+        "name": "Tfreeze_epsmin_0p01",
+        "Tfreeze": true,
+        "epsmin": 0.01
+      },
+      "cvode_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_700_60_1_T700_p60_phi1p0/cvode_ref",
+      "tfreeze_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_700_60_1_T700_p60_phi1p0/Tfreeze_on"
+    },
+    {
+      "idx": 4,
+      "point": "timeout_900_60_1",
+      "tag": "timeout_900_60_1_T900_p60_phi1p0",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "solver": "qss",
+      "T0": 900.0,
+      "p_atm": 60.0,
+      "phi": 1.0,
+      "t_end_s": 0.0005,
+      "wall_cap_s": 900,
+      "ic_rel": "validation/zeroD/e15_conformance/e15_2c_ics/timeout_900_60_1_T900_p60_phi1p0_initialConditions",
+      "chem_rel": "validation/zeroD/e15_conformance/e15_2c_chem/timeout_900_60_1_T900_p60_phi1p0_Tfreeze_epsmin_0p01_chemistryProperties",
+      "out_rel": "validation/zeroD/e15_conformance/e15_2c_runs/timeout_900_60_1_T900_p60_phi1p0/Tfreeze_epsmin_0p01",
+      "work_rel": "validation/zeroD/e15_conformance/e15_2c_work/timeout_900_60_1_T900_p60_phi1p0_Tfreeze_epsmin_0p01",
+      "coeffs": {
+        "name": "Tfreeze_epsmin_0p01",
+        "Tfreeze": true,
+        "epsmin": 0.01
+      },
+      "cvode_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_900_60_1_T900_p60_phi1p0/cvode_ref",
+      "tfreeze_out_rel": "validation/zeroD/e15_conformance/e15_2b_runs/timeout_900_60_1_T900_p60_phi1p0/Tfreeze_on"
+    }
+  ]
+}

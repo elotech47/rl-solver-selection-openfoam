@@ -622,3 +622,20 @@ Artifacts: `mechanisms/refit/e11_2_kinetic/`.
 | Teq(QSS)−Teq(CVODE) ≤2 K | **FAIL +40.3 K** |
 
 **Stop:** accounting and thermo-range consistent; Teq offset unexplained → escalate (no QSS algorithm change). E15.2+ and 2D QSS remain blocked.
+
+---
+
+## E15 — CONFORM close-out (COMPLETE; 2D QSS UNBLOCKED)
+
+**Date:** 2026-07-19  
+**Decision:** Production OF-QSS = corrector **T-freeze** (`epsmin=0.02`). Advisor CONFORM 2026-07-19.
+
+| Item | Result |
+|------|--------|
+| E15.2b T-freeze | NTC + timeouts PASS; MidT ΔTeq residual noted |
+| 38-condition T-freeze map | **38/38 QSS ok**; timeouts cleared; ΔTeq sign match vs Py **15→29** |
+| Equilibration audit (800/10/1.5, 1000/10/0.5) | Both **settled**; anomalies **real — no fix** |
+| CVODE 1000/1 holes | Rerun wall_cap=3600 (fill ΔTeq) |
+| Frozen baseline | `e15-conform-baseline-v1` + `FROZEN_VALIDATION_BASELINE_v1.md` |
+
+**2D QSS production: UNBLOCKED.** Proceed to opposed-jet `qssOnly` + `rlAdaptive` smoke per master spec §5.2. Prior E13/E14 “2D QSS blocked” stop conditions are superseded by this conform close-out.

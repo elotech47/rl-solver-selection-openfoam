@@ -1,0 +1,71 @@
+{
+  "n": 2,
+  "cases": [
+    {
+      "tag": "T800_p10_phi1p5",
+      "T0": 800,
+      "p": 10,
+      "phi": 1.5,
+      "tau_main": 0.00158,
+      "of_qss": {
+        "t_end": 0.00276,
+        "T_end": 2414.96,
+        "T_max": 2415.06,
+        "dT_last5pct": 0.1999999999998181,
+        "Trange_last5pct": 0.40000000000009095,
+        "dT_last20pct": 1.1100000000001273,
+        "median_abs_dTdt_last5pct": 2.384185791015625e-07,
+        "settled": true
+      },
+      "of_cvode": {
+        "t_end": 0.00276,
+        "T_end": 1994.73,
+        "T_max": 1994.73,
+        "dT_last5pct": 0.0,
+        "Trange_last5pct": 0.0,
+        "dT_last20pct": 0.0,
+        "median_abs_dTdt_last5pct": 0.0,
+        "settled": true
+      },
+      "of_dTeq": 420.23,
+      "py_dTeq": 36.90801774517104,
+      "py_Teq_qss": 2411.4259170515406,
+      "py_Teq_cvode": 2374.5178993063696,
+      "endTime_over_tau": 1.7468354430379747,
+      "action": "report_real_anomaly_no_fix"
+    },
+    {
+      "tag": "T1000_p10_phi0p5",
+      "T0": 1000,
+      "p": 10,
+      "phi": 0.5,
+      "tau_main": 0.00677,
+      "of_qss": {
+        "t_end": 0.01308,
+        "T_end": 2105.67,
+        "T_max": 2105.67,
+        "dT_last5pct": 0.0,
+        "Trange_last5pct": 0.0,
+        "dT_last20pct": 0.0,
+        "median_abs_dTdt_last5pct": 1.1920928955078125e-07,
+        "settled": true
+      },
+      "of_cvode": {
+        "t_end": 0.01308,
+        "T_end": 2159.5,
+        "T_max": 2159.5,
+        "dT_last5pct": 0.0,
+        "Trange_last5pct": 0.0,
+        "dT_last20pct": 0.0,
+        "median_abs_dTdt_last5pct": 2.384185791015625e-07,
+        "settled": true
+      },
+      "of_dTeq": -53.82999999999993,
+      "py_dTeq": 6.888615409020076,
+      "py_Teq_qss": 2110.589250173093,
+      "py_Teq_cvode": 2103.700634764073,
+      "endTime_over_tau": 1.93205317577548,
+      "action": "report_real_anomaly_no_fix"
+    }
+  ]
+}

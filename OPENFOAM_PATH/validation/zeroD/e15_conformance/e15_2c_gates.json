@@ -1,0 +1,292 @@
+{
+  "overall": false,
+  "gates": [
+    {
+      "point": "NTC_lowT",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "checks": {
+        "tau_within_few_pct": true,
+        "tau_err": 0.01595711021276569,
+        "late_signed_vs_cvode": true,
+        "dteq_sign": true,
+        "ntc_negative": true,
+        "dteq_mag_family": true,
+        "of_dteq": -29.839999999999918,
+        "py_dteq": -32.08785063437722,
+        "dz_signs": true,
+        "dz_mag_1x": true,
+        "high_T0_no_regress": true,
+        "ntc_hold_vs_tfreeze": true
+      },
+      "pass": true
+    },
+    {
+      "point": "MidT",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "checks": {
+        "tau_within_few_pct": true,
+        "tau_err": 0.04000830220008522,
+        "late_signed_vs_cvode": true,
+        "dteq_sign": false,
+        "ntc_negative": true,
+        "dteq_mag_family": true,
+        "of_dteq": -29.220000000000255,
+        "py_dteq": 15.87834435669356,
+        "dz_signs": true,
+        "dz_mag_1x": false,
+        "high_T0_no_regress": true,
+        "ntc_hold_vs_tfreeze": true
+      },
+      "pass": false
+    },
+    {
+      "point": "high_T0",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "checks": {
+        "tau_within_few_pct": true,
+        "tau_err": 0.0004035512509414918,
+        "late_signed_vs_cvode": true,
+        "dteq_sign": false,
+        "ntc_negative": true,
+        "dteq_mag_family": false,
+        "of_dteq": -7.059999999999945,
+        "py_dteq": 16.35261500909337,
+        "dz_signs": false,
+        "dz_mag_1x": false,
+        "high_T0_no_regress": false,
+        "ntc_hold_vs_tfreeze": true
+      },
+      "pass": false
+    },
+    {
+      "point": "timeout_700_60_1",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "checks": {
+        "complete_ok": true,
+        "wall_vs_cvode_2x": true
+      },
+      "pass": true
+    },
+    {
+      "point": "timeout_900_60_1",
+      "toggle": "Tfreeze_epsmin_0p01",
+      "checks": {
+        "complete_ok": true,
+        "wall_vs_cvode_2x": true
+      },
+      "pass": true
+    }
+  ],
+  "runs": [
+    {
+      "point": "NTC_lowT",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00559822,
+      "Teq": 1815.97,
+      "wall_s": 19.0,
+      "dZ_C": -0.0007755017044022219,
+      "dZ_H": -0.00014063785900603892,
+      "dZ_O": 0.0005598335169362534,
+      "dZ_N": 0.00035630604647207686,
+      "maxAbs_dZ": 0.0007755017044022219,
+      "toggle": "Tfreeze_epsmin_0p01"
+    },
+    {
+      "point": "NTC_lowT",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00530823,
+      "Teq": 1845.81,
+      "wall_s": 110.0,
+      "dZ_C": 9.020439360601928e-07,
+      "dZ_H": 1.6778548303595514e-07,
+      "dZ_O": 7.6031842868584665e-06,
+      "dZ_N": -8.673013705884358e-06,
+      "maxAbs_dZ": 8.673013705884358e-06,
+      "toggle": "cvode_ref"
+    },
+    {
+      "point": "NTC_lowT",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00555022,
+      "Teq": 1822.06,
+      "wall_s": 25.0,
+      "dZ_C": -0.0006232502798962369,
+      "dZ_H": -0.00011457446343414533,
+      "dZ_O": 0.0006693070668773171,
+      "dZ_N": 6.851767645299489e-05,
+      "maxAbs_dZ": 0.0006693070668773171,
+      "toggle": "Tfreeze_on_eps0p02"
+    },
+    {
+      "point": "MidT",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00250538,
+      "Teq": 2587.97,
+      "wall_s": 11.0,
+      "dZ_C": -0.0016493496522610243,
+      "dZ_H": -0.0002772900665805045,
+      "dZ_O": 0.0005205624099083317,
+      "dZ_N": 0.0014060773089333845,
+      "maxAbs_dZ": 0.0016493496522610243,
+      "toggle": "Tfreeze_epsmin_0p01"
+    },
+    {
+      "point": "MidT",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.0022397,
+      "Teq": 2617.19,
+      "wall_s": 49.0,
+      "dZ_C": 0.0008611322964572968,
+      "dZ_H": 0.00012395293935185507,
+      "dZ_O": 1.5885564578849154e-05,
+      "dZ_N": -0.001000970800387746,
+      "maxAbs_dZ": 0.001000970800387746,
+      "toggle": "cvode_ref"
+    },
+    {
+      "point": "MidT",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00238733,
+      "Teq": 2606.71,
+      "wall_s": 10.0,
+      "dZ_C": -0.0010573361089754735,
+      "dZ_H": 2.9083687786628926e-05,
+      "dZ_O": 0.0022185380068123206,
+      "dZ_N": -0.0011902855856232852,
+      "maxAbs_dZ": 0.0022185380068123206,
+      "toggle": "Tfreeze_on_eps0p02"
+    },
+    {
+      "point": "high_T0",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.004958,
+      "Teq": 2709.87,
+      "wall_s": 20.0,
+      "dZ_C": -7.171794704990964e-05,
+      "dZ_H": 5.1940998893131723e-05,
+      "dZ_O": -0.0003227495838381278,
+      "dZ_N": 0.00034252653199495775,
+      "maxAbs_dZ": 0.00034252653199495775,
+      "toggle": "Tfreeze_epsmin_0p01"
+    },
+    {
+      "point": "high_T0",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00474098,
+      "Teq": 2716.93,
+      "wall_s": 105.0,
+      "dZ_C": 0.0006479964488664489,
+      "dZ_H": 9.327407453807099e-05,
+      "dZ_O": 1.3387592065677856e-05,
+      "dZ_N": -0.0007546581154700416,
+      "maxAbs_dZ": 0.0007546581154700416,
+      "toggle": "cvode_ref"
+    },
+    {
+      "point": "high_T0",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00495933,
+      "Teq": 2712.87,
+      "wall_s": 27.0,
+      "dZ_C": -7.268407842882241e-05,
+      "dZ_H": 0.00013523747776107015,
+      "dZ_O": 0.00019869040071116006,
+      "dZ_N": -0.0002612438000434425,
+      "maxAbs_dZ": 0.0002612438000434425,
+      "toggle": "Tfreeze_on_eps0p02"
+    },
+    {
+      "point": "timeout_700_60_1",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00368208,
+      "Teq": 2534.99,
+      "wall_s": 17.0,
+      "dZ_C": -0.003467114174197476,
+      "dZ_H": -0.0007695546073990586,
+      "dZ_O": 0.0008521971510200843,
+      "dZ_N": 0.0033844716305766465,
+      "maxAbs_dZ": 0.003467114174197476,
+      "toggle": "Tfreeze_epsmin_0p01"
+    },
+    {
+      "point": "timeout_700_60_1",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00360235,
+      "Teq": 2610.72,
+      "wall_s": 76.0,
+      "dZ_C": 4.4139551432856305e-06,
+      "dZ_H": 6.953720912469125e-07,
+      "dZ_O": 6.4486097987870306e-06,
+      "dZ_N": -1.1557937033335186e-05,
+      "maxAbs_dZ": 1.1557937033335186e-05,
+      "toggle": "cvode_ref"
+    },
+    {
+      "point": "timeout_700_60_1",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.00366596,
+      "Teq": 2560.54,
+      "wall_s": 23.0,
+      "dZ_C": -0.0025489136557510644,
+      "dZ_H": -0.000668497132163888,
+      "dZ_O": 0.002222650504447865,
+      "dZ_N": 0.000994760283467122,
+      "maxAbs_dZ": 0.0025489136557510644,
+      "toggle": "Tfreeze_on_eps0p02"
+    },
+    {
+      "point": "timeout_900_60_1",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.000355685,
+      "Teq": 2773.42,
+      "wall_s": 3.0,
+      "dZ_C": -0.0005029700238995266,
+      "dZ_H": 0.0006833561480945952,
+      "dZ_O": 0.007800213682400525,
+      "dZ_N": -0.0079805998065956,
+      "maxAbs_dZ": 0.0079805998065956,
+      "toggle": "Tfreeze_epsmin_0p01"
+    },
+    {
+      "point": "timeout_900_60_1",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.000265127,
+      "Teq": 2730.66,
+      "wall_s": 11.0,
+      "dZ_C": 4.429367736639989e-06,
+      "dZ_H": 6.64590100684509e-07,
+      "dZ_O": 6.928078230161727e-06,
+      "dZ_N": -1.2022036067427244e-05,
+      "maxAbs_dZ": 1.2022036067427244e-05,
+      "toggle": "cvode_ref"
+    },
+    {
+      "point": "timeout_900_60_1",
+      "failure": "ok",
+      "reliable": true,
+      "tau_main_s": 0.000367354,
+      "Teq": 2694.29,
+      "wall_s": 3.0,
+      "dZ_C": 0.0015419564014918716,
+      "dZ_H": -0.0007528681875855134,
+      "dZ_O": -0.0069519398030281065,
+      "dZ_N": 0.006162851589121776,
+      "maxAbs_dZ": 0.0069519398030281065,
+      "toggle": "Tfreeze_on_eps0p02"
+    }
+  ]
+}

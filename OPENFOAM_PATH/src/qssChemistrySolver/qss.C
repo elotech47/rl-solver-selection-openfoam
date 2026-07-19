@@ -1,5 +1,10 @@
 /*---------------------------------------------------------------------------*\
   α-QSS chemistrySolver implementation (ESI v2312)
+
+  E15.3 CONFORM (2026-07-19): QssCellOde T-freeze matches handoff
+  CanteraQSSODE — predictor evaluates thermo at T=y[0] and caches;
+  corrector re-evaluates rates at frozen T with updated composition,
+  using cached rho/cp/ha. Controlled by qssCoeffs::Tfreeze (default true).
 \*---------------------------------------------------------------------------*/
 
 #include "qss.H"
@@ -20,7 +25,8 @@ Foam::qss<ChemistryModel>::qss
     dtmin_(coeffsDict_.getOrDefault<scalar>("dtmin", 1e-12)),
     dtmax_(coeffsDict_.getOrDefault<scalar>("dtmax", 1e-6)),
     abstol_(coeffsDict_.getOrDefault<scalar>("abstol", 1e-11)),
-    itermax_(coeffsDict_.getOrDefault<label>("itermax", 2))
+    itermax_(coeffsDict_.getOrDefault<label>("itermax", 2)),
+    Tfreeze_(coeffsDict_.getOrDefault<Switch>("Tfreeze", true))
 {}
 
 
@@ -41,13 +47,32 @@ class QssCellOde
 {
     const ChemistryModel& model_;
     Foam::scalar p_;
+    const bool Tfreeze_;
+
+    // Predictor caches (handoff CanteraQSSODE parity)
+    Foam::scalar T_cache_;
+    Foam::scalar rho_cache_;
+    Foam::scalar cp_cache_;
+    Foam::scalarField ha_cache_;
+    bool haveCache_;
 
 public:
 
-    QssCellOde(const ChemistryModel& model, Foam::scalar p)
+    QssCellOde
+    (
+        const ChemistryModel& model,
+        Foam::scalar p,
+        bool Tfreeze
+    )
     :
         model_(model),
-        p_(p)
+        p_(p),
+        Tfreeze_(Tfreeze),
+        T_cache_(0),
+        rho_cache_(0),
+        cp_cache_(0),
+        ha_cache_(model.nSpecie(), 0.0),
+        haveCache_(false)
     {}
 
     virtual void odefun
@@ -56,27 +81,54 @@ public:
         const std::vector<double>& y,
         std::vector<double>& q,
         std::vector<double>& d,
-        bool /*corrector*/
+        bool corrector
     ) override
     {
         const Foam::label nSpecie = model_.nSpecie();
-        // Clamp T to the JANAF-valid band (transient overshoot protection)
-        Foam::scalar T =
+        const Foam::scalar T_in =
             Foam::min(Foam::max(y[0], Foam::scalar(250)), Foam::scalar(4500));
 
-        // Concentrations; size nSpecie (OF omegaI/omega convention)
+        // Concentrations always from current y (updated Y/c on corrector)
         Foam::scalarField c(nSpecie, 0.0);
         for (Foam::label i = 0; i < nSpecie; ++i)
         {
             c[i] = Foam::max(y[static_cast<size_t>(i) + 1], 0.0);
         }
 
+        const bool freezeNow = Tfreeze_ && corrector && haveCache_;
+        const Foam::scalar T = freezeNow ? T_cache_ : T_in;
+
         Foam::scalar rho = 0.0;
-        for (Foam::label i = 0; i < nSpecie; ++i)
+        Foam::scalar cp = 0.0;
+
+        if (!freezeNow)
         {
-            rho += c[i]*model_.specieThermo()[i].W();
+            // Predictor (or Tfreeze off): thermo at T from state
+            for (Foam::label i = 0; i < nSpecie; ++i)
+            {
+                rho += c[i]*model_.specieThermo()[i].W();
+            }
+            rho = Foam::max(rho, Foam::SMALL);
+
+            for (Foam::label i = 0; i < nSpecie; ++i)
+            {
+                cp += c[i]*model_.specieThermo()[i].cp(p_, T);
+                ha_cache_[i] = model_.specieThermo()[i].ha(p_, T);
+            }
+            cp /= rho;
+            cp = Foam::max(cp, Foam::SMALL);
+
+            T_cache_ = T;
+            rho_cache_ = rho;
+            cp_cache_ = cp;
+            haveCache_ = true;
         }
-        rho = Foam::max(rho, Foam::SMALL);
+        else
+        {
+            // Corrector: freeze T/rho/cp/ha; rates still see updated c
+            rho = rho_cache_;
+            cp = cp_cache_;
+        }
 
         Foam::scalarField qC(nSpecie, 0.0);
         Foam::scalarField dC(nSpecie, 0.0);
@@ -86,10 +138,9 @@ public:
         {
             Foam::scalar pf = 0, cf = 0, pr = 0, cr = 0;
             Foam::label lRef = 0, rRef = 0;
+            // Rates at frozen T on corrector (handoff: gas.TPY = T_frozen, p, Y)
             model_.omegaI(ri, c, T, p_, pf, cf, lRef, pr, cr, rRef);
 
-            // ESI omegaI: net ω = pf*cf - pr*cr (pf/pr omit the ref species).
-            // Use full forward/reverse progress rates for true q/d.
             const Foam::scalar omegaf = pf*cf;
             const Foam::scalar omegar = pr*cr;
 
@@ -115,38 +166,27 @@ public:
 
         for (Foam::label i = 0; i < nSpecie; ++i)
         {
-            // Clamp tiny negative round-off in q/d
             q[static_cast<size_t>(i) + 1] = Foam::max(qC[i], 0.0);
             d[static_cast<size_t>(i) + 1] = Foam::max(dC[i], 0.0);
         }
 
-        // Constant-pressure energy equation matching ESI
-        // StandardChemistryModel::derivatives(): dT/dt = -Σ ha_i ω̇_i/(ρ cp)
-        // (absolute enthalpy ha, mole basis; conserves enthalpy).
-        Foam::scalar cp = 0.0;
-        for (Foam::label i = 0; i < nSpecie; ++i)
-        {
-            cp += c[i]*model_.specieThermo()[i].cp(p_, T);
-        }
-        cp /= rho;
-        cp = Foam::max(cp, Foam::SMALL);
-
+        // Energy: ha frozen on corrector (handoff freezes h_form)
         Foam::scalar dT = 0.0;
         for (Foam::label i = 0; i < nSpecie; ++i)
         {
-            dT += model_.specieThermo()[i].ha(p_, T)*(qC[i] - dC[i]);
+            const Foam::scalar ha =
+                freezeNow
+              ? ha_cache_[i]
+              : model_.specieThermo()[i].ha(p_, T);
+            dT += ha*(qC[i] - dC[i]);
         }
         dT /= rho*cp;
 
-        // Temperature: evolve with net heat release (no Padé on T)
         q[0] = -dT;
         d[0] = 0.0;
     }
 };
 
-// Suggest next chemistry window so |dT| per window stays ~<= 25 K
-// (keeps chemFoam's h->T Newton near its solution through ignition;
-// growth is capped at 2x per step by StandardChemistryModel).
 static Foam::scalar suggestDeltaT(Foam::scalar deltaT, Foam::scalar dTwin)
 {
     const Foam::scalar dTmax = 25.0;
@@ -196,21 +236,18 @@ void Foam::qss<ChemistryModel>::solve
     integ.abstol = abstol_;
     integ.itermax = itermax_;
     integ.initialize(y.size());
-    // Temperature: net ODE (no ymin floor); species: floor
     integ.enforce_ymin[0] = 0.0;
     integ.ymin[0] = 200.0;
     integ.enforce_ymax[0] = 1.0;
     integ.ymax[0] = 5000.0;
 
-    QssCellOde<ChemistryModel> ode(*this, p);
+    QssCellOde<ChemistryModel> ode(*this, p, bool(Tfreeze_));
     integ.setOde(&ode);
     integ.setState(y, 0.0);
 
     const int ret = integ.integrateToTime(deltaT);
     if (ret != 0)
     {
-        // Do not silently freeze: take an explicit Euler step with net omega
-        // so the CFD energy path still sees a consistent source, and log it.
         WarningInFunction
             << "α-QSS failed (ret=" << ret
             << ") at T=" << T << " p=" << p
@@ -227,7 +264,6 @@ void Foam::qss<ChemistryModel>::solve
         }
         rho = max(rho, SMALL);
 
-        // Same constant-pressure ha-based energy source as the main ODE
         scalar cp = 0.0;
         scalar dT = 0.0;
         for (label i = 0; i < nSpecie; ++i)

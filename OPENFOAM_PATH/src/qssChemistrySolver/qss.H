@@ -6,6 +6,7 @@
 #define qss_H
 
 #include "chemistrySolver.H"
+#include "Switch.H"
 #include "qss_int.H"
 
 namespace Foam
@@ -23,6 +24,9 @@ class qss
     scalar dtmax_;
     scalar abstol_;
     label itermax_;
+    //- Freeze T/thermo on QSS corrector iterations (handoff CanteraQSSODE parity).
+    //  Default true after E15.3 CONFORM (2026-07-19). Does not affect CVODE.
+    Switch Tfreeze_;
 
 public:
 

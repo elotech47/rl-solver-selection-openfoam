@@ -1,0 +1,17 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      initialConditions;
+}
+constantProperty pressure;
+fractionBasis   mole;
+fractions
+{
+    o2             0.2065654309959803;
+    n2             0.776686020544886;
+    nc12h26             0.01674854845913354;
+}
+p               1013250;
+T               700;

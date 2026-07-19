@@ -4,9 +4,10 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # WM_OPTIONS is linux64GccDPInt32Opt (x86_64) or linuxARM64GccDPInt32Opt (arm64)
 PLAT="${WM_OPTIONS:-linux64GccDPInt32Opt}"
-export FOAM_USER_LIBBIN="${FOAM_USER_LIBBIN:-$ROOT/platforms/$PLAT/lib}"
-export FOAM_USER_APPBIN="${FOAM_USER_APPBIN:-$ROOT/platforms/$PLAT/bin}"
-export WM_PROJECT_USER_DIR="${WM_PROJECT_USER_DIR:-$ROOT}"
+# Force bind-mount platforms/ (bashrc defaults to $HOME/OpenFOAM/user-*)
+export WM_PROJECT_USER_DIR="$ROOT"
+export FOAM_USER_LIBBIN="$ROOT/platforms/$PLAT/lib"
+export FOAM_USER_APPBIN="$ROOT/platforms/$PLAT/bin"
 if [[ "$PLAT" == linuxARM64* ]]; then
   export SUNDIALS_DIR="${SUNDIALS_DIR:-$ROOT/opt/sundials-arm64}"
 else

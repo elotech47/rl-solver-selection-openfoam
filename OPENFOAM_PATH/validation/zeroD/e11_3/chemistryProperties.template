@@ -30,6 +30,9 @@ qssCoeffs
     dtmax           1e-06;
     abstol          1e-11;
     itermax         2;
+    // E15.3 CONFORM: freeze T/thermo on QSS corrector (handoff CanteraQSSODE).
+    // Set false only for A/B attribution. CVODE ignores this key.
+    Tfreeze         true;
 }
 
 cvodeCoeffs

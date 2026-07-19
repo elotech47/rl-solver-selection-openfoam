@@ -1,0 +1,50 @@
+{
+  "n": 3,
+  "points": [
+    {
+      "label": "NTC_lowT",
+      "T0": 700.0,
+      "p_atm": 60.0,
+      "phi": 0.5,
+      "Z": 0.03243599164355626,
+      "of_delta_Teq": 79.75999999999999,
+      "of_dZ_C": 0.0020215517990351435,
+      "of_dZ_H": 0.000373473873978963,
+      "of_dZ_O": 6.339891271800457e-06,
+      "of_maxAbs_dZ_qss": 0.002401365564286051,
+      "of_tau_main_qss": 0.00488225,
+      "of_tau_first_qss": 0.00362132,
+      "rationale": "Low-T/NTC; prefer \u03c6=0.5 with \u03c4_first after marker QA"
+    },
+    {
+      "label": "MidT",
+      "T0": 800.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "Z": 0.0628339033239644,
+      "of_delta_Teq": 14.639999999999873,
+      "of_dZ_C": 0.003043153873571812,
+      "of_dZ_H": 0.0006402590471088643,
+      "of_dZ_O": -0.0009369769143698636,
+      "of_maxAbs_dZ_qss": 0.003043153873571812,
+      "of_tau_main_qss": 0.00197822,
+      "of_tau_first_qss": null,
+      "rationale": "Campaign MidT anchor (~800 K, 10 atm, \u03c6=1)"
+    },
+    {
+      "label": "high_T0",
+      "T0": 1000.0,
+      "p_atm": 10.0,
+      "phi": 1.0,
+      "Z": 0.0628339033239644,
+      "of_delta_Teq": 17.25,
+      "of_dZ_C": -4.663341954885131e-05,
+      "of_dZ_H": 0.0006307942278373155,
+      "of_dZ_O": 0.003985942076032395,
+      "of_maxAbs_dZ_qss": 0.004570102884320915,
+      "of_tau_main_qss": 0.00495472,
+      "of_tau_first_qss": null,
+      "rationale": "High-T0 single-stage with clear OF \u0394Teq"
+    }
+  ]
+}

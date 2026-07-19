@@ -67,6 +67,7 @@ qssCoeffs
     dtmax           1e-06;
     abstol          1e-11;
     itermax         2;
+    Tfreeze         true;
 }
 cvodeCoeffs
 {
