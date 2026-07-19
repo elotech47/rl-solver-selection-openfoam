@@ -1,0 +1,53 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2312                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     reactingFoamDebug;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+// E12.1: 3200 cells, CVODE, MidP 10 atm, air 1100 K
+endTime         0.005;
+
+deltaT          1e-05;
+
+writeControl    adjustableRunTime;
+
+writeInterval   2.5e-04;
+
+purgeWrite      40;
+
+writeFormat     ascii;
+
+runTimeModifiable true;
+
+adjustTimeStep  yes;
+
+maxCo           0.4;
+
+maxDeltaT       1e-05;
+
+libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" );
+
+propSanity      true;
+
+propSanityInterval 20;
+
+
+// ************************************************************************* //
