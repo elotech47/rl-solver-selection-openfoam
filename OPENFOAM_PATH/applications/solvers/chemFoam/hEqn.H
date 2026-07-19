@@ -11,6 +11,7 @@
     }
 
     #include "debugStateDump.H"
+    #include "e14_invariantsDump.H"
 
     // Option R: harmonized-Tcommon refit thermo → stock THE is correct.
     // Legacy mass-weighted Newton lives in diagnostics/h6_massWeighted/.

@@ -39,12 +39,14 @@ Description
 #include "fvCFD.H"
 #include "psiReactionThermo.H"
 #include "BasicChemistryModel.H"
+#include "StandardChemistryModel.H"
 #include "reactingMixture.H"
 #include "chemistrySolver.H"
 #include "OFstream.H"
 #include "thermoPhysicsTypes.H"
 #include "basicSpecieMixture.H"
 #include "hexCellFvMesh.H"
+#include "ofRlInvariants.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -85,6 +87,7 @@ int main(int argc, char *argv[])
 
         #include "solveChemistry.H"
         #include "YEqn.H"
+        #include "e14_yCheck.H"
         #include "hEqn.H"
         #include "pEqn.H"
 

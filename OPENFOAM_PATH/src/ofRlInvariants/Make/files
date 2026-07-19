@@ -1,0 +1,3 @@
+ofRlInvariants.C
+
+LIB = $(FOAM_USER_LIBBIN)/libofRlInvariants

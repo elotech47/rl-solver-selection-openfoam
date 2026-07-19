@@ -17,6 +17,7 @@ mkdir -p "$FOAM_USER_LIBBIN" "$FOAM_USER_APPBIN"
 echo "FOAM_USER_LIBBIN=$FOAM_USER_LIBBIN"
 echo "SUNDIALS_DIR=$SUNDIALS_DIR"
 
+(cd "$ROOT/src/ofRlInvariants" && wmake libso)
 (cd "$ROOT/src/qssChemistrySolver" && wmake libso)
 
 if [[ -f "$SUNDIALS_DIR/include/cvode/cvode.h" ]]; then
@@ -26,4 +27,7 @@ else
   echo "WARN: SUNDIALS not found at $SUNDIALS_DIR — skipping cvodeChemistrySolver"
 fi
 
+(cd "$ROOT/applications/solvers/chemFoam" && wmake)
+
 ls -la "$FOAM_USER_LIBBIN"
+ls -la "$FOAM_USER_APPBIN"/chemFoamDebug 2>/dev/null || true

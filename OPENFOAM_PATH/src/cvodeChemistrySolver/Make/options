@@ -9,6 +9,7 @@ EXE_INC = \
     -I$(LIB_SRC)/thermophysicalModels/thermophysicalProperties/lnInclude \
     -I$(LIB_SRC)/thermophysicalModels/chemistryModel/lnInclude \
     -I$(SUNDIALS_DIR)/include \
+    -I../ofRlInvariants \
     -std=c++17
 
 LIB_LIBS = \
@@ -26,4 +27,6 @@ LIB_LIBS = \
     -lreactionThermophysicalModels \
     -lspecie \
     -lthermophysicalProperties \
-    -lchemistryModel
+    -lchemistryModel \
+    -L$(FOAM_USER_LIBBIN) \
+    -lofrlInvariants

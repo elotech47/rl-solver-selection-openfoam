@@ -3,6 +3,7 @@
 \*---------------------------------------------------------------------------*/
 
 #include "qss.H"
+#include "ofRlInvariants.H"
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -173,10 +174,11 @@ void Foam::qss<ChemistryModel>::solve
 {
     const label nSpecie = this->nSpecie();
     const scalar T0in = T;
-
+    scalarField c0snap(nSpecie);
     for (label i = 0; i < nSpecie; ++i)
     {
         c[i] = max(c[i], scalar(0));
+        c0snap[i] = c[i];
     }
 
     std::vector<double> y(static_cast<size_t>(nSpecie) + 1);
@@ -239,6 +241,7 @@ void Foam::qss<ChemistryModel>::solve
         T = T - deltaT*dT/(rho*cp);
         T = min(max(T, scalar(250)), scalar(4500));
 
+        ofRlInvariants::recordSolve(T0in, T, deltaT, c0snap, c);
         subDeltaT = suggestDeltaT(deltaT, mag(T - T0in));
         return;
     }
@@ -250,6 +253,7 @@ void Foam::qss<ChemistryModel>::solve
         c[i] = max(y[static_cast<size_t>(i) + 1], scalar(0));
     }
 
+    ofRlInvariants::recordSolve(T0in, T, deltaT, c0snap, c);
     subDeltaT = suggestDeltaT(deltaT, mag(T - T0in));
 }
 

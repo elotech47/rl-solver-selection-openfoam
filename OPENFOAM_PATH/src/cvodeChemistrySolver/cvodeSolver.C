@@ -3,6 +3,7 @@
 \*---------------------------------------------------------------------------*/
 
 #include "cvodeSolver.H"
+#include "ofRlInvariants.H"
 
 #if __has_include(<cvode/cvode.h>)
 #   define OF_RL_HAS_SUNDIALS 1
@@ -158,6 +159,11 @@ void Foam::cvode<ChemistryModel>::solve
     const label nSpecie = this->nSpecie();
     const sunindextype neq = nSpecie + 2;
     const scalar T0 = T;
+    scalarField c0snap(nSpecie);
+    for (label i = 0; i < nSpecie; ++i)
+    {
+        c0snap[i] = max(c[i], scalar(0));
+    }
 
     if (!impl_)
     {
@@ -215,7 +221,8 @@ void Foam::cvode<ChemistryModel>::solve
         T = min(max(NV_Ith_S(s.y, nSpecie), scalar(250)), scalar(4500));
         p = NV_Ith_S(s.y, nSpecie + 1);
     }
-#endif
+
+    ofRlInvariants::recordSolve(T0, T, deltaT, c0snap, c);
 
     // Suggest the next chemistry window so |dT| per window stays ~<= dTmax.
     // Keeps chemFoam's h->T Newton close to its solution during the ignition
@@ -224,6 +231,7 @@ void Foam::cvode<ChemistryModel>::solve
     const scalar dTmax = 25.0;
     const scalar dTwin = mag(T - T0);
     subDeltaT = deltaT*min(max(dTmax/max(dTwin, SMALL), scalar(0.05)), scalar(2));
+#endif
 }
 
 // ************************************************************************* //
