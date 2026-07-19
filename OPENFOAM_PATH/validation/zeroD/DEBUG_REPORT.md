@@ -592,3 +592,33 @@ Cantera original vs refit YAML:
 
 Artifacts: `mechanisms/refit/e11_2_kinetic/`.
 
+
+---
+
+## E13 — QSS parity on Option R (COMPLETE; RED)
+
+**Date:** 2026-07-18  
+**Report:** `validation/zeroD/e13_qss/E13_FINAL.md`
+
+| Gate | Result |
+|------|--------|
+| E13.1 pins OF vs CVODE | MOSTLY PASS (T2001 +4%) |
+| E13.2 OF rates ≤0.1% | FAIL (char 0.23–0.35%) |
+| MidT OF-QSS vs Py-QSS | **FAIL −19% early** |
+| Teq OF-QSS − OF-CVODE | **FAIL +39 K** |
+| MidT OF-CVODE vs Py-CVODE | PASS (−1.1%) |
+
+**Stop:** outer chemFoam/QSS path defect; no unilateral fix. 2D QSS production remains blocked.
+
+## E14 — Energy ledger (Campaign 4) — ESCALATE
+
+**Date:** 2026-07-19  
+**Report:** `validation/zeroD/e14_ledger/E14_REPORT.md`
+
+| Gate | Result |
+|------|--------|
+| E14.2 ΔY / Qdot ledger | PASS |
+| E14.3 ha/cp vs NASA/Cantera | PASS (~1e-7) |
+| Teq(QSS)−Teq(CVODE) ≤2 K | **FAIL +40.3 K** |
+
+**Stop:** accounting and thermo-range consistent; Teq offset unexplained → escalate (no QSS algorithm change). E15.2+ and 2D QSS remain blocked.
