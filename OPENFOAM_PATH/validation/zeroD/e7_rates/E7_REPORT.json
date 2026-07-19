@@ -1,0 +1,77 @@
+{
+  "campaign": "E7",
+  "gate": 0.001,
+  "pins": [
+    {
+      "tag": "T1301",
+      "T": 1301.06,
+      "n_reac_compared": 678,
+      "n_reversible": 113,
+      "errs": {
+        "kf": 0.005947024247699289,
+        "kr": 0.015380883387798396,
+        "Kc_reversible": 0.013319285566148316,
+        "qf": 0.0004917667193083952,
+        "qr": 0.013020601596675702,
+        "qnet": 0.00422802392109418
+      },
+      "species_net_char": 0.0028247492811642877,
+      "PASS_rop_Kc": false,
+      "PASS_kf_strict": false
+    },
+    {
+      "tag": "T1500",
+      "T": 1500.04,
+      "n_reac_compared": 678,
+      "n_reversible": 113,
+      "errs": {
+        "kf": 0.002193660913203611,
+        "kr": 0.013072403438698192,
+        "Kc_reversible": 0.013230699092456114,
+        "qf": 0.0003486491758309634,
+        "qr": 0.01300931300860336,
+        "qnet": 0.006059806924966096
+      },
+      "species_net_char": 0.003465669652401181,
+      "PASS_rop_Kc": false,
+      "PASS_kf_strict": false
+    },
+    {
+      "tag": "T1701",
+      "T": 1700.94,
+      "n_reac_compared": 678,
+      "n_reversible": 113,
+      "errs": {
+        "kf": 0.0009850404625663595,
+        "kr": 0.013052806128864603,
+        "Kc_reversible": 0.013155941521240944,
+        "qf": 0.0002680818859134175,
+        "qr": 0.013005041317365459,
+        "qnet": 0.0019956515594590756
+      },
+      "species_net_char": 0.0022765608640758403,
+      "PASS_rop_Kc": false,
+      "PASS_kf_strict": true
+    },
+    {
+      "tag": "T2001",
+      "T": 2000.57,
+      "n_reac_compared": 678,
+      "n_reversible": 113,
+      "errs": {
+        "kf": 0.0003863635585442998,
+        "kr": 0.013068206041523025,
+        "Kc_reversible": 0.013209795454678673,
+        "qf": 0.00022766167041885654,
+        "qr": 0.013828986658222776,
+        "qnet": 0.0003559256008962623
+      },
+      "species_net_char": 0.0009686933685852166,
+      "PASS_rop_Kc": false,
+      "PASS_kf_strict": true
+    }
+  ],
+  "worst_char": 0.013828986658222776,
+  "PASS": false,
+  "note": "Primary gate: qf/qr/qnet + reversible Kc \u22640.1% vs Cantera-refit. Raw kf may exceed gate on third-body/falloff definition differences; species-net char localizes residual (E13.2 0.23\u20130.35%)."
+}

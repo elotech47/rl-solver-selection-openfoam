@@ -1,0 +1,182 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _c39a0f64-20231220 OPENFOAM=2312 version=2312
+Arch   : "LSB;label=32;scalar=64"
+Exec   : chemFoamDebug
+Date   : Jul 19 2026
+Time   : 05:05:13
+Host   : d9e8e4e766de
+PID    : 794
+I/O    : uncollated
+Case   : /work/cases/chemFoam_0D
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Overriding DebugSwitches according to controlDict
+    SolverPerformance 0;
+
+Constructing single cell mesh
+
+Reading initial conditions.
+
+Creating base fields for time 0
+Reading thermophysical properties
+
+Selecting thermodynamics package 
+{
+    type            hePsiThermo;
+    mixture         reactingMixture;
+    transport       sutherland;
+    thermo          janaf;
+    energy          sensibleEnthalpy;
+    equationOfState perfectGas;
+    specie          specie;
+}
+
+Selecting chemistryReader foamChemistryReader
+--> FOAM Warning : 
+    From void Foam::multiComponentMixture<ThermoType>::correctMassFractions() [with ThermoType = Foam::sutherlandTransport<Foam::species::thermo<Foam::janafThermo<Foam::perfectGas<Foam::specie> >, Foam::sensibleEnthalpy> >]
+    in file lnInclude/multiComponentMixture.C at line 78
+    Sum of mass fractions is different from one for species 
+106
+(
+h
+h2
+o
+o2
+oh
+h2o
+n2
+ho2
+h2o2
+co
+co2
+ch2o
+hco
+ch3o
+ch4
+ch3
+c2h6
+c2h5
+c2h4
+c2h3
+c2h2
+ch3cho
+ch3co
+ch2cho
+ch2co
+hcco
+c2h5o
+c2h3o1-2
+ch3coch2
+c2h3cho
+c2h3co
+c2h5cho
+c3h8
+nc3h7
+c3h6
+c3h5-a
+c3h4-a
+c3h5o
+nc3h7o2
+c4h10
+c4h8-1
+pc4h9
+c4h71-3
+c4h6
+pc4h9o2
+c4h7o
+c4h8ooh1-3
+c4h8ooh1-3o2
+nc4ket13
+nc3h7cho
+nc3h7co
+c5h11-1
+c6h13-1
+c6h12-1
+nc4h9cho
+nc4h9co
+nc3h7coch2
+c7h15-1
+c7h14-1
+c7h15o2-1
+c7h14ooh1-3
+nc5h11cho
+nc5h11co
+nc4h9coch2
+c4h7ooh1-4
+c4h7o1-4
+nc12h26
+c12h25-2
+c12h25-3
+c12h25-5
+c12h25-6
+c9h19-1
+c8h17-1
+c12h24-5
+c10h20-1
+c9h18-1
+c8h16-1
+c12h25o2-2
+c12h25o2-5
+c12h25o2-6
+c8h17o2-1
+c12ooh2-4
+c12ooh5-3
+c12ooh5-7
+c12ooh6-4
+c12ooh2-4o2
+c12ooh5-3o2
+c12ooh5-7o2
+c12ooh6-4o2
+c12o2-4
+c12o4-6
+c12o5-7
+c12ket2-4
+c12ket5-3
+c12ket5-7
+c12ket6-4
+c12ket6-8
+c8h17coch2
+c7h15coch2
+c6h13coch2
+c5h11coch2
+nc8h17cho
+nc6h13cho
+nc8h17co
+c9h17
+c8h15
+)
+
+    Max of mass fraction sum differs from 1 by 105
+Selecting chemistry solver 
+{
+    solver          ode;
+    method          standard;
+}
+
+StandardChemistryModel: Number of species = 106 and reactions = 678
+Selecting ODE solver seulex
+Reading/calculating face flux field phi
+
+pressure will be held constant.
+ p   = 1.01325e+06 [Pa]
+ T   = 1700.94 [K] 
+ rho = 1.95942 [kg/m3]
+
+
+Starting time loop
+
+Time = 1e-12
+
+Wrote of_rates_dump.json (OFRL_DUMP_RATES=1, E7 per-reaction)
