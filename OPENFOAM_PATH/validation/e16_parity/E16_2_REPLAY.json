@@ -1,0 +1,16 @@
+{
+  "n_total": 800,
+  "n_agree": 800,
+  "agreement": 1.0,
+  "decision_gate_pass": true,
+  "feature_gate_pass": true,
+  "gate_pass": true,
+  "max_feat_rel": 5.9430497654998534e-08,
+  "max_feat_abs": 9.532231466380381e-07,
+  "n_feat_ok": 800,
+  "n_feat_mismatch": 0,
+  "n_disagreements": 0,
+  "disagreements": [],
+  "feat_mismatches": [],
+  "note": "ObservationBuilder+ckpt vs build_obs19+TorchScript; conf<0.6\u2192CVODE"
+}

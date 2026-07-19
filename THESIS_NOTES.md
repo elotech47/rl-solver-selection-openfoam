@@ -190,6 +190,9 @@ NTC 700 K/60 atm/φ=0.5 ΔTeq from +80 K to −24 K (Python −32 K); former
 timeouts at 700 K and 900 K / 60 atm / φ=1 finished in tens of seconds; Mid-T
 τ_main OpenFOAM/Python ≈ 0.99. Equilibration audit at 800 K/10 atm/φ=1.5 and
 1000 K/10 atm/φ=0.5: last-5% temperature change <2 K for both QSS and CVODE.
+The 800/10/φ=1.5 point remains a **shared-family signature residual** (~+400 K
+class OF ΔTeq vs Python ~+37 K) after settlement was confirmed — not truncated
+integration, not a mystery to reopen.
 
 **Figures.** Before/after freeze scatter and table (`E15_BEFORE_AFTER_TFREEZE.md`,
 `e15_drift_vs_dTeq.png` vs `e15_drift_vs_dTeq_tfreeze.png`); frozen envelope

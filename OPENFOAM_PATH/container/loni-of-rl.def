@@ -1,0 +1,27 @@
+Bootstrap: docker://opencfd/openfoam-default:2312
+From: ubuntu:22.04
+
+%labels
+    Campaign Campaign5-E17b
+    OpenFOAM v2312
+    BaselineTag validation-baseline-v1
+
+%help
+    x86_64 Apptainer image for LONI E17b/E18. Build on an x86_64 host or LONI
+    build node. Bind MPI per LONI container-MPI guidance for multi-node runs.
+    Record modules + launch line in container/LONI.md after first smoke.
+
+%post
+    set -e
+    export DEBIAN_FRONTEND=noninteractive
+    # Placeholder: prefer building FROM the OpenCFD base or following
+    # OPENFOAM_PATH/container/Dockerfile steps (SUNDIALS, LibTorch, user libs).
+    # Do NOT treat this stub as production-ready until filled and spot-checked.
+    echo "TODO: port Dockerfile steps + LibTorch x86_64 + build_libs.sh"
+
+%environment
+    export WM_PROJECT_USER_DIR=/work
+    export OF_RL_IMAGE=loni-of-rl
+
+%runscript
+    exec /bin/bash "$@"
