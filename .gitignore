@@ -62,4 +62,16 @@ OPENFOAM_PATH/validation/e16_parity/e16_*_runs/
 OPENFOAM_PATH/validation/zeroD/e17_ignition_scout*/
 OPENFOAM_PATH/cases/chemFoam_0D/core
 OPENFOAM_PATH/cases/chemFoam_0D/rl_decisions.csv
+OPENFOAM_PATH/cases/**/rl_decisions.csv
 OPENFOAM_PATH/**/lnInclude/
+
+# E17 remote smoke / preflight dumps (logs, fields, extract tarballs, decision CSVs).
+# Small reports under a campaign may be force-added (FAILURE_REPORT.md, ISSUES.md, *summary.json).
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/log.*
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/progress.*.log
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/rl_decisions.csv
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/fields/
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/fields_ascii/
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/extract/
+OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/*.tgz

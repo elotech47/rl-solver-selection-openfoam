@@ -23,19 +23,21 @@ startTime       0;
 stopAt          endTime;
 
 // E17.1 scout: 3200 cells, CVODE, 10 atm, air 1350 K, U=±0.05
-endTime         0.001;
+endTime         0.0005;
 
 deltaT          1e-05;
 
 writeControl    adjustableRunTime;
 
-writeInterval   2.5e-04;
+writeInterval   1e-05;
 
 purgeWrite      40;
 
 writeFormat     ascii;
 
-runTimeModifiable true;
+writeCompression off;
+
+runTimeModifiable yes;
 
 adjustTimeStep  yes;
 
@@ -43,11 +45,11 @@ maxCo           0.4;
 
 maxDeltaT       1e-05;
 
-libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" );
+libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" "libpolicyRuntime.so" "librlChemistryModel.so" );
 
 propSanity      true;
 
-propSanityInterval 20;
+propSanityInterval 10;
 
 
 // ************************************************************************* //

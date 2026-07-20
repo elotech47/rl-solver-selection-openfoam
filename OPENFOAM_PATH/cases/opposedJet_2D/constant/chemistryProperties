@@ -7,10 +7,21 @@ FoamFile
 }
 chemistryType
 {
-    solver          cvode;
+    solver          ode;
+    method          rl;
 }
 chemistry       on;
 initialChemicalTimeStep 1e-07;
+rl
+{
+    mode                rlAdaptive;
+    maxChemDeltaT       1e-6;
+    dtRef               1e-6;
+    numSteps            20;
+    confidenceThreshold 0.6;
+    manifest            "/work/policy/policy_manifest";
+    torchScript         "/work/policy/policy.ts";
+}
 qssCoeffs
 {
     epsmin          0.02;

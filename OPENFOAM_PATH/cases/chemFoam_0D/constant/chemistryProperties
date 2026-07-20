@@ -19,8 +19,8 @@ rl
     dtRef               1e-6;
     numSteps            20;
     confidenceThreshold 0.6;
-    manifest            "policy_manifest";
-    torchScript         "policy.ts";
+    manifest            "/work/policy/policy_manifest";
+    torchScript         "/work/policy/policy.ts";
 }
 qssCoeffs
 {

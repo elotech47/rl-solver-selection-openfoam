@@ -1,0 +1,35 @@
+{
+  "modes": [
+    {
+      "out": "/home/elo/elo_research/rl-solver-selection-openfoam/OPENFOAM_PATH/validation/zeroD/e17_remote_runs/smoke_20260719_211924/cvodeOnly",
+      "wall_s": 20253,
+      "n_time_prints": 0,
+      "last_Time": null,
+      "last_field_Tmax": null,
+      "max_field_Tmax": null,
+      "max_internal_T_propSanity": null,
+      "last_internal_T_propSanity": null,
+      "FOAM_FATAL": false,
+      "End": false,
+      "latest_time_dir": "0.0005"
+    },
+    {
+      "mode": "qssOnly",
+      "missing": true
+    },
+    {
+      "out": "/home/elo/elo_research/rl-solver-selection-openfoam/OPENFOAM_PATH/validation/zeroD/e17_remote_runs/smoke_20260719_211924/rlAdaptive",
+      "wall_s": 221,
+      "n_time_prints": 0,
+      "last_Time": null,
+      "last_field_Tmax": null,
+      "max_field_Tmax": null,
+      "max_internal_T_propSanity": null,
+      "last_internal_T_propSanity": null,
+      "FOAM_FATAL": false,
+      "End": false,
+      "latest_time_dir": "0.0001"
+    }
+  ],
+  "wall_ratio_vs_cvode": {}
+}

@@ -1,0 +1,10 @@
+{
+  "n_decisions": 19200,
+  "n_CVODE": 6437,
+  "n_QSS": 12763,
+  "QSS_frac": 0.6647395833333334,
+  "mean_conf": 0.8820238359375001,
+  "ood_frac": 0.00036458333333333335,
+  "solverFlag_field_note": "OpenFOAM wrote uniform 0 then uniform 1 \u2014 all cells same choice at each dump; not empty",
+  "crash": "SIGFPE in CVode/omega after T hit 3500 (same path as qssOnly); policy was ~all QSS"
+}

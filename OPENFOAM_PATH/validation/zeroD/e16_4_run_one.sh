@@ -25,16 +25,7 @@ NUM_STEPS=20
 
 export FOAM_USER_LIBBIN="${ROOT}/platforms/${WM_OPTIONS}/lib"
 export FOAM_USER_APPBIN="${ROOT}/platforms/${WM_OPTIONS}/bin"
-export WM_PROJECT_USER_DIR="${ROOT}"
-export LIBTORCH_DIR="${ROOT}/opt/libtorch"
-export SUNDIALS_DIR="${ROOT}/opt/sundials-arm64"
-export LD_LIBRARY_PATH="${FOAM_USER_LIBBIN}:${LIBTORCH_DIR}/lib:${SUNDIALS_DIR}/lib:${LD_LIBRARY_PATH:-}"
-export PATH="${FOAM_USER_APPBIN}:${PATH}"
-export KMP_DUPLICATE_LIB_OK=TRUE
-export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
-export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
-export TORCH_MKLDNN_ENABLED=0
-export LD_PRELOAD="${LIBTORCH_DIR}/lib/libtorch_cpu.so:${LIBTORCH_DIR}/lib/libc10.so:${LIBTORCH_DIR}/lib/libomp-b8e5bcfb.so${LD_PRELOAD:+:$LD_PRELOAD}"
+source "${ROOT}/tools/ofrl_container_env.sh"
 
 CHEMBIN="$(ls -1 "${ROOT}"/platforms/*/bin/chemFoamDebug 2>/dev/null | head -1 || true)"
 test -n "$CHEMBIN" && test -x "$CHEMBIN" || { echo "FATAL missing chemFoamDebug"; exit 2; }
