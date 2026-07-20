@@ -28,25 +28,33 @@ echo "[e17 run] MODE=$MODE NPROC=$NPROC ENDT=$ENDT OUT=$OUT" | tee "$OUT/run_ban
 if [[ "$SKIP_KERNEL" != "1" ]]; then
   if command -v python3 >/dev/null 2>&1; then
     python3 "$ROOT/validation/zeroD/e17_set_hot_kernel.py" --Z 0.05 --T 1300 --p-atm 10 \
-      2>&1 | tee "$OUT/log.kernel.txt" || echo "WARN: kernel script failed (Cantera?); continuing"
+      2>&1 | tee "$OUT/log.kernel.txt"
+  else
+    echo "FATAL: python3 required for hot-kernel IC" | tee "$OUT/log.kernel.txt"
+    exit 1
   fi
 fi
 
-# BCs (optional overrides)
+# BCs (optional overrides) — edit only the air patch block (do not split on "air")
 python3 - <<PY
 from pathlib import Path
 import re
 case = Path("$CASE")
 t_air = float("${E17_T_AIR:-1350}")
 u = float("${E17_U:-0.05}")
-tp = case/"0/T"
+tp = case / "0/T"
 text = tp.read_text()
-parts = text.split("air")
-if len(parts) >= 2:
-    head, rest = parts[0], "air".join(parts[1:])
-    rest2, n = re.subn(r"(value\s+uniform\s+)[0-9.]+", rf"\g<1>{t_air:g}", rest, count=1)
-    tp.write_text(head + rest2 if n else text)
-up = case/"0/U"
+pat = re.compile(
+    r"(air\s*\{[^}]*?value\s+uniform\s+)[0-9.eE+-]+",
+    re.S,
+)
+text2, n = pat.subn(rf"\g<1>{t_air:g}", text, count=1)
+if n != 1:
+    raise SystemExit(f"air patch value not found in 0/T (n={n})")
+if "air" not in text2:
+    raise SystemExit("0/T missing air patch after edit")
+tp.write_text(text2)
+up = case / "0/U"
 ut = up.read_text()
 ut = re.sub(r"uniform \(\s*[0-9.eE+-]+\s+0\s+0\s*\);", f"uniform ({u:g} 0 0);", ut, count=1)
 ut = re.sub(r"uniform \(\s*-[0-9.eE+-]+\s+0\s+0\s*\);", f"uniform (-{u:g} 0 0);", ut, count=1)
@@ -54,30 +62,19 @@ up.write_text(ut)
 print("T_air", t_air, "U", u)
 PY
 
-# endTime
+# endTime (libs + chemistryProperties come from e17_configure_mode.sh)
 python3 - <<PY
 from pathlib import Path
 import re
 p = Path("$CASE/system/controlDict")
 t = p.read_text()
 t = re.sub(r"endTime\s+[^;]+;", f"endTime         {float('$ENDT')};", t, count=1)
-# libs for rl modes
-if "$MODE" != "cvodeOnly":
-    want = 'libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" "libpolicyRuntime.so" "librlChemistryModel.so" );'
-else:
-    want = 'libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" );'
-t2, n = re.subn(r"libs\s*\([^;]*\);", want, t, count=1)
-p.write_text(t2 if n else t)
-print("controlDict updated")
+p.write_text(t)
+print("controlDict endTime updated")
 PY
 
-# chemistry
-if [[ "$MODE" == "cvodeOnly" ]]; then
-  # Prefer stock cvode solver path for max speed on scout; also supports method rl
-  bash "$ROOT/validation/zeroD/e17_configure_mode.sh" cvodeOnly
-else
-  bash "$ROOT/validation/zeroD/e17_configure_mode.sh" "$MODE"
-fi
+# chemistry + libs for MODE (cvodeOnly/qssOnly = stock solver, no LibTorch)
+bash "$ROOT/validation/zeroD/e17_configure_mode.sh" "$MODE"
 
 # decomposeParDict
 sed "s/numberOfSubdomains.*/numberOfSubdomains  ${NPROC};/" \
@@ -110,7 +107,14 @@ docker run --rm --platform="$PLATFORM" --entrypoint /bin/bash \
        echo "=== blockMesh ==="
        blockMesh 2>&1 | tee "$OUT/log.blockMesh" | tail -15
        echo "=== decomposePar ($NPROC) ==="
-       decomposePar -force 2>&1 | tee "$OUT/log.decomposePar" | tail -20
+       if ! decomposePar -force 2>&1 | tee "$OUT/log.decomposePar" | tail -20; then
+         echo "FATAL: decomposePar failed — check 0/ fields (e.g. air patch in 0/T)" | tee -a "$OUT/log.decomposePar"
+         exit 1
+       fi
+       if [[ ! -f processor0/0/p ]]; then
+         echo "FATAL: processor0/0/p missing after decomposePar" | tee -a "$OUT/log.decomposePar"
+         exit 1
+       fi
        echo "=== mpirun reactingFoamDebug -parallel ==="
        START=$(date +%s)
        mpirun --allow-run-as-root -np "$NPROC" reactingFoamDebug -parallel \

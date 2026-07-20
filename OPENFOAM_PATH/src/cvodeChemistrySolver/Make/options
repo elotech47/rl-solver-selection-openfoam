@@ -29,4 +29,4 @@ LIB_LIBS = \
     -lthermophysicalProperties \
     -lchemistryModel \
     -L$(FOAM_USER_LIBBIN) \
-    -lofrlInvariants
+    -lofRlInvariants

@@ -12,6 +12,21 @@ echo "[e17 bootstrap] ROOT=$ROOT"
 echo "[e17 bootstrap] pulling $IMAGE ($PLATFORM)"
 docker pull --platform="$PLATFORM" "$IMAGE"
 
+# Host Python deps for kernel IC + extract/preprocess (Cantera preferred for Z→Y)
+echo "[e17 bootstrap] ensuring host Python deps (cantera, numpy, matplotlib)"
+# Prefer pip: conda-forge cantera often conflicts with base env (python/mamba/fmt pins).
+if command -v pip3 >/dev/null 2>&1 || command -v pip >/dev/null 2>&1; then
+  pip3 install --quiet 'cantera>=3.0' numpy matplotlib 2>/dev/null \
+    || pip install --quiet 'cantera>=3.0' numpy matplotlib
+elif command -v conda >/dev/null 2>&1; then
+  conda create -y -n ofrl-e17 -c conda-forge python=3.11 cantera numpy matplotlib \
+    && echo "INFO: activate with: conda activate ofrl-e17"
+else
+  echo "WARN: no pip/conda — install cantera manually for accurate hot-kernel Y"
+fi
+python3 -c "import cantera as ct; print('[e17 bootstrap] cantera', ct.__version__)" \
+  || echo "WARN: cantera import failed — kernel will use mass-fraction fallback"
+
 # Prefer building SUNDIALS inside a one-shot container into opt/sundials if missing
 if [[ ! -f "$ROOT/opt/sundials/include/cvode/cvode.h" ]]; then
   echo "[e17 bootstrap] building SUNDIALS into opt/sundials (first time)"

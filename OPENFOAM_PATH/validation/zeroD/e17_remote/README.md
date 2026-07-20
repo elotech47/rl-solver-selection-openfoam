@@ -14,7 +14,7 @@ then pull results back for analysis.
 |------|--------|
 | Docker **or** Apptainer | Image: `opencfd/openfoam-default:2312` (linux/amd64) |
 | Git | Clone this repo |
-| Python 3.10+ | For preprocess (`numpy`, `matplotlib`; Cantera optional for kernel IC) |
+| Python 3.10+ | For preprocess (`numpy`, `matplotlib`) and hot-kernel IC (`cantera` — installed by `00_bootstrap.sh`) |
 | Disk | ≥20 GB free (platforms build + case times + logs) |
 | RAM | ≥8 GB for 3200-cell CVODE 2D; more if `NPROC` is large |
 
