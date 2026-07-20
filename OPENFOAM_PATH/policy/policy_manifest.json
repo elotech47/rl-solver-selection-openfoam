@@ -88,6 +88,8 @@
   "activation": "relu",
   "confidence_threshold": 0.6,
   "num_steps": 20,
+  "dt_ref": 1e-6,
+  "dt_ref_note": "Training micro-step; tau_dec = num_steps * dt_ref. Override per-case via rl.dtRef (e.g. C1 paper dt=1e-5).",
   "action_map": {
     "0": "CVODE",
     "1": "QSS"

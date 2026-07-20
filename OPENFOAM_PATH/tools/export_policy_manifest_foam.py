@@ -43,6 +43,7 @@ def main() -> int:
     body.append(f"obs_dim              {man['obs_dim']};")
     body.append(f"confidence_threshold {man['confidence_threshold']};")
     body.append(f"num_steps            {man['num_steps']};")
+    body.append(f"dt_ref               {man.get('dt_ref', 1e-6)};")
     body.append(f"obs_clip             {man.get('obs_clip', 10.0)};")
     body.append(f'torchScript          "{man.get("torchscript", "policy.ts")}";')
     body.append("")

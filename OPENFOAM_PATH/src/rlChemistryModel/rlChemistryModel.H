@@ -35,6 +35,8 @@ private:
     Mode mode_;
     scalar maxChemDeltaT_;
     label numSteps_;
+    mutable scalar dtRef_;
+    mutable scalar tauDec_;
     scalar confidenceThreshold_;
     fileName policyManifestPath_;
     fileName policyTorchPath_;
@@ -46,18 +48,31 @@ private:
     mutable volScalarField chemCpuTime_;
     mutable volScalarField Tconsistency_;
 
+    // Decision-epoch history (τ_dec snapshots) — NOT per micro-window
     mutable scalarField Tprev_;
     mutable List<FixedList<scalar, 8>> YkeyPrev_;
-    mutable labelField stepsSinceDecision_;
+    mutable boolList hasSnapPrev_;
+    mutable scalarField timeSinceDecision_;
+    mutable labelField nDecisionsTaken_;
     mutable labelField lastDecision_;
-    mutable label chemCallCount_;
+    mutable boolList everDecided_;
+
+    // Cumulative chemistry time (all cells share CFD clock; logged for gates)
+    mutable scalar chemTimeAccum_;
+    mutable bool warnedOversizedDt_;
+
+    // Optional E16.5 regression hook: override solve(deltaT) with a repeating
+    // schedule so adaptive-Δt clock tests do not need a custom chemFoam.
+    // Prefer schedules that are integer multiples of dtRef/maxChemDeltaT so
+    // chemistry micro-windows match a fixed-Δt reference (path-identical).
+    List<scalar> testDeltaTSchedule_;
+    mutable label testDeltaTIndex_;
 
     mutable labelList keyIndices_;
     mutable bool keysResolved_;
 
     mutable std::unique_ptr<ofRlChem::PolicyRuntime> policy_;
     mutable ofRlChem::CvodeWorkspace cvodeWs_;
-    // User-data for CVODE RHS (model pointer filled in integrateCvode)
     mutable void* cvodeUdStorage_;
 
     void resolveKeySpecies() const;

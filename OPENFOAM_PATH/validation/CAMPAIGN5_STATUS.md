@@ -25,8 +25,9 @@ Canonical freeze tag: **`validation-baseline-v1`** (alias `e15-conform-baseline-
 | E16.3 0D rlAdaptive | **WIRING PASS / usage INCONCLUSIVE** | ±5 retired; see `E16_3_GATE.md` |
 | E16.3b teacher-forced + extended free-run | **APPROVED** | TF **100%**. Free-run usage band **waived** (fork analysis). Binding gate = final-state vs cvodeOnly. Standing: accuracy hard gate + log \|p−0.5\|<0.1 OOD. `E16_3B_GATE.md` |
 | E16.4 0D paper-conditions suite | **GREEN — E16 CLOSED** | Recalibrated gates; chemCpuTime fix; reverse TF 100% C1/C2. `E16_4_GATE.md` |
+| E16.5 decision/feature clock | **GREEN** | τ_dec = num_steps×dt_ref physical-time clock; snapshot Δlog; irregular MidT + fixed bit-identical + TF 40/40. Blocks E17 rlAdaptive until green — now open. `E16_5_GATE.md` |
 | E17.1 cvodeOnly smoke | **IN PROGRESS (remote kit)** | Mac scout slow; use `validation/zeroD/e17_remote/README.md` on multi-core linux/amd64 |
-| E17 qss/rl smoke | waits igniting BC from remote/Mac scout |
+| E17 qss/rl smoke | waits E17.1 igniting BC; **rlAdaptive unblocked by E16.5** |
 | E17b LONI Apptainer | **DEFERRED** — waiting on allocation access; scaffold kept (`container/LONI.md`) |
 | E18 production | waits E16+E17+E17b; **LONI only when access lands** |
 

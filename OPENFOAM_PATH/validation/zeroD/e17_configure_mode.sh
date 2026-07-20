@@ -36,6 +36,7 @@ rl
 {
     mode                rlAdaptive;
     maxChemDeltaT       1e-6;
+    dtRef               1e-6;
     numSteps            20;
     confidenceThreshold 0.6;
     manifest            "${ROOT}/policy/policy_manifest";

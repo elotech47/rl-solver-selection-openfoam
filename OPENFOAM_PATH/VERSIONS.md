@@ -16,7 +16,7 @@
 ## Decision cadences / solver defaults
 
 - Chemistry micro-window: `1e-6` s (`maxChemDeltaT`)
-- Policy re-query every `num_steps=20` micro-windows
+- Policy re-query every τ_dec = `num_steps × dt_ref` of chemistry time (E16.5; not CFD micro-window count)
 - CVODE: `rtol=1e-8`, `atol=1e-12`, BDF + Newton + dense FD Jacobian
 - QSS: `epsmin=0.02`, `epsmax=100`, `dtmin=1e-12`, `dtmax=1e-6`, `abstol=1e-11`, `itermax=2`
 - Confidence floor: `0.6` → force CVODE

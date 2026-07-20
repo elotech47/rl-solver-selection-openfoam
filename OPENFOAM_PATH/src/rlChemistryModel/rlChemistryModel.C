@@ -1,5 +1,9 @@
 /*---------------------------------------------------------------------------*\
   rlChemistryModel implementation — features → policy → QSS/CVODE dispatch
+
+  E16.5: decision/feature clock is physical chemistry time
+    τ_dec = numSteps × dtRef
+  not CFD micro-window count. Δlog features span consecutive τ_dec snapshots.
 \*---------------------------------------------------------------------------*/
 
 #include "rlChemistryModel.H"
@@ -22,6 +26,8 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     mode_(Mode::rlAdaptive),
     maxChemDeltaT_(1e-6),
     numSteps_(20),
+    dtRef_(1e-6),
+    tauDec_(2e-5),
     confidenceThreshold_(0.6),
     policyManifestPath_("policy_manifest"),
     policyTorchPath_("policy.ts"),
@@ -66,9 +72,14 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     ),
     Tprev_(this->mesh().nCells(), 0),
     YkeyPrev_(this->mesh().nCells()),
-    stepsSinceDecision_(this->mesh().nCells(), 0),
+    hasSnapPrev_(this->mesh().nCells(), false),
+    timeSinceDecision_(this->mesh().nCells(), 0),
+    nDecisionsTaken_(this->mesh().nCells(), 0),
     lastDecision_(this->mesh().nCells(), 0),
-    chemCallCount_(0),
+    everDecided_(this->mesh().nCells(), false),
+    chemTimeAccum_(0),
+    warnedOversizedDt_(false),
+    testDeltaTIndex_(0),
     keysResolved_(false),
     cvodeUdStorage_(nullptr)
 {
@@ -82,9 +93,20 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
 
     maxChemDeltaT_ = dict.getOrDefault<scalar>("maxChemDeltaT", 1e-6);
     numSteps_ = dict.getOrDefault<label>("numSteps", 20);
+    // dtRef: dict override → else filled from manifest in ensurePolicy
+    // Fallback maxChemDeltaT keeps E16.4 case scripts working before manifest load
+    dtRef_ = dict.getOrDefault<scalar>("dtRef", -1);
     confidenceThreshold_ = dict.getOrDefault<scalar>("confidenceThreshold", 0.6);
     policyManifestPath_ = dict.getOrDefault<fileName>("manifest", "policy_manifest");
     policyTorchPath_ = dict.getOrDefault<fileName>("torchScript", "policy.ts");
+
+    if (dict.found("testDeltaTSchedule"))
+    {
+        dict.lookup("testDeltaTSchedule") >> testDeltaTSchedule_;
+        Info<< "rlChemistryModel: testDeltaTSchedule ("
+            << testDeltaTSchedule_.size() << " entries) — E16.5 clock test hook"
+            << endl;
+    }
 
     if (this->found("qssCoeffs"))
     {
@@ -109,6 +131,13 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     {
         YkeyPrev_[celli] = Zero;
     }
+
+    // Provisional τ_dec until manifest load (dict dtRef or maxChemDeltaT)
+    if (dtRef_ < 0)
+    {
+        dtRef_ = maxChemDeltaT_;
+    }
+    tauDec_ = scalar(numSteps_)*dtRef_;
 }
 
 
@@ -128,7 +157,6 @@ void Foam::rlChemistryModel<ReactionThermo, ThermoType>::resolveKeySpecies() con
 {
     if (keysResolved_) return;
 
-    // Prefer manifest species list (lowercase foam names)
     std::vector<std::string> names =
     {
         "oh", "h2o", "o2", "h2", "h2o2", "o", "h", "n2"
@@ -150,7 +178,6 @@ void Foam::rlChemistryModel<ReactionThermo, ThermoType>::resolveKeySpecies() con
         forAll(Y, i)
         {
             word nm = Y[i].name();
-            // Prefer trailing specie token (e.g. "oh")
             std::string have = nm;
             for (char& ch : have)
             {
@@ -192,6 +219,26 @@ void Foam::rlChemistryModel<ReactionThermo, ThermoType>::ensurePolicy() const
     man.confidenceThreshold = confidenceThreshold_;
     man.numSteps = numSteps_;
 
+    // Resolve dtRef / τ_dec: explicit rl.dtRef > manifest dt_ref > maxChemDeltaT
+    const dictionary& dict = this->subDict("rl");
+    if (dict.found("dtRef"))
+    {
+        dtRef_ = dict.get<scalar>("dtRef");
+    }
+    else if (man.dtRef > 0)
+    {
+        dtRef_ = man.dtRef;
+    }
+    else
+    {
+        dtRef_ = maxChemDeltaT_;
+    }
+    man.dtRef = dtRef_;
+    tauDec_ = scalar(numSteps_)*dtRef_;
+    Info<< "rlChemistryModel: dtRef=" << dtRef_
+        << " numSteps=" << numSteps_
+        << " tauDec=" << tauDec_ << endl;
+
     fileName tsPath = policyTorchPath_;
     if (!isFile(tsPath))
     {
@@ -214,7 +261,7 @@ void Foam::rlChemistryModel<ReactionThermo, ThermoType>::ensurePolicy() const
 template<class ReactionThermo, class ThermoType>
 Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
 (
-    const scalar deltaT
+    const scalar deltaTIn
 )
 {
     this->correct();
@@ -227,10 +274,35 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
     ensurePolicy();
     resolveKeySpecies();
 
+    scalar deltaT = deltaTIn;
+    if (testDeltaTSchedule_.size())
+    {
+        deltaT =
+            testDeltaTSchedule_
+            [
+                testDeltaTIndex_ % testDeltaTSchedule_.size()
+            ];
+        ++testDeltaTIndex_;
+    }
+
     const label nSub = max(label(1), label(ceil(deltaT/maxChemDeltaT_)));
     const scalar dtChem = deltaT/nSub;
     const label nCells = this->mesh().nCells();
     const label nSpecie = this->nSpecie_;
+
+    // CFD / chemistry window larger than one decision interval: decide every
+    // window and let Δlog span the actual elapsed chemistry time.
+    const bool oversizedWindow = (dtChem > tauDec_ + SMALL);
+    if (oversizedWindow && !warnedOversizedDt_)
+    {
+        WarningInFunction
+            << "chemistry window dtChem=" << dtChem
+            << " > tauDec=" << tauDec_
+            << " (numSteps×dtRef). Deciding every window; Δlog spans "
+            << "actual elapsed chemistry time (not a fixed τ_dec)."
+            << endl;
+        warnedOversizedDt_ = true;
+    }
 
     scalar deltaTMin = GREAT;
 
@@ -239,7 +311,6 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
     const scalarField& T0field = this->thermo().T();
     const scalarField& p0field = this->thermo().p();
 
-    // Working state (concentrations + T) evolves across policy sub-windows
     List<scalarField> cWork(nCells);
     scalarField Twork(nCells);
     scalarField pWork(nCells);
@@ -258,31 +329,24 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
         }
         Twork[celli] = T0field[celli];
         pWork[celli] = p0field[celli];
-        // chemCpuTime_ accumulates across CFD steps (do not reset per window)
     }
 
     for (label s = 0; s < nSub; ++s)
     {
-        // --- Policy decisions from current working state ---
         if (mode_ == Mode::rlAdaptive)
         {
-            // Match Python AdaptiveRLStrategy: query when chemCallCount_ % numSteps_ == 0
             std::vector<label> active;
-            const bool queryNow = (chemCallCount_ % numSteps_ == 0);
-            ++chemCallCount_;
-            if (queryNow)
+            for (label celli = 0; celli < nCells; ++celli)
             {
-                for (label celli = 0; celli < nCells; ++celli)
+                // Absolute τ_dec grid: due when chemTimeAccum >= n·τ_dec
+                const scalar nextDue =
+                    scalar(nDecisionsTaken_[celli])*tauDec_;
+                const bool due =
+                    oversizedWindow
+                 || (chemTimeAccum_ + SMALL >= nextDue);
+                if (due)
                 {
                     active.push_back(celli);
-                    stepsSinceDecision_[celli] = 0;
-                }
-            }
-            else
-            {
-                for (label celli = 0; celli < nCells; ++celli)
-                {
-                    stepsSinceDecision_[celli] += 1;
                 }
             }
 
@@ -304,7 +368,7 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                     Ykey[j] = cWork[celli][si]*this->specieThermo_[si].W()/rhoNow;
                     Yprev[j] = YkeyPrev_[celli][j];
                 }
-                const bool hasPrev = (Tprev_[celli] > SMALL);
+                const bool hasPrev = hasSnapPrev_[celli];
                 feats[k] = ofRlChem::normalizeObs
                 (
                     ofRlChem::buildObservation19
@@ -324,7 +388,7 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             std::vector<double> conf;
             std::vector<double> pQss;
             policy_->inferBatch(feats, flags, conf, pQss);
-            // Append decisions (time, cell, flag, conf, p=P(QSS), T)
+
             {
                 const fileName logPath =
                     this->mesh().time().path()/"rl_decisions.csv";
@@ -337,16 +401,20 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 );
                 if (fresh)
                 {
-                    os << "time,subStep,celli,flag,conf,p,T,P,"
+                    os << "time,chemTime,subStep,celli,flag,conf,p,T,P,"
                        << "Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7,"
-                       << "Tprev,Yp0,Yp1,Yp2,Yp3,Yp4,Yp5,Yp6,Yp7,hasPrev"
+                       << "Tprev,Yp0,Yp1,Yp2,Yp3,Yp4,Yp5,Yp6,Yp7,hasPrev,"
+                       << "timeSince,tauDec,dtChem"
                        << nl;
                 }
                 for (size_t k = 0; k < active.size(); ++k)
                 {
                     const label celli = active[k];
+                    const scalar timeSinceLogged = timeSinceDecision_[celli];
                     lastDecision_[celli] = flags[k];
                     solverFlag_[celli] = flags[k];
+                    everDecided_[celli] = true;
+
                     double YkeyLog[8];
                     scalar rhoNow = 0;
                     for (label i = 0; i < nSpecie; ++i)
@@ -360,8 +428,9 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                         YkeyLog[j] =
                             cWork[celli][si]*this->specieThermo_[si].W()/rhoNow;
                     }
-                    const bool hasPrev = (Tprev_[celli] > SMALL);
+                    const bool hasPrev = hasSnapPrev_[celli];
                     os << this->mesh().time().value() << ','
+                       << chemTimeAccum_ << ','
                        << s << ','
                        << celli << ','
                        << flags[k] << ','
@@ -378,8 +447,28 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                     {
                         os << ',' << YkeyPrev_[celli][j];
                     }
-                    os << ',' << (hasPrev ? 1 : 0) << nl;
+                    os << ',' << (hasPrev ? 1 : 0)
+                       << ',' << timeSinceLogged
+                       << ',' << tauDec_
+                       << ',' << dtChem
+                       << nl;
+
+                    // Snapshot current state as the prev for the *next* τ_dec query
+                    Tprev_[celli] = Twork[celli];
+                    for (label j = 0; j < 8; ++j)
+                    {
+                        YkeyPrev_[celli][j] = YkeyLog[j];
+                    }
+                    hasSnapPrev_[celli] = true;
+                    timeSinceDecision_[celli] = 0;
+                    ++nDecisionsTaken_[celli];
                 }
+            }
+
+            // Held cells: keep lastDecision_ / solverFlag_
+            for (label celli = 0; celli < nCells; ++celli)
+            {
+                solverFlag_[celli] = lastDecision_[celli];
             }
         }
         else if (mode_ == Mode::cvodeOnly)
@@ -399,11 +488,13 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             }
         }
 
-        // --- Integrate one policy window ---
+        // --- Integrate one chemistry window ---
         for (label celli = 0; celli < nCells; ++celli)
         {
             if (Twork[celli] <= this->Treact_)
             {
+                // Cold cell: still advance the decision clock
+                timeSinceDecision_[celli] += dtChem;
                 continue;
             }
 
@@ -463,21 +554,12 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             this->deltaTChem_[celli] =
                 min(this->deltaTChem_[celli], this->deltaTChemMax_);
 
-            Tprev_[celli] = Ti;
-            scalar rhoNew = 0;
-            for (label i = 0; i < nSpecie; ++i)
-            {
-                rhoNew += cWork[celli][i]*this->specieThermo_[i].W();
-            }
-            rhoNew = max(rhoNew, SMALL);
-            for (label j = 0; j < 8; ++j)
-            {
-                const label si = keyIndices_[j];
-                YkeyPrev_[celli][j] =
-                    cWork[celli][si]*this->specieThermo_[si].W()/rhoNew;
-            }
+            // History buffers stay at τ_dec snapshots only (E16.5)
+            timeSinceDecision_[celli] += dtChem;
             Tconsistency_[celli] = Ti - T0field[celli];
         }
+
+        chemTimeAccum_ += dtChem;
     }
 
     for (label celli = 0; celli < nCells; ++celli)

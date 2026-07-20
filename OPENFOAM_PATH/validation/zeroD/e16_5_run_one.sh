@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# E16.4 inside-container: OF rlAdaptive / cvodeOnly / qssOnly for one paper condition.
-# Args: CID LABEL T0 P_ATM Z DT END_TIME MODE
-# MODE in {rlAdaptive,cvodeOnly,qssOnly}
+# E16.5 inside-container: MidT rlAdaptive with fixed or synthetic CFD Δt.
+# Args: TAG  MODE_DT
+#   TAG     = output subdirectory name (e.g. fixed_ref | synth_dt)
+#   MODE_DT = fixed | synth
 set -eo pipefail
 set +eu
 source /usr/lib/openfoam/openfoam2312/etc/bashrc
@@ -9,19 +10,24 @@ set -e
 set +u
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-CID="${1:?cid}"
-LABEL="${2:?label}"
-T0="${3:?T0}"
-PATM="${4:?p_atm}"
-Z="${5:?Z}"
-DT="${6:?dt}"
-ENDT="${7:?endTime}"
-MODE="${8:?mode}"
+TAG="${1:?tag}"
+MODE_DT="${2:?fixed|synth}"
+
+# MidT paper condition (C2), short horizon — enough decisions for the clock gate
+T0=800
+PATM=10
+Z=0.062
+DT_REF=1e-6
+NUM_STEPS=20
+# ~40 decision intervals → chemTime ~ 8e-4 s
+ENDT_FIXED=8e-4
+# synth: Time advances by DT_REF each CFD step while chemistry uses schedule;
+# need more CFD steps so chemTime reaches ~ENDT_FIXED
+ENDT_SYNTH=1.5e-3
 
 CASE="${ROOT}/cases/chemFoam_0D"
-OUT="${ROOT}/validation/e16_parity/e16_4_runs/${CID}_${MODE}"
-IC="${ROOT}/validation/e16_parity/e16_4_ics/${CID}_${LABEL}_initialConditions"
-NUM_STEPS=20
+OUT="${ROOT}/validation/e16_parity/e16_5_runs/${TAG}"
+IC="${ROOT}/validation/e16_parity/e16_4_ics/C2_MidT_MidP_initialConditions"
 
 export FOAM_USER_LIBBIN="${ROOT}/platforms/${WM_OPTIONS}/lib"
 export FOAM_USER_APPBIN="${ROOT}/platforms/${WM_OPTIONS}/bin"
@@ -49,7 +55,20 @@ cd "$CASE"
 rm -rf 0/p 0/T 0/Y* rl_decisions.csv 2>/dev/null || true
 cp -f "$IC" constant/initialConditions
 
-# Window = CFD Δt = maxChemDeltaT = paper dt. QSS internal dtmax stays 1e-6 (paper).
+SCHEDULE_BLOCK=""
+ENDT="$ENDT_FIXED"
+if [[ "$MODE_DT" == "synth" ]]; then
+  # Path-identical to fixed 1e-6 micro-windows: CFD Δt varies but each solve
+  # sub-cycles into maxChemDeltaT=dtRef chunks (2+1+3 = 6 windows / period).
+  SCHEDULE_BLOCK="    testDeltaTSchedule (2e-6 1e-6 3e-6);"
+  ENDT="$ENDT_SYNTH"
+elif [[ "$MODE_DT" == "synth_irregular" ]]; then
+  # User-requested irregular steps (includes Δt < dtRef). Clock spacing only;
+  # free-run flags need not match (integrator path dependence).
+  SCHEDULE_BLOCK="    testDeltaTSchedule (1e-6 2e-7 5e-7);"
+  ENDT="$ENDT_SYNTH"
+fi
+
 cat > constant/chemistryProperties <<EOF
 FoamFile
 {
@@ -67,13 +86,14 @@ chemistry       on;
 initialChemicalTimeStep 1e-07;
 rl
 {
-    mode                ${MODE};
-    maxChemDeltaT       ${DT};
-    dtRef               ${DT};
+    mode                rlAdaptive;
+    maxChemDeltaT       ${DT_REF};
+    dtRef               ${DT_REF};
     numSteps            ${NUM_STEPS};
     confidenceThreshold 0.6;
     manifest            "${ROOT}/policy/policy_manifest";
     torchScript         "${ROOT}/policy/policy.ts";
+${SCHEDULE_BLOCK}
 }
 qssCoeffs
 {
@@ -112,14 +132,14 @@ startFrom       startTime;
 startTime       0;
 stopAt          endTime;
 endTime         ${ENDT};
-deltaT          ${DT};
+deltaT          ${DT_REF};
 writeControl    runTime;
 writeInterval   ${ENDT};
 purgeWrite      0;
 writeFormat     ascii;
 runTimeModifiable true;
 adjustTimeStep  no;
-maxDeltaT       ${DT};
+maxDeltaT       ${DT_REF};
 libs
 (
     "libqssChemistrySolver.so"
@@ -129,7 +149,7 @@ libs
 );
 EOF
 
-echo "[e16.4] ${CID} ${LABEL} mode=${MODE} T0=${T0} p=${PATM}atm Z=${Z} dt=${DT} end=${ENDT} numSteps=${NUM_STEPS}"
+echo "[e16.5] tag=${TAG} mode_dt=${MODE_DT} dtRef=${DT_REF} numSteps=${NUM_STEPS} end=${ENDT}"
 T0_WALL=$(date +%s)
 "$CHEMBIN" > "${OUT}/log.chemFoam" 2>&1 || {
   echo "chemFoam FAILED — see ${OUT}/log.chemFoam"
@@ -140,34 +160,23 @@ T1_WALL=$(date +%s)
 WALL=$(awk -v t0="$T0_WALL" -v t1="$T1_WALL" 'BEGIN{printf "%.3f", t1-t0}')
 echo "WALL_SEC ${WALL}" | tee -a "${OUT}/log.chemFoam"
 
-# Meta header for postprocess
 cat > "${OUT}/run_meta.json" <<META
 {
-  "id": "${CID}",
-  "label": "${LABEL}",
-  "mode": "${MODE}",
+  "tag": "${TAG}",
+  "mode_dt": "${MODE_DT}",
   "T0": ${T0},
   "p_atm": ${PATM},
   "Z": ${Z},
-  "dt": ${DT},
-  "t_end": ${ENDT},
-  "maxChemDeltaT": ${DT},
+  "dt_ref": ${DT_REF},
   "num_steps": ${NUM_STEPS},
-  "decision_interval_s": $(awk -v d="$DT" -v n="$NUM_STEPS" 'BEGIN{printf "%.12g", d*n}'),
-  "wall_sec": ${WALL},
-  "source": "handoff/configs/example_ndodecane.yaml"
+  "tau_dec": $(awk -v d="$DT_REF" -v n="$NUM_STEPS" 'BEGIN{printf "%.12g", d*n}'),
+  "t_end": ${ENDT},
+  "wall_sec": ${WALL}
 }
 META
 
-grep -E 'WALL_SEC|ExecutionTime|rlChemistryModel' "${OUT}/log.chemFoam" | tail -20 || true
 cp -f chemFoam.out "${OUT}/" 2>/dev/null || true
 cp -f constant/chemistryProperties constant/initialConditions "${OUT}/"
 cp -f rl_decisions.csv "${OUT}/" 2>/dev/null || true
-FINAL_TDIR="$(ls -d [0-9]* 2>/dev/null | sort -g | tail -1 || true)"
-if [[ -n "${FINAL_TDIR:-}" ]]; then
-  mkdir -p "${OUT}/fields"
-  for f in T solverFlag chemCpuTime; do
-    [[ -f "${FINAL_TDIR}/${f}" ]] && cp -f "${FINAL_TDIR}/${f}" "${OUT}/fields/"
-  done
-fi
-echo "DONE ${CID} ${MODE} -> ${OUT}"
+grep -E 'WALL_SEC|tauDec|dtRef|testDeltaT|Warning' "${OUT}/log.chemFoam" | tail -30 || true
+echo "DONE ${TAG} -> ${OUT}"

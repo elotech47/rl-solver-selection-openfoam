@@ -8,8 +8,9 @@
   },
   "feature_dt_semantics": {
     "builder": "OPENFOAM_PATH/src/policyRuntime/policyFeatures.H buildObservation19",
-    "temporal": "Delta log10 (T and Ykey) between decision epochs — NOT divided by Delta t",
-    "c1_flag": "SAFE at dt=1e-5: no 1e-6 normalization assumed in gradient stencils"
+    "temporal": "Delta log10 (T and Ykey) between consecutive τ_dec decision snapshots — NOT divided by Delta t; NOT per micro-window (E16.5)",
+    "clock": "τ_dec = num_steps × dt_ref (manifest dt_ref / rl.dtRef); chemistry-time accumulator, not CFD micro-window count",
+    "c1_flag": "SAFE at dt=1e-5: set rl.dtRef=1e-5 so τ_dec=2e-4; no 1e-6 normalization assumed in gradient stencils"
   },
   "qss_internal": {
     "dtmax": 1.0e-6,

@@ -19,6 +19,8 @@ struct PolicyManifest
     int obsDim{19};
     double confidenceThreshold{0.6};
     int numSteps{20};
+    /** Training micro-step size; τ_dec = numSteps × dtRef (physical time). */
+    double dtRef{1e-6};
     std::vector<std::string> keySpecies
     {
         "OH", "H2O", "O2", "H2", "H2O2", "O", "H", "N2"

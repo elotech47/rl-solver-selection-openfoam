@@ -227,3 +227,11 @@ trajectories to shrink C1/C2 fork residuals — logged as optional work, not a
 blocker for E17.
 
 *Closes 0-D instrument parity for the deployed stack before 2-D rlAdaptive smoke.*
+
+---
+
+## Zero-shot transfer requires transferring the clock, not just the network (2026-07-19)
+
+**Finding.** Before 2-D rlAdaptive, E16.5 showed that wiring the trained weights is not enough: the decision/feature clock must reproduce training-time τ_dec = num_steps × dt_ref of physical chemistry time. Counting CFD micro-windows compresses Δlog features exactly when adaptive Δt drops under Courant control (ignition), biasing the policy toward QSS at the flame front. Evidence: `E16_5_GATE.md`.
+
+---

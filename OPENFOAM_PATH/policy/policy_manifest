@@ -9,6 +9,7 @@ FoamFile
 obs_dim              19;
 confidence_threshold 0.6;
 num_steps            20;
+dt_ref               1e-06;
 obs_clip             10.0;
 torchScript          "policy.ts";
 

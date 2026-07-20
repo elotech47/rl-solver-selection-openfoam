@@ -15,11 +15,12 @@ initialChemicalTimeStep 1e-07;
 rl
 {
     mode                rlAdaptive;
-    maxChemDeltaT       1e-5;
+    maxChemDeltaT       1e-6;
+    dtRef               1e-6;
     numSteps            20;
     confidenceThreshold 0.6;
-    manifest            "/work/policy/policy_manifest";
-    torchScript         "/work/policy/policy.ts";
+    manifest            "policy_manifest";
+    torchScript         "policy.ts";
 }
 qssCoeffs
 {

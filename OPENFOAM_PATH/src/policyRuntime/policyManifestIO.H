@@ -30,6 +30,8 @@ inline PolicyManifest loadPolicyManifest(const Foam::fileName& path)
     m.confidenceThreshold =
         dict.getOrDefault<Foam::scalar>("confidence_threshold", 0.6);
     m.numSteps = dict.getOrDefault<Foam::label>("num_steps", 20);
+    // dt_ref: training micro-step; τ_dec = num_steps × dt_ref
+    m.dtRef = dict.getOrDefault<Foam::scalar>("dt_ref", 1e-6);
     m.modelPath = dict.getOrDefault<Foam::fileName>("torchScript", "policy.ts");
 
     if (dict.found("key_species"))
