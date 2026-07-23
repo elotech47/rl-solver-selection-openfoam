@@ -75,3 +75,30 @@ OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/fields/
 OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/fields_ascii/
 OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/extract/
 OPENFOAM_PATH/validation/zeroD/e17_remote_runs/**/*.tgz
+
+# E17.2 local repro dumps
+OPENFOAM_PATH/validation/zeroD/e17_2/repro_runs/
+
+# E18 Stage 2 chemistry case dumps (scripts/reports under e18_prep stay tracked)
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage2_chem_*/
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage2_latest.txt
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage1_cold/log.*
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage1_cold/progress.*
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage1_cold/host*
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage1_cold/wall.txt
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage1_cold/run_header.txt
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage1_cold/e12_prop_sanity.csv
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage0_scout/run.log
+OPENFOAM_PATH/validation/zeroD/e18_prep/stage0_scout/*.png
+
+# Runtime CSVs / cores / ParaView stubs left in cases
+**/rl_usage_step.csv
+**/core
+**/*.foam
+OPENFOAM_PATH/policy/*.bak
+OPENFOAM_PATH/policy/*.bak.*
+
+# Local animation / stray validation copies (canonical dumps under OPENFOAM_PATH)
+/*.mp4
+/validation/
+/animation_*.mp4

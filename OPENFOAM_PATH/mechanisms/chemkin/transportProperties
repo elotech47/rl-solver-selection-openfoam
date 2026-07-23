@@ -18,8 +18,10 @@ FoamFile
 {
     transport
     {
-        As 0;
-        Ts 0;
+        // Air-like Sutherland defaults (O2 from OF compressibleGas tutorial).
+        // Prior As=Ts=0 made mu=kappa=alpha≡0 → EEqn laplacian dead (E18 Stage1).
+        As  1.67212e-06;
+        Ts  170.672;
     }
 }
 

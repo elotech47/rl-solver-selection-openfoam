@@ -49,6 +49,10 @@ BEGIN { step=0; last_t=""; last_tmax=""; last_clock=""; endt=ENVIRON["ENDT"]+0 }
     printf "propSanity t=%s Tint=%s Tmax=%s\n", last_t, $3, $4 > "/dev/stderr"
   next
 }
+/^rlUsage / {
+  print > "/dev/stderr"
+  next
+}
 /^Writing field / {
   printf "WROTE t=%s field=%s\n", $6, $3 > "/dev/stderr"
   next
@@ -99,6 +103,7 @@ reconstructPar > "$OUT/log.reconstructPar" 2>&1 || true
 cp -f system/controlDict constant/chemistryProperties system/decomposeParDict "$OUT/" 2>/dev/null || true
 cp -f 0/T 0/U 0/e17_kernel_meta.txt "$OUT/" 2>/dev/null || true
 cp -f e12_prop_sanity.csv "$OUT/" 2>/dev/null || true
+cp -f rl_usage_step.csv "$OUT/" 2>/dev/null || true
 # Parallel: decisions land in processor*/rl_decisions.csv — merge to OUT
 if ls processor*/rl_decisions.csv >/dev/null 2>&1; then
   {
@@ -116,10 +121,50 @@ mkdir -p "$OUT/fields"
 for td in $(ls -d [0-9]* 2>/dev/null | sort -g); do
   [[ "$td" == "0" ]] && continue
   mkdir -p "$OUT/fields/$td"
-  for f in T OH solverFlag chemCpuTime; do
+  for f in T OH solverFlag chemCpuTime qssFallbackCount yClipMass; do
     [[ -f "$td/$f" ]] && cp -f "$td/$f" "$OUT/fields/$td/"
   done
 done
 ls -d [0-9]* 2>/dev/null | sort -g | tail -1 > "$OUT/latest_time.txt" || true
+
+# E17.2 usage: CVODE-equivalent = solverFlag==0 OR qssFallbackCount increments
+if [[ -f "$OUT/rl_decisions.csv" ]] || ls "$OUT/fields"/*/qssFallbackCount >/dev/null 2>&1; then
+  OUT="$OUT" python3 - <<'PY' || true
+import os, json, re
+from pathlib import Path
+out = Path(os.environ["OUT"])
+latest = (out/"latest_time.txt").read_text().strip() if (out/"latest_time.txt").is_file() else ""
+fb_path = out/"fields"/latest/"qssFallbackCount" if latest else None
+summary = {"latest_time": latest}
+if fb_path and fb_path.is_file():
+    t = fb_path.read_text()
+    m = re.search(r"internalField\s+uniform\s+([^\s;]+)", t)
+    if m:
+        summary["fallback_uniform"] = float(m.group(1))
+    else:
+        m = re.search(r"internalField\s+nonuniform\s+List<scalar>\s*\n\s*(\d+)\s*\n\s*\((.*?)\)", t, re.S)
+        if m:
+            vals=[float(x) for x in m.group(2).split()]
+            summary["fallback_total"] = sum(vals)
+            summary["fallback_cells_gt0"] = sum(v>0 for v in vals)
+            summary["fallback_max"] = max(vals)
+            summary["n_cells"] = len(vals)
+sf = out/"fields"/latest/"solverFlag" if latest else None
+if sf and sf.is_file():
+    t = sf.read_text()
+    m = re.search(r"internalField\s+uniform\s+([^\s;]+)", t)
+    if m:
+        summary["solverFlag_uniform"] = float(m.group(1))
+    else:
+        m = re.search(r"internalField\s+nonuniform\s+List<scalar>\s*\n\s*(\d+)\s*\n\s*\((.*?)\)", t, re.S)
+        if m:
+            vals=[float(x) for x in m.group(2).split()]
+            n0=sum(v<0.5 for v in vals); n1=len(vals)-n0
+            summary["solverFlag_CVODE"] = n0
+            summary["solverFlag_QSS"] = n1
+(out/"e17_2_usage.json").write_text(json.dumps(summary, indent=2))
+print("e17_2_usage:", summary)
+PY
+fi
 
 exit "$RC"

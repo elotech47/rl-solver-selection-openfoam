@@ -1,0 +1,193 @@
+{
+  "campaign": "E18-prep Stage0",
+  "method": "Mixing-line most-reactive mixture (MRM) 0D const-p ignition delay vs opposed-jet residence \u03c4_res=1/a. Comfortable: \u03c4_ign/\u03c4_res \u2264 0.5. Not a full transient 1D counterflow ODE; optional steady CF checks separate.",
+  "yaml": "/home/elo/elo_research/rl-solver-selection-openfoam/OPENFOAM_PATH/mechanisms/refit/n-dodecane_refit.yaml",
+  "DA_COMFORT": 0.5,
+  "DA_MARGINAL": 1.0,
+  "grid": {
+    "a": [
+      50.0,
+      100.0,
+      200.0,
+      400.0,
+      800.0
+    ],
+    "T_air": [
+      1000.0,
+      1050.0,
+      1100.0,
+      1200.0
+    ],
+    "P_atm": [
+      1.0,
+      10.0
+    ],
+    "Z": [
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.060000000000000005,
+      0.06999999999999999,
+      0.08,
+      0.09,
+      0.09999999999999999,
+      0.11,
+      0.12
+    ]
+  },
+  "boundary": {
+    "1.0": {
+      "50.0": {
+        "min_T_comfortable": 1200.0,
+        "min_T_marginal": 1200.0,
+        "min_T_ignites": 1000.0
+      },
+      "100.0": {
+        "min_T_comfortable": 1200.0,
+        "min_T_marginal": 1200.0,
+        "min_T_ignites": 1000.0
+      },
+      "200.0": {
+        "min_T_comfortable": null,
+        "min_T_marginal": 1200.0,
+        "min_T_ignites": 1000.0
+      },
+      "400.0": {
+        "min_T_comfortable": null,
+        "min_T_marginal": null,
+        "min_T_ignites": 1000.0
+      },
+      "800.0": {
+        "min_T_comfortable": null,
+        "min_T_marginal": null,
+        "min_T_ignites": 1000.0
+      }
+    },
+    "10.0": {
+      "50.0": {
+        "min_T_comfortable": 1000.0,
+        "min_T_marginal": 1000.0,
+        "min_T_ignites": 1000.0
+      },
+      "100.0": {
+        "min_T_comfortable": 1000.0,
+        "min_T_marginal": 1000.0,
+        "min_T_ignites": 1000.0
+      },
+      "200.0": {
+        "min_T_comfortable": 1000.0,
+        "min_T_marginal": 1000.0,
+        "min_T_ignites": 1000.0
+      },
+      "400.0": {
+        "min_T_comfortable": 1200.0,
+        "min_T_marginal": 1000.0,
+        "min_T_ignites": 1000.0
+      },
+      "800.0": {
+        "min_T_comfortable": null,
+        "min_T_marginal": 1200.0,
+        "min_T_ignites": 1000.0
+      }
+    }
+  },
+  "pick": {
+    "T_air": 1000.0,
+    "P_atm": 10.0,
+    "a": 100.0,
+    "tau_res_s": 0.01,
+    "ignites": true,
+    "comfortable": true,
+    "marginal": true,
+    "Z_star": 0.12,
+    "Tmix_star": 830.5209338513829,
+    "tau_ign_s": 0.0014247811249910541,
+    "T_peak_0D": 2128.1758439343957,
+    "Da_inv": 0.1424781124991054,
+    "ignition_side": "near-stoich/fuel-rich",
+    "scan": [
+      {
+        "Z": 0.01,
+        "Tmix": 982.8271603417141,
+        "tau_s": NaN,
+        "T_peak": 1354.8356617733116
+      },
+      {
+        "Z": 0.02,
+        "Tmix": 966.3455508936316,
+        "tau_s": NaN,
+        "T_peak": 1683.2569541782818
+      },
+      {
+        "Z": 0.03,
+        "Tmix": 950.5041014299526,
+        "tau_s": 0.012557735528937734,
+        "T_peak": 1987.3340758647512
+      },
+      {
+        "Z": 0.04,
+        "Tmix": 935.2572919534671,
+        "tau_s": 0.011207735528937732,
+        "T_peak": 2261.514409682304
+      },
+      {
+        "Z": 0.05,
+        "Tmix": 920.5643116842036,
+        "tau_s": 0.009207735528937729,
+        "T_peak": 2487.6000681232695
+      },
+      {
+        "Z": 0.060000000000000005,
+        "Tmix": 906.3883917961408,
+        "tau_s": 0.006807735528937731,
+        "T_peak": 2637.1021655666073
+      },
+      {
+        "Z": 0.06999999999999999,
+        "Tmix": 892.6962559567731,
+        "tau_s": 0.004807735528937738,
+        "T_peak": 2672.177087240716
+      },
+      {
+        "Z": 0.08,
+        "Tmix": 879.4576681950423,
+        "tau_s": 0.003457735528937744,
+        "T_peak": 2579.853827945687
+      },
+      {
+        "Z": 0.09,
+        "Tmix": 866.6450531971892,
+        "tau_s": 0.002561904819987119,
+        "T_peak": 2445.6626762906644
+      },
+      {
+        "Z": 0.09999999999999999,
+        "Tmix": 854.2331848109375,
+        "tau_s": 0.002009837349989264,
+        "T_peak": 2326.290862647815
+      },
+      {
+        "Z": 0.11,
+        "Tmix": 842.1989122600359,
+        "tau_s": 0.0016247811249910538,
+        "T_peak": 2222.0721530198402
+      },
+      {
+        "Z": 0.12,
+        "Tmix": 830.5209338513829,
+        "tau_s": 0.0014247811249910541,
+        "T_peak": 2128.1758439343957
+      }
+    ],
+    "wall_s": 3.0201046466827393
+  },
+  "rationale": [
+    "Production pick: p=10.0 atm, T_air=1000.0 K, a=100.0 s\u207b\u00b9, \u03c4_ign=1.42 ms, \u03c4_res=1/a=10.00 ms, Da\u207b\u00b9=\u03c4\u00b7a=0.142, Z*=0.12, Tmix*=830.5 K.",
+    "p=10 atm retained: matches OF/E12\u2013E17 mechanism validation pressure and yields comfortable ignition at moderate strain; 1 atm only if scout requires.",
+    "Inlet velocities for 2D: a \u2248 2\u00b7V_inlet/gap (equal-momentum); with gap L, V_inlet \u2248 a\u00b7L/2."
+  ],
+  "n_comfort": 14,
+  "counterflow_checks": []
+}

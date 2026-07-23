@@ -11,6 +11,7 @@
 #include "policyManifestIO.H"
 #include "UniformField.H"
 #include "OFstream.H"
+#include "Pstream.H"
 #include <chrono>
 #include <cctype>
 
@@ -70,6 +71,32 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
         this->mesh(),
         dimensionedScalar("Tconsistency", dimTemperature, 0)
     ),
+    qssFallbackCount_
+    (
+        IOobject
+        (
+            "qssFallbackCount",
+            this->mesh().time().timeName(),
+            this->mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh(),
+        dimensionedScalar("qssFallbackCount", dimless, 0)
+    ),
+    yClipMass_
+    (
+        IOobject
+        (
+            "yClipMass",
+            this->mesh().time().timeName(),
+            this->mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh(),
+        dimensionedScalar("yClipMass", dimless, 0)
+    ),
     Tprev_(this->mesh().nCells(), 0),
     YkeyPrev_(this->mesh().nCells()),
     hasSnapPrev_(this->mesh().nCells(), false),
@@ -126,6 +153,26 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
         cvodeCoeffs_.atol = c.getOrDefault<scalar>("absTol", 1e-12);
         cvodeCoeffs_.mxsteps = c.getOrDefault<label>("maxSteps", 100000);
     }
+    if (this->found("guardCoeffs"))
+    {
+        const dictionary& g = this->subDict("guardCoeffs");
+        guardCoeffs_.enabled = g.getOrDefault<Switch>("enabled", true);
+        guardCoeffs_.epsY = g.getOrDefault<scalar>("epsY", 1e-8);
+        guardCoeffs_.epsSumY = g.getOrDefault<scalar>("epsSumY", 1e-2);
+        guardCoeffs_.dTmaxWindow = g.getOrDefault<scalar>("dTmaxWindow", 500);
+        guardCoeffs_.TminAccept = g.getOrDefault<scalar>("TminAccept", 310);
+        guardCoeffs_.TmaxAccept = g.getOrDefault<scalar>("TmaxAccept", 3400);
+    }
+    // CFD modes always use guards when method=rl (E17.2). Disable only via
+    // guardCoeffs.enabled false (0D diagnostics / ablation).
+    Info<< "rlChemistryModel: guards "
+        << (guardCoeffs_.enabled ? "ON" : "OFF")
+        << " epsY=" << guardCoeffs_.epsY
+        << " epsSumY=" << guardCoeffs_.epsSumY
+        << " dTmaxWindow=" << guardCoeffs_.dTmaxWindow
+        << " Taccept=[" << guardCoeffs_.TminAccept
+        << "," << guardCoeffs_.TmaxAccept << "]"
+        << endl;
 
     forAll(YkeyPrev_, celli)
     {
@@ -315,6 +362,18 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
     scalarField Twork(nCells);
     scalarField pWork(nCells);
     List<scalarField> cInit(nCells);
+
+    // Per-CFD-step usage (summed over chemistry sub-windows)
+    scalarField cpuThisSolve(nCells, 0);
+    boolList fellBackThisSolve(nCells, false);
+    // Layer-2 reject reason tallies (first failing check; cell counted once)
+    label nFbYneg = 0;
+    label nFbSumY = 0;
+    label nFbDT = 0;
+    label nFbTbounds = 0;
+    label nFbInteg = 0;
+    scalar maxNegY = 0;      // max of (-minY) among Y_negative rejects
+    scalar maxSumDrift = 0;  // max |ΣY−1| among sumY_drift rejects
 
     for (label celli = 0; celli < nCells; ++celli)
     {
@@ -507,16 +566,106 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
 
             const auto t0 = std::chrono::steady_clock::now();
             scalar timeLeft = dtChem;
+            bool cellUsedCvode = (lastDecision_[celli] == 0);
+            bool cellFellBack = false;
             while (timeLeft > SMALL)
             {
                 scalar dt = timeLeft;
                 scalar subDt = this->deltaTChem_[celli];
+
+                // Layer 1: input sanitation (diagnostic clip mass logged)
+                if (guardCoeffs_.enabled)
+                {
+                    yClipMass_[celli] +=
+                        ofRlChem::sanitizeConcentrations(*this, this->c_);
+                }
+
+                const scalarField cSnap(this->c_);
+                const scalar TSnap = Ti;
+
                 if (lastDecision_[celli] == 1)
                 {
-                    ofRlChem::integrateQss
+                    const bool integOk = ofRlChem::integrateQss
                     (
-                        *this, this->c_, Ti, pi, dt, subDt, qssCoeffs_
+                        *this, this->c_, Ti, pi, dt, subDt, qssCoeffs_,
+                        !guardCoeffs_.enabled,  // floor only if unguarded
+                        !guardCoeffs_.enabled   // Euler only if unguarded
                     );
+
+                    bool accept = integOk;
+                    word reason = integOk ? "ok" : "qss_integ_fail";
+                    ofRlChem::GuardWindowDiag gdiag;
+                    if (guardCoeffs_.enabled && integOk)
+                    {
+                        accept = ofRlChem::acceptQssWindow
+                        (
+                            *this, cSnap, TSnap, this->c_, Ti,
+                            guardCoeffs_, reason, &gdiag
+                        );
+                    }
+
+                    if (guardCoeffs_.enabled && !accept)
+                    {
+                        // Layer 2 reject: discard QSS state, redo with CVODE
+                        for (label i = 0; i < nSpecie; ++i)
+                        {
+                            this->c_[i] = cSnap[i];
+                        }
+                        Ti = TSnap;
+#if OF_RL_HAS_SUNDIALS
+                        ofRlChem::integrateCvode
+                        (
+                            *this, this->c_, Ti, pi, dt, subDt,
+                            cvodeCoeffs_, cvodeWs_,
+                            *static_cast
+                                <ofRlChem::CvodeUD
+                                    <rlChemistryModel
+                                        <ReactionThermo, ThermoType>>*>
+                                (cvodeUdStorage_)
+                        );
+#else
+                        FatalErrorInFunction
+                            << "QSS guard fallback needs SUNDIALS CVODE"
+                            << exit(FatalError);
+#endif
+                        qssFallbackCount_[celli] += 1;
+                        // Reason tally once per cell per CFD solve
+                        if (!cellFellBack)
+                        {
+                            if (reason == "Y_negative")
+                            {
+                                ++nFbYneg;
+                                maxNegY = max(maxNegY, -gdiag.minY);
+                            }
+                            else if (reason == "sumY_drift")
+                            {
+                                ++nFbSumY;
+                                maxSumDrift = max(maxSumDrift, gdiag.sumYDrift);
+                            }
+                            else if (reason == "dT_window")
+                            {
+                                ++nFbDT;
+                            }
+                            else if (reason == "T_bounds")
+                            {
+                                ++nFbTbounds;
+                            }
+                            else
+                            {
+                                ++nFbInteg; // qss_integ_fail or unknown
+                            }
+                        }
+                        cellUsedCvode = true;
+                        cellFellBack = true;
+                    }
+                    else if (guardCoeffs_.enabled && accept)
+                    {
+                        // Accept: floor concentrations for CFD RR
+                        for (label i = 0; i < nSpecie; ++i)
+                        {
+                            this->c_[i] = max(this->c_[i], scalar(0));
+                        }
+                    }
                 }
                 else
                 {
@@ -535,13 +684,39 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                         << "CVODE selected but SUNDIALS unavailable"
                         << exit(FatalError);
 #endif
+                    cellUsedCvode = true;
                 }
                 this->deltaTChem_[celli] = subDt;
                 timeLeft -= dt;
             }
             const auto t1 = std::chrono::steady_clock::now();
-            chemCpuTime_[celli] +=
+            const scalar dCpu =
                 std::chrono::duration<double>(t1 - t0).count();
+            chemCpuTime_[celli] += dCpu;
+            cpuThisSolve[celli] += dCpu;
+            if (cellFellBack)
+            {
+                fellBackThisSolve[celli] = true;
+            }
+
+            // Effective usage: any fallback in this CFD chem call counts as CVODE
+            solverFlag_[celli] = cellUsedCvode ? 0 : 1;
+            if (mode_ == Mode::qssOnly)
+            {
+                // Keep attempting QSS next window; guards re-check every time
+                lastDecision_[celli] = 1;
+            }
+            else if (mode_ == Mode::cvodeOnly)
+            {
+                lastDecision_[celli] = 0;
+                solverFlag_[celli] = 0;
+            }
+            else if (cellUsedCvode && lastDecision_[celli] == 1)
+            {
+                // rlAdaptive: after QSS→CVODE rescue, hold CVODE until next
+                // τ_dec decision (avoids re-entering QSS on a marginal state)
+                lastDecision_[celli] = 0;
+            }
 
             for (label i = 0; i < nSpecie; ++i)
             {
@@ -560,6 +735,161 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
         }
 
         chemTimeAccum_ += dtChem;
+    }
+
+    // --- Compact usage line (MPI-reduced) for clean logs / progress filters ---
+    {
+        label nCvode = 0;
+        label nQss = 0;
+        label nFallback = 0;
+        label nReact = 0;
+        scalar cpuCvode = 0;
+        scalar cpuQss = 0;
+        for (label celli = 0; celli < nCells; ++celli)
+        {
+            if (T0field[celli] <= this->Treact_)
+            {
+                continue;
+            }
+            ++nReact;
+            if (fellBackThisSolve[celli])
+            {
+                ++nFallback;
+            }
+            // Attribute CPU by effective solver after last sub-window
+            if (solverFlag_[celli] < 0.5)
+            {
+                ++nCvode;
+                cpuCvode += cpuThisSolve[celli];
+            }
+            else
+            {
+                ++nQss;
+                cpuQss += cpuThisSolve[celli];
+            }
+        }
+
+        // Per-rank chem wall ≈ sum of sequential cell timers on that rank.
+        // MPI-sum of those = total CPU-seconds; MPI-max ≈ parallel wall chem time.
+        const scalar wallChemLocal = cpuCvode + cpuQss;
+        scalar wallChem = wallChemLocal;
+
+        reduce(nCvode, sumOp<label>());
+        reduce(nQss, sumOp<label>());
+        reduce(nFallback, sumOp<label>());
+        reduce(nReact, sumOp<label>());
+        reduce(nFbYneg, sumOp<label>());
+        reduce(nFbSumY, sumOp<label>());
+        reduce(nFbDT, sumOp<label>());
+        reduce(nFbTbounds, sumOp<label>());
+        reduce(nFbInteg, sumOp<label>());
+        reduce(maxNegY, maxOp<scalar>());
+        reduce(maxSumDrift, maxOp<scalar>());
+        reduce(cpuCvode, sumOp<scalar>());
+        reduce(cpuQss, sumOp<scalar>());
+        reduce(wallChem, maxOp<scalar>());
+
+        if (Pstream::master())
+        {
+            const label nCvodeDirect = max(label(0), nCvode - nFallback);
+            const scalar cpuTotSum = cpuCvode + cpuQss;
+            const label nProcs = Pstream::nProcs();
+            const scalar pct =
+                (nFallback > 0)
+              ? scalar(100)/scalar(nFallback)
+              : scalar(0);
+            Info<< "rlUsage"
+                << " t=" << this->mesh().time().value()
+                << " react=" << nReact
+                << " CVODE=" << nCvodeDirect
+                << " QSS=" << nQss
+                << " fallbackCVODE=" << nFallback
+                << " cpu_CVODE_sum=" << cpuCvode << "s"
+                << " cpu_QSS_sum=" << cpuQss << "s"
+                << " cpu_tot_sum=" << cpuTotSum << "s"
+                << " wall_chem=" << wallChem << "s"
+                << " nProcs=" << nProcs
+                << endl;
+            if (nFallback > 0)
+            {
+                Info<< "rlFallbackReasons"
+                    << " Y_negative=" << nFbYneg
+                    << " (" << pct*nFbYneg << "%)"
+                    << " sumY_drift=" << nFbSumY
+                    << " (" << pct*nFbSumY << "%)"
+                    << " dT_window=" << nFbDT
+                    << " (" << pct*nFbDT << "%)"
+                    << " T_bounds=" << nFbTbounds
+                    << " (" << pct*nFbTbounds << "%)"
+                    << " qss_integ=" << nFbInteg
+                    << " (" << pct*nFbInteg << "%)"
+                    << " maxNegY=" << maxNegY
+                    << " maxSumDrift=" << maxSumDrift
+                    << endl;
+            }
+
+            // Append step CSV at case root (master only).
+            // cpu_*_sum = MPI sum of cell timers (CPU-seconds of work).
+            // wall_chem = max over ranks of that rank's cell-timer sum.
+            const fileName usagePath =
+                this->mesh().time().rootPath()
+               /this->mesh().time().globalCaseName()
+               /"rl_usage_step.csv";
+            // Rotate legacy CSV if columns changed
+            if (isFile(usagePath))
+            {
+                IFstream hdrCheck(usagePath);
+                string hdr;
+                if (hdrCheck.good())
+                {
+                    hdrCheck.getLine(hdr);
+                    if
+                    (
+                        hdr.find("wall_chem") == std::string::npos
+                     || hdr.find("fb_Y_negative") == std::string::npos
+                    )
+                    {
+                        mv
+                        (
+                            usagePath,
+                            usagePath + ".bak"
+                        );
+                    }
+                }
+            }
+            const bool fresh = !isFile(usagePath);
+            OFstream uos
+            (
+                usagePath,
+                IOstreamOption(IOstreamOption::ASCII),
+                IOstreamOption::APPEND
+            );
+            if (fresh)
+            {
+                uos << "time,nReact,nCVODE,nQSS,nFallbackCVODE,"
+                    << "fb_Y_negative,fb_sumY_drift,fb_dT_window,"
+                    << "fb_T_bounds,fb_qss_integ,maxNegY,maxSumDrift,"
+                    << "cpu_CVODE_sum,cpu_QSS_sum,cpu_tot_sum,"
+                    << "wall_chem,nProcs" << nl;
+            }
+            uos << this->mesh().time().value() << ','
+                << nReact << ','
+                << nCvodeDirect << ','
+                << nQss << ','
+                << nFallback << ','
+                << nFbYneg << ','
+                << nFbSumY << ','
+                << nFbDT << ','
+                << nFbTbounds << ','
+                << nFbInteg << ','
+                << maxNegY << ','
+                << maxSumDrift << ','
+                << cpuCvode << ','
+                << cpuQss << ','
+                << cpuTotSum << ','
+                << wallChem << ','
+                << nProcs << nl;
+        }
     }
 
     for (label celli = 0; celli < nCells; ++celli)

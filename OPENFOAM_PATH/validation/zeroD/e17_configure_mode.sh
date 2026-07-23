@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # E17 — configure opposedJet_2D chemistry for cvodeOnly / qssOnly / rlAdaptive.
-# All three modes use chemistryType { solver ode; method rl; } so solverFlag /
-# chemCpuTime / decision CSV are comparable. Requires LibTorch + rl libs.
+#
+# E17.2 mode meanings (CFD):
+#   cvodeOnly  — force CVODE (guards still sanitize inputs)
+#   qssOnly    — QSS + Layer-1/2 guards with CVODE fallback (reported)
+#   rlAdaptive — policy + same guards; fallback counts as CVODE usage
+#
+# Unguarded stock QSS (chemistryType.solver=qss) is RETIRED for CFD.
+# 0D chemFoam may still use stock qss for algorithm studies.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 CASE="$ROOT/cases/opposedJet_2D"
 MODE="${1:?mode}"
-# Policy paths must be valid *inside* the OpenFOAM container (workspace → /work).
-# Override with E17_CONTAINER_ROOT if the mount point differs.
 CONTAINER_ROOT="${E17_CONTAINER_ROOT:-/work}"
 
 case "$MODE" in
@@ -15,50 +19,13 @@ case "$MODE" in
   *) echo "MODE must be cvodeOnly|qssOnly|rlAdaptive"; exit 2 ;;
 esac
 
-# Optional: E17_STOCK=1 forces stock solver cvode|qss (no LibTorch; no solverFlag).
-if [[ "${E17_STOCK:-0}" == "1" && "$MODE" != "rlAdaptive" ]]; then
-  SOLVER=cvode
-  [[ "$MODE" == "qssOnly" ]] && SOLVER=qss
-  cat > "$CASE/constant/chemistryProperties" <<EOF
-FoamFile
-{
-    version         2;
-    format          ascii;
-    class           dictionary;
-    object          chemistryProperties;
-}
-chemistryType
-{
-    solver          ${SOLVER};
-}
-chemistry       on;
-initialChemicalTimeStep 1e-07;
-qssCoeffs
-{
-    epsmin          0.02;
-    epsmax          100;
-    dtmin           1e-12;
-    dtmax           1e-06;
-    abstol          1e-11;
-    itermax         2;
-    Tfreeze         true;
-}
-cvodeCoeffs
-{
-    relTol          1e-08;
-    absTol          1e-12;
-    maxSteps        100000;
-}
-odeCoeffs
-{
-    solver          seulex;
-    absTol          1e-12;
-    relTol          1e-08;
-}
-EOF
-  want='libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" );'
-else
-  cat > "$CASE/constant/chemistryProperties" <<EOF
+if [[ "${E17_STOCK:-0}" == "1" ]]; then
+  echo "ERROR: E17_STOCK=1 retired for CFD (E17.2). Unguarded QSS is 0D-only." >&2
+  echo "Use method rl with guardCoeffs (default ON)." >&2
+  exit 2
+fi
+
+cat > "$CASE/constant/chemistryProperties" <<EOF
 FoamFile
 {
     version         2;
@@ -99,6 +66,15 @@ cvodeCoeffs
     absTol          1e-12;
     maxSteps        100000;
 }
+guardCoeffs
+{
+    enabled         true;
+    epsY            1e-12;
+    epsSumY         1e-3;
+    dTmaxWindow     500;
+    TminAccept      310;
+    TmaxAccept      3400;
+}
 odeCoeffs
 {
     solver          seulex;
@@ -106,8 +82,8 @@ odeCoeffs
     relTol          1e-08;
 }
 EOF
-  want='libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" "libpolicyRuntime.so" "librlChemistryModel.so" );'
-fi
+
+want='libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" "libpolicyRuntime.so" "librlChemistryModel.so" );'
 
 python3 - <<PY
 from pathlib import Path
@@ -122,4 +98,4 @@ p.write_text(t2)
 print("controlDict libs updated for mode=$MODE")
 PY
 
-echo "Configured opposedJet_2D for mode=${MODE} (policy root=${CONTAINER_ROOT})"
+echo "Configured opposedJet_2D for mode=${MODE} (guards ON, policy root=${CONTAINER_ROOT})"

@@ -639,3 +639,38 @@ Artifacts: `mechanisms/refit/e11_2_kinetic/`.
 | Frozen baseline | **`validation-baseline-v1`** (`823b1c2`; alias `e15-conform-baseline-v1`) + `FROZEN_VALIDATION_BASELINE_v1.md` + `FROZEN_RUNG_BC_ACCEPTANCE.md` |
 
 **2D QSS production: UNBLOCKED.** Proceed to opposed-jet `qssOnly` + `rlAdaptive` smoke per master spec §5.2. Prior E13/E14 “2D QSS blocked” stop conditions are superseded by this conform close-out.
+
+---
+
+## E17.3 — alphaEff energy-diffusion probe (2026-07-20)
+
+**Question.** Does `EEqn` see a physical effective thermal diffusivity, or are we logging `alphat` (zero under laminar)?
+
+**Accessor chain (verified in OpenFOAM-2312 headers).**
+
+| Call site | Resolves to |
+|-----------|-------------|
+| `EEqn.H`: `fvm::laplacian(turbulence->alphaEff(), he)` | `ThermalDiffusivity::alphaEff()` |
+| `ThermalDiffusivity::alphaEff()` | `transport_.alphahe()` — **not** `alphat` |
+| `alphat()` under laminar | identically `Zero` |
+| `heThermo::alphahe()` | `CpByCpv()*alpha_` |
+| `thermo.alpha()` | molecular `alpha_` (temperature diffusivity) |
+
+**Campaign observation (`e17_2_t107_…` logs).** `propSanity` printed `alphaEff 0 0  alpha 0 0` through ignition. That is **blocking for citing energy diffusion as verified present** until a rebuild with the upgraded probe confirms nonzero physical values (or diagnoses a true-zero `alpha_` field).
+
+**Fix applied (needs rebuild of `reactingFoamDebug`).** `propertySanityLog.H` now:
+1. Labels the probe as `alphaEff(turb=alphahe)`.
+2. Also logs `thermo.alphahe()` and `thermo.alpha()` at precision 12.
+3. Counts cells with `alphaEff > 1e-20` (MPI-reduced).
+4. Extends `e12_prop_sanity.csv` columns accordingly.
+
+**Status.** Correct field is wired into `EEqn` (not alphat). Numerical nonzero confirmation is **pending** the next solver rebuild + short smoke. Do not claim “energy diffusion verified present” in E17 citations until `nAlphaEff>1e-20` is nonzero in logs.
+
+## E18 Stage 1 — alphaEff CLOSED (2026-07-20)
+
+**Root cause.** Not a wrong accessor: `constant/thermo` (and `chemkin/transportProperties`) had **As=0; Ts=0** for all 106 species → Sutherland μ≡0 → κ≡0 → α≡0 → `EEqn` laplacian coefficient identically zero. Logs printing `alphaEff 0 0` were truthful.
+
+**Fix.** Air-like Sutherland defaults **As=1.67212e−6, Ts=170.672** (OF compressibleGas O₂) patched into production thermo + transportProperties. Probe also logs μ/κ.
+
+**E18 Stage 1 cold confirmation (t=0.05, chem OFF).**
+`propSanity`: μ ∈ [1.85e−5, 4.52e−5], α_eff ∈ [2.46e−5, 6.47e−5], **nAlphaEff>1e-20 = 20000/20000**. Energy diffusion verified present for Stage 2 citation.

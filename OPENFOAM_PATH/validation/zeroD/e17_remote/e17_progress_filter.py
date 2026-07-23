@@ -65,6 +65,10 @@ def main() -> None:
             )
             continue
 
+        if line.startswith("rlUsage"):
+            print(line, flush=True)
+            continue
+
         m = WROTE_RE.match(line)
         if m:
             print(f"WROTE t={m.group(2)} field={m.group(1)}", flush=True)

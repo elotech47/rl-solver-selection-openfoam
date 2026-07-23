@@ -43,6 +43,156 @@ struct CvodeCoeffs
     Foam::label mxsteps{100000};
 };
 
+/** E17.2 chemistry-level guards (dictionary: guardCoeffs). */
+struct GuardCoeffs
+{
+    bool enabled{true};
+    // Defaults relaxed 2026-07-22: 1e-12 / 1e-3 rejected ~90% of QSS
+    // windows on raw CHEMEQ2 output (tiny negatives / ΣY drift). Layer-1
+    // still floors+renorms on accept; these only gate the CVODE rescue.
+    Foam::scalar epsY{1e-8};        // reject if any Y_i < -epsY
+    Foam::scalar epsSumY{1e-2};     // reject if |ΣY−1| > epsSumY
+    Foam::scalar dTmaxWindow{500};  // K per chemistry micro-window
+    Foam::scalar TminAccept{310};
+    Foam::scalar TmaxAccept{3400};
+};
+
+/** Diagnostics from one Layer-2 evaluation (filled even on accept). */
+struct GuardWindowDiag
+{
+    Foam::scalar minY{0};       // min_i Y_i (signed)
+    Foam::scalar sumYDrift{0};  // |ΣY−1|
+    Foam::scalar dT{0};         // |T1−T0|
+};
+
+/**
+ * Layer 1 — floor Y_i≥0 and renormalize ΣY=1 (keeps mixture ρ).
+ * Returns clipped negative mass fraction sum (diagnostic).
+ */
+template<class ChemistryModel>
+inline Foam::scalar sanitizeConcentrations
+(
+    const ChemistryModel& model,
+    Foam::scalarField& c
+)
+{
+    const Foam::label nSpecie = model.nSpecie();
+    Foam::scalar rho = 0.0;
+    for (Foam::label i = 0; i < nSpecie; ++i)
+    {
+        rho += c[i]*model.specieThermo()[i].W();
+    }
+    rho = Foam::max(rho, Foam::SMALL);
+
+    Foam::scalarField Y(nSpecie, 0.0);
+    Foam::scalar clipped = 0.0;
+    Foam::scalar sumPos = 0.0;
+    for (Foam::label i = 0; i < nSpecie; ++i)
+    {
+        Y[i] = c[i]*model.specieThermo()[i].W()/rho;
+        if (Y[i] < 0)
+        {
+            clipped += -Y[i];
+            Y[i] = 0;
+        }
+        sumPos += Y[i];
+    }
+    if (sumPos > Foam::SMALL)
+    {
+        for (Foam::label i = 0; i < nSpecie; ++i)
+        {
+            Y[i] /= sumPos;
+            c[i] = rho*Y[i]/model.specieThermo()[i].W();
+        }
+    }
+    return clipped;
+}
+
+/** Mass fractions from concentrations (signed; no floor). */
+template<class ChemistryModel>
+inline void concentrationsToY
+(
+    const ChemistryModel& model,
+    const Foam::scalarField& c,
+    Foam::scalarField& Y,
+    Foam::scalar& sumY
+)
+{
+    const Foam::label nSpecie = model.nSpecie();
+    Foam::scalar rhoSigned = 0.0;
+    for (Foam::label i = 0; i < nSpecie; ++i)
+    {
+        rhoSigned += c[i]*model.specieThermo()[i].W();
+    }
+    const Foam::scalar rhoDen = Foam::max(Foam::mag(rhoSigned), Foam::SMALL);
+    Y.setSize(nSpecie);
+    sumY = 0.0;
+    for (Foam::label i = 0; i < nSpecie; ++i)
+    {
+        Y[i] = c[i]*model.specieThermo()[i].W()/rhoDen;
+        sumY += Y[i];
+    }
+}
+
+/**
+ * Layer 2 — QSS acceptance after a micro-window (raw concentrations, pre-floor).
+ * First failing check wins (order: Y → ΣY → dT → T bounds).
+ */
+template<class ChemistryModel>
+inline bool acceptQssWindow
+(
+    const ChemistryModel& model,
+    const Foam::scalarField& /*c0*/,
+    const Foam::scalar T0,
+    const Foam::scalarField& c1,
+    const Foam::scalar T1,
+    const GuardCoeffs& g,
+    Foam::word& reason,
+    GuardWindowDiag* diag = nullptr
+)
+{
+    Foam::scalarField Y;
+    Foam::scalar sumY = 0;
+    concentrationsToY(model, c1, Y, sumY);
+
+    Foam::scalar minY = Foam::GREAT;
+    forAll(Y, i)
+    {
+        minY = Foam::min(minY, Y[i]);
+    }
+    const Foam::scalar sumDrift = Foam::mag(sumY - Foam::scalar(1));
+    const Foam::scalar dT = Foam::mag(T1 - T0);
+    if (diag)
+    {
+        diag->minY = minY;
+        diag->sumYDrift = sumDrift;
+        diag->dT = dT;
+    }
+
+    if (minY < -g.epsY)
+    {
+        reason = "Y_negative";
+        return false;
+    }
+    if (sumDrift > g.epsSumY)
+    {
+        reason = "sumY_drift";
+        return false;
+    }
+    if (dT > g.dTmaxWindow)
+    {
+        reason = "dT_window";
+        return false;
+    }
+    if (T1 < g.TminAccept || T1 > g.TmaxAccept)
+    {
+        reason = "T_bounds";
+        return false;
+    }
+    reason = "ok";
+    return true;
+}
+
 inline Foam::scalar suggestDeltaT(Foam::scalar deltaT, Foam::scalar dTwin)
 {
     const Foam::scalar dTmax = 25.0;
@@ -173,7 +323,7 @@ public:
 };
 
 template<class ChemistryModel>
-inline void integrateQss
+inline bool integrateQss
 (
     ChemistryModel& model,
     Foam::scalarField& c,
@@ -181,7 +331,9 @@ inline void integrateQss
     Foam::scalar& p,
     Foam::scalar& deltaT,
     Foam::scalar& subDeltaT,
-    const QssCoeffs& coeffs
+    const QssCoeffs& coeffs,
+    const bool applyNonnegFloor = true,
+    const bool eulerOnFail = true
 )
 {
     const Foam::label nSpecie = model.nSpecie();
@@ -220,6 +372,12 @@ inline void integrateQss
     const int ret = integ.integrateToTime(deltaT);
     if (ret != 0)
     {
+        if (!eulerOnFail)
+        {
+            // Caller (E17.2 guards) will restore + CVODE.
+            subDeltaT = suggestDeltaT(deltaT, Foam::scalar(0));
+            return false;
+        }
         WarningInFunction
             << "α-QSS failed (ret=" << ret << "); explicit Euler fallback"
             << Foam::endl;
@@ -245,17 +403,19 @@ inline void integrateQss
         T = Foam::min(Foam::max(T, Foam::scalar(250)), Foam::scalar(4500));
         Foam::ofRlInvariants::recordSolve(T0in, T, deltaT, c0snap, c);
         subDeltaT = suggestDeltaT(deltaT, Foam::mag(T - T0in));
-        return;
+        return true;
     }
 
     integ.getState(y);
     T = y[0];
     for (Foam::label i = 0; i < nSpecie; ++i)
     {
-        c[i] = Foam::max(y[static_cast<size_t>(i) + 1], Foam::scalar(0));
+        const Foam::scalar ci = y[static_cast<size_t>(i) + 1];
+        c[i] = applyNonnegFloor ? Foam::max(ci, Foam::scalar(0)) : ci;
     }
     Foam::ofRlInvariants::recordSolve(T0in, T, deltaT, c0snap, c);
     subDeltaT = suggestDeltaT(deltaT, Foam::mag(T - T0in));
+    return true;
 }
 
 // Always-declared UD so headers compile without SUNDIALS

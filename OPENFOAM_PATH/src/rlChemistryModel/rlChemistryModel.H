@@ -43,10 +43,15 @@ private:
 
     ofRlChem::QssCoeffs qssCoeffs_;
     ofRlChem::CvodeCoeffs cvodeCoeffs_;
+    ofRlChem::GuardCoeffs guardCoeffs_;
 
     mutable volScalarField solverFlag_;
     mutable volScalarField chemCpuTime_;
     mutable volScalarField Tconsistency_;
+    // E17.2: cumulative QSS→CVODE fallback windows (counts as CVODE usage)
+    mutable volScalarField qssFallbackCount_;
+    // E17.2 Layer-1 diagnostic: cumulative clipped negative mass fraction
+    mutable volScalarField yClipMass_;
 
     // Decision-epoch history (τ_dec snapshots) — NOT per micro-window
     mutable scalarField Tprev_;

@@ -230,6 +230,24 @@ blocker for E17.
 
 ---
 
+## E17.2 pending — transport-robust QSS guards; policy-value vs safety-net fork (2026-07-20)
+
+**Finding (interim).** First 2-D opposed-jet smoke showed pure CVODE completing through ignition while QSS-only and RL-adaptive (≈99% QSS into the front) aborted shortly after ignition with temperature stuck at the Option R JANAF high limit (3500 K) and pathological heat capacity. Write-time mass fractions remained non-negative and ΣY≈1 through the last dump (100 µs); the blow-up occupies the final ~4 µs without field output. Chemistry-level guards (input Y sanitation + QSS acceptance with CVODE fallback, counted as CVODE usage) are deployed for CFD; unguarded QSS is retired for multi-D use. **Post-rerun fork:** if RL’s CVODE-equivalent usage remains ≪ guarded-QSS fallback rate, the policy adds value beyond the safety net; if fallback dominates flame cells regardless of policy, that is the quantified trigger for a post-E18 in-situ adaptation study. First 2-D load-imbalance datum: per-cell CVODE chemCpu from ~17 s to ~432 s on 3200 cells.
+
+**Evidence.** `validation/zeroD/e17_2/FORENSICS.md`, `FAILURE_REPORT.md` (smoke_20260719_211924), `E17_2_GATES.md`; guard implementation in `rlChemistryModel` / `guardCoeffs`.
+
+---
+
+## 2D deployment — guards provide safety, policy provides proactive front protection (2026-07-20, E17.3)
+
+**Finding.** On the guarded opposed-jet smoke to endTime = 1.07×10⁻⁴ s, rlAdaptive fallback drains **72→3 over four decision epochs** as policy-CVODE rises along the front, while guarded-qssOnly sustains a fallback plateau (~70–150 cells). That drain-against-plateau is the operational signature of learned selection under transport coupling: guards are the safety net; the policy assumes CVODE duty at the stiff front so reactive rescues do not stick.
+
+**Cost (matched t ≈ 1.07×10⁻⁴ s).** Wall: cvodeOnly ≈ 3137 s, qssOnly 764 s (~4.1×), rlAdaptive 1181 s (~2.7× vs CVODE). In the front window (95–107 µs) RL spends more CVODE-equivalent cell-steps than qssOnly because policy proactively assigns CVODE; qssOnly’s CVODE work is almost entirely fallback. RL is not a wall-time win over guarded-QSS on this short horizon (cold-start all-CVODE epochs), but it is the mode that converts reactive fallback into policy-CVODE.
+
+**Evidence.** Campaign `validation/zeroD/e17_remote_runs/e17_2_t107_20260720_105153/e17_3/` — headline `fig_proactive_vs_reactive.png`, `cost_table.json`, usage CSVs.
+
+---
+
 ## Zero-shot transfer requires transferring the clock, not just the network (2026-07-19)
 
 **Finding.** Before 2-D rlAdaptive, E16.5 showed that wiring the trained weights is not enough: the decision/feature clock must reproduce training-time τ_dec = num_steps × dt_ref of physical chemistry time. Counting CFD micro-windows compresses Δlog features exactly when adaptive Δt drops under Courant control (ignition), biasing the policy toward QSS at the flame front. Evidence: `E16_5_GATE.md`.

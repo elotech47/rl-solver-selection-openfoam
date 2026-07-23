@@ -23,7 +23,7 @@ startTime       0;
 stopAt          endTime;
 
 // E17.1 scout: 3200 cells, CVODE, 10 atm, air 1350 K, U=±0.05
-endTime         0.0005;
+endTime         0.000107;
 
 deltaT          1e-05;
 
@@ -31,7 +31,7 @@ writeControl    adjustableRunTime;
 
 writeInterval   1e-05;
 
-purgeWrite      40;
+purgeWrite      0;
 
 writeFormat     ascii;
 
@@ -50,6 +50,12 @@ libs            ( "libqssChemistrySolver.so" "libcvodeChemistrySolver.so" "libpo
 propSanity      true;
 
 propSanityInterval 10;
+
+// Suppress per-equation "DILUPBiCGStab: Solving for …" residual spam (106 Yi).
+DebugSwitches
+{
+    SolverPerformance 0;
+}
 
 
 // ************************************************************************* //
