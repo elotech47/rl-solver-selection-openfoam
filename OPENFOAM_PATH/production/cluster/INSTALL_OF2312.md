@@ -245,7 +245,10 @@ Then we can patch `production/scripts` for true native launch (source `$OF_BASHR
 set +e
 
 cd /work/elo/solverRL2D/rl-solver-selection-openfoam/OPENFOAM_PATH
-bash tools/install_libtorch.sh      # native pip or zip — no docker
+bash tools/install_libtorch.sh      # native — **cxx11-abi** zip (required for OF+RL)
+# replace ABI=0 install:
+#   LIBTORCH_FORCE=1 bash tools/install_libtorch.sh
+# then: wmake -j$(nproc) src/policyRuntime
 module load cmake/3.27.7/gcc-8.5.0  # if needed
 bash tools/install_sundials.sh
 

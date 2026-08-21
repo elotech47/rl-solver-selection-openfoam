@@ -2,7 +2,7 @@ EXE_INC = \
     -I$(LIBTORCH_DIR)/include \
     -I$(LIBTORCH_DIR)/include/torch/csrc/api/include \
     -std=c++17 \
-    -D_GLIBCXX_USE_CXX11_ABI=0
+    -D_GLIBCXX_USE_CXX11_ABI=1
 
 LIB_LIBS = \
     -L$(LIBTORCH_DIR)/lib \

@@ -1,5 +1,5 @@
 // Minimal LibTorch JIT load (no OpenFOAM). Build:
-//   g++ -O2 -std=c++17 -D_GLIBCXX_USE_CXX11_ABI=0 \
+//   g++ -O2 -std=c++17 -D_GLIBCXX_USE_CXX11_ABI=1 \
 //     -I$LIBTORCH_DIR/include -I$LIBTORCH_DIR/include/torch/csrc/api/include \
 //     tools/torch_jit_smoke.cpp -o opt/bin/torch_jit_smoke \
 //     -L$LIBTORCH_DIR/lib -Wl,-rpath,$LIBTORCH_DIR/lib \

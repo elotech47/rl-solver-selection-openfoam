@@ -20,7 +20,7 @@ test -f "$POLICY" || {
 
 CXX="${CXX:-g++}"
 echo "building $BIN with $CXX (ABI=0)"
-"$CXX" -O2 -std=c++17 -D_GLIBCXX_USE_CXX11_ABI=0 \
+"$CXX" -O2 -std=c++17 -D_GLIBCXX_USE_CXX11_ABI=1 \
   -I"$LIBTORCH_DIR/include" \
   -I"$LIBTORCH_DIR/include/torch/csrc/api/include" \
   "$ROOT/tools/torch_jit_smoke.cpp" -o "$BIN" \

@@ -1,6 +1,7 @@
 /**
  * @file policyCApi.C
- * LibTorch JIT — compile with -D_GLIBCXX_USE_CXX11_ABI=0 (pip wheel).
+ * LibTorch JIT — compile with -D_GLIBCXX_USE_CXX11_ABI=1 (cxx11-abi libtorch;
+ * matches OpenFOAM/gcc). ABI=0 libtorch aborts inside Foam at jit::load.
  */
 
 #include "policyCApi.H"
