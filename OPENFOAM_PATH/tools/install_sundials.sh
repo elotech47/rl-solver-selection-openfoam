@@ -53,6 +53,12 @@ cmake "$SRC" \
 cmake --build . -j"${NPROC:-$(nproc)}"
 cmake --install .
 
+# QB/RHEL: shared objects often land in lib64; our Make/options uses lib/
+if [[ -d "$OUT/lib64" && ! -e "$OUT/lib" ]]; then
+  ln -sfn lib64 "$OUT/lib"
+fi
+
 test -f "$OUT/include/cvode/cvode.h"
+test -e "$OUT/lib/libsundials_cvode.so" || test -e "$OUT/lib64/libsundials_cvode.so"
 echo "OK SUNDIALS_DIR=$OUT"
 du -sh "$OUT"
