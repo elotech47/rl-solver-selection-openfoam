@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH --job-name=e18_rl
+#SBATCH --account=loni_pca_dns
+#SBATCH --partition=single
+#SBATCH --nodes=1
+#SBATCH --ntasks=32
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=3900
+#SBATCH --time=5-00:00:00
+#SBATCH --output=production/runs/slurm-%j-rl.out
+#SBATCH --error=production/runs/slurm-%j-rl.err
+
+set -euo pipefail
+cd "${SLURM_SUBMIT_DIR:-.}"
+mkdir -p production/runs
+
+# shellcheck disable=SC1091
+source production/env.qb.sh
+set -euo pipefail
+
+export E18_MODES=rlAdaptive
+export NPROC="${SLURM_NTASKS:-32}"
+export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_rlAdaptive"
+export OFRL_TORCH_PRELOAD=0
+export OFRL_POLICY_WORKER="${OFRL_POLICY_WORKER:-$ROOT/opt/bin/ofrl_policy_worker}"
+unset LD_PRELOAD
+
+test -x "$OFRL_POLICY_WORKER" || {
+  echo "FATAL: build worker: bash tools/build_ofrl_policy_worker.sh" >&2
+  exit 1
+}
+
+bash production/scripts/20_run_chem.sh

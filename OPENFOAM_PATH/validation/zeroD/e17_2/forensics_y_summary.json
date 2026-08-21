@@ -1,0 +1,175 @@
+{
+  "note": "Processor leftover is from last smoke mode (rlAdaptive, ~99% QSS at ignition). qssOnly OUT lacked species fields. WriteInterval=1e-5; crash ~1.041e-4 so last field dump is 0.0001 (~4\u00b5s before SIGFPE).",
+  "times": {
+    "9e-05": {
+      "n_cells": 3200,
+      "Tmin": 886.764,
+      "Tmax": 1552.26,
+      "n_T_ge_3490": 0,
+      "n_T_ge_2000": 0,
+      "sumY_min": 0.9999988890329733,
+      "sumY_max": 1.0000010610817207,
+      "sumY_mean": 1.0000000112298717,
+      "n_sumY_gt_1": 3,
+      "n_sumY_lt_0.99": 0,
+      "n_Yn2_lt_0": 0,
+      "n_any_Y_lt_0": 0,
+      "n_Yn2_lt_0_and_Tge2000": 0,
+      "n_any_Y_lt_0_and_Tge2000": 0,
+      "n_sumY_gt1_and_Tge2000": 0,
+      "worst_minY_15": [
+        {
+          "sp": "nc6h13cho",
+          "minY": 2.58369e-19
+        },
+        {
+          "sp": "c12ket6-8",
+          "minY": 4.28804e-19
+        },
+        {
+          "sp": "c12ket2-4",
+          "minY": 8.82721e-19
+        },
+        {
+          "sp": "c12ket5-7",
+          "minY": 8.82735e-19
+        },
+        {
+          "sp": "c12ket6-4",
+          "minY": 8.99315e-19
+        },
+        {
+          "sp": "c12ket5-3",
+          "minY": 3.38755e-18
+        },
+        {
+          "sp": "nc4ket13",
+          "minY": 2.38341e-17
+        },
+        {
+          "sp": "c12ooh2-4o2",
+          "minY": 5.99315e-17
+        },
+        {
+          "sp": "c12ooh5-7o2",
+          "minY": 2.19584e-16
+        },
+        {
+          "sp": "c12ooh6-4o2",
+          "minY": 3.70888e-16
+        },
+        {
+          "sp": "c8h17coch2",
+          "minY": 6.90767e-16
+        },
+        {
+          "sp": "c12ooh5-3o2",
+          "minY": 2.64442e-15
+        },
+        {
+          "sp": "c5h11coch2",
+          "minY": 3.29247e-15
+        },
+        {
+          "sp": "c6h13coch2",
+          "minY": 8.1471e-15
+        },
+        {
+          "sp": "c12ooh2-4",
+          "minY": 9.96059e-15
+        }
+      ],
+      "Yn2_min": 0.552211,
+      "Yn2_max": 0.729281,
+      "solverFlag_unique": [
+        1.0
+      ]
+    },
+    "0.0001": {
+      "n_cells": 3200,
+      "Tmin": 891.524,
+      "Tmax": 2507.66,
+      "n_T_ge_3490": 0,
+      "n_T_ge_2000": 2662,
+      "sumY_min": 0.9999988192799579,
+      "sumY_max": 1.000000986572096,
+      "sumY_mean": 1.000000005493395,
+      "n_sumY_gt_1": 0,
+      "n_sumY_lt_0.99": 0,
+      "n_Yn2_lt_0": 0,
+      "n_any_Y_lt_0": 0,
+      "n_Yn2_lt_0_and_Tge2000": 0,
+      "n_any_Y_lt_0_and_Tge2000": 0,
+      "n_sumY_gt1_and_Tge2000": 0,
+      "worst_minY_15": [
+        {
+          "sp": "c12h24-5",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25-2",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25-3",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25-5",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25-6",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25o2-2",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25o2-5",
+          "minY": 0.0
+        },
+        {
+          "sp": "c12h25o2-6",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h2",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h3cho",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h3co",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h4",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h5",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h5cho",
+          "minY": 0.0
+        },
+        {
+          "sp": "c2h5o",
+          "minY": 0.0
+        }
+      ],
+      "Yn2_min": 0.546051,
+      "Yn2_max": 0.72943,
+      "solverFlag_unique": [
+        1.0
+      ]
+    }
+  },
+  "Thigh_clamp_K": 3500.0,
+  "refit_window": "[300,1000,3500]"
+}

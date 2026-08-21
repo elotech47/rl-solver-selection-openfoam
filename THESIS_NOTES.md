@@ -230,8 +230,64 @@ blocker for E17.
 
 ---
 
+## E17.2 — transport-robust QSS guards; policy-value vs safety-net fork (2026-07-20)
+
+**Finding.** First 2-D opposed-jet smoke showed pure CVODE completing through ignition while QSS-only and RL-adaptive (≈99% QSS into the front) aborted shortly after ignition with temperature stuck at the Option R JANAF high limit (3500 K) and pathological heat capacity. Write-time mass fractions remained non-negative and ΣY≈1 through the last dump (100 µs); the blow-up occupies the final ~4 µs without field output. Chemistry-level guards (input Y sanitation + QSS acceptance with CVODE fallback, counted as CVODE usage) are deployed for CFD; unguarded QSS is retired for multi-D use. First 2-D load-imbalance datum: per-cell CVODE chemCpu from ~17 s to ~432 s on 3200 cells.
+
+**Evidence.** `validation/zeroD/e17_2/FORENSICS.md`, `FAILURE_REPORT.md` (smoke_20260719_211924), `E17_2_GATES.md`; guard implementation in `rlChemistryModel` / `guardCoeffs`.
+
+*Addendum 2026-08-20:* Production geometry and longer chem horizons moved to **E18** (Ember-matched opposed jet). The policy-versus-safety-net fork is restated there with workstation twins and pending cluster twins; see E18 entries below.
+
+---
+
+## 2D deployment — guards provide safety, policy provides proactive front protection (2026-07-20, E17.3)
+
+**Finding.** On the guarded opposed-jet smoke to endTime = 1.07×10⁻⁴ s, rlAdaptive fallback drains **72→3 over four decision epochs** as policy-CVODE rises along the front, while guarded-qssOnly sustains a fallback plateau (~70–150 cells). That drain-against-plateau is the operational signature of learned selection under transport coupling: guards are the safety net; the policy assumes CVODE duty at the stiff front so reactive rescues do not stick.
+
+**Cost (matched t ≈ 1.07×10⁻⁴ s).** Wall: cvodeOnly ≈ 3137 s, qssOnly 764 s (~4.1×), rlAdaptive 1181 s (~2.7× vs CVODE). In the front window (95–107 µs) RL spends more CVODE-equivalent cell-steps than qssOnly because policy proactively assigns CVODE; qssOnly’s CVODE work is almost entirely fallback. RL is not a wall-time win over guarded-QSS on this short horizon (cold-start all-CVODE epochs), but it is the mode that converts reactive fallback into policy-CVODE.
+
+**Evidence.** Campaign `validation/zeroD/e17_remote_runs/e17_2_t107_20260720_105153/e17_3/` — headline `fig_proactive_vs_reactive.png`, `cost_table.json`, usage CSVs.
+
+---
+
 ## Zero-shot transfer requires transferring the clock, not just the network (2026-07-19)
 
 **Finding.** Before 2-D rlAdaptive, E16.5 showed that wiring the trained weights is not enough: the decision/feature clock must reproduce training-time τ_dec = num_steps × dt_ref of physical chemistry time. Counting CFD micro-windows compresses Δlog features exactly when adaptive Δt drops under Courant control (ignition), biasing the policy toward QSS at the flame front. Evidence: `E16_5_GATE.md`.
+
+---
+
+## E18 opposed jet — Ember-matched setup, guarded RL completes chem window (2026-08-20)
+
+**Finding.** After E17 geometry proved too far from the Ember 1D reference, E18 rebuilt the 2-D opposed jet to the Ember gap (**L = 0.008 m**, **V = ±0.4 m/s** at **a = 100 s⁻¹**), with Stage 0 selecting **p = 10 atm**, **T_air = 1000 K** for comfortable ignition under strain. Stage 1 cold mixing to freeze **t = 0.05 s** exposed a true transport defect: Sutherland **As = Ts = 0** in the Foam thermo made **α_eff ≡ 0**; air-like As/Ts restored conduction/diffusion. Stage 2 chemistry restart with guarded **`rlAdaptive`** and policy **`lambda_1p0_with_base_obs_rms`** completed the planned chem horizon (**0.05 → 0.059**, ~9 ms) on 20 000 cells / 8 ranks without SIGFPE (**wall ≈ 90.8 h**, exit 0). Early runs showed ~90% `fallbackCVODE` until fallback-reason counters proved **100% `T_bounds`** (fuel **T = 300 K** vs **TminAccept = 310**); relaxing to **TminAccept = 250** (with slightly looser Y/ΣY epsilons) removed that false reject and left only sparse **`qss_integ`** rescues. Foam policy manifests must use **snake_case** `obs_rms_*` keys or RMS vectors load empty and the run aborts.
+
+**Evidence.** `validation/zeroD/e18_prep/` (`STAGE0_REPORT.md`, `STAGE1_REPORT.md`, `E18_CAMPAIGN_SUMMARY.md`); run dump `stage2_chem_20260720_130353/rlAdaptive_lambda1p0/`; `AGENTS.md` / `DECISIONS.md` (2026-07-20…22).
+
+*This finding is main-chapter support: zero-shot guarded RL on an Ember-matched 2-D case is operationally stable through post-ignition on the workstation twin.*
+
+---
+
+## E18 interim accuracy–cost vs cvodeOnly through shared cutoff t ≈ 0.05507 (2026-08-20)
+
+**Finding.** On the same freeze restart, workstation **cvodeOnly** was stopped by the operator at **t ≈ 0.05507** (ClockTime ≈ **45.4 h**), while guarded **rlAdaptive** (`lambda_1p0`) had already passed that time (ClockTime ≈ **32.0 h** at the same *t*) and later finished to 0.059. Through the shared window:
+
+- **Cost.** Foam ClockTime to *t* = 0.0550667: RL ≈ **1.42×** faster wall than cvodeOnly. Chemistry CPU-second sums (MPI-sum cell timers) over that window: cvodeOnly ≈ **223 h** vs RL ≈ **59 h** (~**3.8×** less summed chem CPU). RL progress reports ~**5–6%** cells as CVODE-equivalent on average with small fallback counts after the Tmin fix — **caveat:** after the first step, `rlUsage` head-counts disagree with on-disk **`solverFlag`** (nearly inverted on some dumps); spatial solver maps must use reconstructed `solverFlag` until dual policy-vs-effective logging ships. Cost claims above use ClockTime and CPU-sum columns, not the disputed cell head-counts alone.
+- **Ignition phase.** Domain **T_max** first crosses ~1100 K ~**0.4 ms earlier** under RL than under cvodeOnly (RL ≈ 0.0536 s vs CVODE ≈ 0.0540 s); thermal runaway to ~2500 K likewise leads by ~0.3–0.4 ms. Sparse `maxT` samples make the exact τ_ign offset coarse.
+- **Post-ignition T_max.** Once both flames are hot (**t ≥ 0.0545**), nearest-time **|ΔT_max|** averages ~**15 K** (max ~**41 K** on sparse samples) with peaks ~2520–2540 K — same flame class, not a thermo runaway. This is **not** yet the standing centerline / field RMSE accuracy gate versus cvodeOnly.
+
+**Evidence.** Parsed from `…/cvodeOnly/progress.cvodeOnly.log` + `log.cvodeOnly` and `…/rlAdaptive_lambda1p0/progress.rlAdaptive.log` + `log.rlAdaptive` (cut = last cvodeOnly time 0.0550667); chronicle `E18_CAMPAIGN_SUMMARY.md` §4.
+
+*Interim only:* hard accuracy vs full-horizon cvodeOnly, guarded qssOnly twin, and cluster-scale wall/usage remain open (next entry).
+
+---
+
+## E18 next — cluster twins for hard gates (2026-08-20, in progress)
+
+**Status.** Workstation twins established feasibility and an interim cost/T_max comparison through the cvodeOnly kill time. **Cluster heavy-compute runs** of **cvodeOnly** and **rlAdaptive** (same E18 freeze, guards, and `lambda_1p0` policy) are underway to finish matched horizons (target **endTime = 0.059**), enable centerline / field accuracy gates versus CVODE, and produce trustworthy usage maps once policy-vs-effective logging is fixed. Guarded **qssOnly** remains the third arm of the policy-versus-safety-net fork.
+
+**Production kit.** Thesis dumps and Slurm entry points live under [`OPENFOAM_PATH/production/`](OPENFOAM_PATH/production/) (`RUN_PLAN.md`, `scripts/`, `cluster/`) — not under `validation/zeroD/e*`.
+
+*Addendum 2026-08-20:* Usage logging fixed: `policyFlag` vs `solverFlag` (effective); rescue uses `forceCvodeHold` without overwriting the policy action. JANAF Tlow lowered to 200 K for fuel boundary. Rebuild `librlChemistryModel` required on cluster after sync.
+
+*Addendum 2026-08-21 (cluster RL / advisor):* In-process LibTorch on Queen Bee (RHEL8) aborts (ABI + Foam `operator new`; cxx11-abi Torch needs glibc 2.29). Mitigation: out-of-process `OFRL_POLICY_WORKER` with **batched** `inferBatch` (already one IPC per rank per τ_dec decision set, not per cell). Worker pinned to 1 thread. Policy wall time logged as `policy_wall_max` / `policy_wall_sum` in `rl_usage_step.csv` so reported speedups are a **lower bound** including IPC. Same Opt binary for twins (`reactingFoamDebug` name is the solver target under `linux64GccDPInt32Opt`, not a Debug build). Final paper timing runs may later replace Torch with a hand-rolled forward once the architecture freezes.
 
 ---

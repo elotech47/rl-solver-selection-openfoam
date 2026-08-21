@@ -1,6 +1,6 @@
 /**
  * @file policyCApi.H
- * C ABI bridge — LibTorch stays in an ABI=0 TU; OpenFOAM callers stay ABI=1.
+ * C ABI bridge to LibTorch (in-process) or OFRL_POLICY_WORKER (out-of-process).
  */
 
 #ifndef policyCApi_H

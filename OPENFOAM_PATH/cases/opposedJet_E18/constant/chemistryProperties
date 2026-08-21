@@ -1,0 +1,55 @@
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          chemistryProperties;
+}
+chemistryType
+{
+    solver          ode;
+    method          rl;
+}
+chemistry       off;
+initialChemicalTimeStep 1e-07;
+rl
+{
+    mode                rlAdaptive;
+    maxChemDeltaT       1e-6;
+    dtRef               1e-6;
+    numSteps            20;
+    confidenceThreshold 0.6;
+    manifest            "/work/policy/policy_manifest";
+    torchScript         "/work/policy/policy.ts";
+}
+qssCoeffs
+{
+    epsmin          0.02;
+    epsmax          100;
+    dtmin           1e-12;
+    dtmax           1e-06;
+    abstol          1e-11;
+    itermax         2;
+    Tfreeze         true;
+}
+cvodeCoeffs
+{
+    relTol          1e-08;
+    absTol          1e-12;
+    maxSteps        100000;
+}
+guardCoeffs
+{
+    enabled         true;
+    epsY            1e-12;
+    epsSumY         1e-3;
+    dTmaxWindow     500;
+    TminAccept      310;
+    TmaxAccept      3400;
+}
+odeCoeffs
+{
+    solver          seulex;
+    absTol          1e-12;
+    relTol          1e-08;
+}

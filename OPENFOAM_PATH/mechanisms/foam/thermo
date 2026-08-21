@@ -14,8 +14,8 @@ ch2cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -41,8 +41,8 @@ o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -66,8 +66,8 @@ c12ket5-3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -93,8 +93,8 @@ c9h17
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -119,8 +119,8 @@ nc8h17co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -146,8 +146,8 @@ h2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -171,8 +171,8 @@ c2h5o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -198,8 +198,8 @@ c2h2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -224,8 +224,8 @@ c12ooh5-7o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -251,8 +251,8 @@ h2o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -277,8 +277,8 @@ c7h14ooh1-3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -304,8 +304,8 @@ nc4h9coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -331,8 +331,8 @@ c12ket5-7
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -358,8 +358,8 @@ h
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -383,8 +383,8 @@ nc4ket13
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -410,8 +410,8 @@ c10h20-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -436,8 +436,8 @@ c4h7o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -463,8 +463,8 @@ c4h10
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -489,8 +489,8 @@ c12ket2-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -516,8 +516,8 @@ c4h8-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -542,8 +542,8 @@ ch2o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -569,8 +569,8 @@ c2h4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -595,8 +595,8 @@ c7h15o2-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -622,8 +622,8 @@ c3h5o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -649,8 +649,8 @@ nc3h7co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -676,8 +676,8 @@ n2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -701,8 +701,8 @@ c7h15-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -727,8 +727,8 @@ c12ooh2-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -754,8 +754,8 @@ c5h11-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -780,8 +780,8 @@ c12ooh2-4o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -807,8 +807,8 @@ c4h8ooh1-3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -834,8 +834,8 @@ c12ket6-8
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -861,8 +861,8 @@ hcco
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -888,8 +888,8 @@ c8h17-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -914,8 +914,8 @@ ch2co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -941,8 +941,8 @@ c6h13-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -967,8 +967,8 @@ c12ooh5-7
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -994,8 +994,8 @@ co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1020,8 +1020,8 @@ nc5h11co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1047,8 +1047,8 @@ nc3h7
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1073,8 +1073,8 @@ c2h5cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1100,8 +1100,8 @@ pc4h9
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1126,8 +1126,8 @@ h2o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1152,8 +1152,8 @@ c12h25o2-6
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1179,8 +1179,8 @@ hco
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1206,8 +1206,8 @@ nc5h11cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1233,8 +1233,8 @@ ch3o
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1260,8 +1260,8 @@ c8h16-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1286,8 +1286,8 @@ c8h17o2-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1313,8 +1313,8 @@ c12o2-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1340,8 +1340,8 @@ c2h5
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1366,8 +1366,8 @@ ch3coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1393,8 +1393,8 @@ c12ooh6-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1420,8 +1420,8 @@ c2h6
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1446,8 +1446,8 @@ c4h7o1-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1473,8 +1473,8 @@ ch4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1499,8 +1499,8 @@ nc3h7o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1526,8 +1526,8 @@ pc4h9o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1553,8 +1553,8 @@ nc4h9co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1580,8 +1580,8 @@ c2h3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1606,8 +1606,8 @@ c4h6
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1632,8 +1632,8 @@ nc6h13cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1659,8 +1659,8 @@ c12h25-5
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1685,8 +1685,8 @@ nc12h26
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1711,8 +1711,8 @@ c12h25o2-5
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1738,8 +1738,8 @@ c9h19-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1764,8 +1764,8 @@ c2h3o1-2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1791,8 +1791,8 @@ ho2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1817,8 +1817,8 @@ nc8h17cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1844,8 +1844,8 @@ c12h25-2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1870,8 +1870,8 @@ c7h14-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1896,8 +1896,8 @@ c12ooh6-4o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1923,8 +1923,8 @@ c12ooh5-3o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1950,8 +1950,8 @@ c12h25-3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -1976,8 +1976,8 @@ c2h3cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2003,8 +2003,8 @@ c12ket6-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2030,8 +2030,8 @@ c2h3co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2057,8 +2057,8 @@ c3h6
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2083,8 +2083,8 @@ co2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2109,8 +2109,8 @@ c8h17coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2136,8 +2136,8 @@ o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2161,8 +2161,8 @@ c12o5-7
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2188,8 +2188,8 @@ c3h4-a
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2214,8 +2214,8 @@ nc3h7cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2241,8 +2241,8 @@ c5h11coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2268,8 +2268,8 @@ c4h71-3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2294,8 +2294,8 @@ nc3h7coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2321,8 +2321,8 @@ c12h25-6
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2347,8 +2347,8 @@ c4h7ooh1-4
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2374,8 +2374,8 @@ c12h24-5
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2400,8 +2400,8 @@ c6h12-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2426,8 +2426,8 @@ oh
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2452,8 +2452,8 @@ c12ooh5-3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2479,8 +2479,8 @@ c3h5-a
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2505,8 +2505,8 @@ c8h15
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2531,8 +2531,8 @@ ch3cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2558,8 +2558,8 @@ c9h18-1
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2584,8 +2584,8 @@ c12h25o2-2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2611,8 +2611,8 @@ c7h15coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2638,8 +2638,8 @@ c3h8
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2664,8 +2664,8 @@ c6h13coch2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2691,8 +2691,8 @@ ch3
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2717,8 +2717,8 @@ c12o4-6
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2744,8 +2744,8 @@ nc4h9cho
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2771,8 +2771,8 @@ c4h8ooh1-3o2
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {
@@ -2798,8 +2798,8 @@ ch3co
     }
     transport
     {
-        As              0;
-        Ts              0;
+        As              1.67212e-06;
+        Ts              170.672;
     }
     elements
     {

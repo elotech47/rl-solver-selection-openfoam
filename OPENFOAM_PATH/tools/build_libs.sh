@@ -29,7 +29,16 @@ else
 fi
 
 # LibTorch (optional for policyRuntime / rlChemistryModel)
-export LIBTORCH_DIR="${LIBTORCH_DIR:-$ROOT/opt/libtorch}"
+# Prefer a valid tree under ROOT; ignore a stale LIBTORCH_DIR=/opt/libtorch from a bad env.
+_lt_default="$ROOT/opt/libtorch"
+if [[ -f "${LIBTORCH_DIR:-}/include/torch/script.h" ]]; then
+  :
+elif [[ -f "$_lt_default/include/torch/script.h" ]]; then
+  export LIBTORCH_DIR="$_lt_default"
+else
+  export LIBTORCH_DIR="${LIBTORCH_DIR:-$_lt_default}"
+fi
+unset _lt_default
 if [[ -f "$LIBTORCH_DIR/include/torch/script.h" ]]; then
   export LD_LIBRARY_PATH="$LIBTORCH_DIR/lib:${LD_LIBRARY_PATH:-}"
   echo "LIBTORCH_DIR=$LIBTORCH_DIR"
@@ -37,10 +46,12 @@ if [[ -f "$LIBTORCH_DIR/include/torch/script.h" ]]; then
   (cd "$ROOT/src/rlChemistryModel" && wmake libso)
 else
   echo "WARN: LibTorch not found at $LIBTORCH_DIR — skipping policyRuntime/rlChemistryModel"
-  echo "      Run: bash tools/install_libtorch.sh"
+  echo "      Expected: $ROOT/opt/libtorch  (headers + libtorch_cpu.so)"
 fi
 
 (cd "$ROOT/applications/solvers/chemFoam" && wmake)
+(cd "$ROOT/applications/solvers/reactingFoam" && wmake)
 
 ls -la "$FOAM_USER_LIBBIN"
 ls -la "$FOAM_USER_APPBIN"/chemFoamDebug 2>/dev/null || true
+ls -la "$FOAM_USER_APPBIN"/reactingFoamDebug 2>/dev/null || true

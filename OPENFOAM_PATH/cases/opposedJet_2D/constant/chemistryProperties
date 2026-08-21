@@ -38,6 +38,15 @@ cvodeCoeffs
     absTol          1e-12;
     maxSteps        100000;
 }
+guardCoeffs
+{
+    enabled         true;
+    epsY            1e-12;
+    epsSumY         1e-3;
+    dTmaxWindow     500;
+    TminAccept      310;
+    TmaxAccept      3400;
+}
 odeCoeffs
 {
     solver          seulex;

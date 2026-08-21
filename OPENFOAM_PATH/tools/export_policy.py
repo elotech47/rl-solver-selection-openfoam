@@ -59,7 +59,8 @@ def main() -> int:
     export_net.eval()
     example = torch.zeros(1, obs_dim)
     ts_path = args.out_dir / "policy.ts"
-    torch.jit.trace(export_net, example).save(str(ts_path))
+    # check_trace=False: torch>=2.10 can SystemError in graph diagnostics on some hosts
+    torch.jit.trace(export_net, example, check_trace=False).save(str(ts_path))
 
     obs_mean = np.asarray(ckpt["obs_rms"]["mean"]).astype(float).tolist()
     obs_var = np.asarray(ckpt["obs_rms"]["var"]).astype(float).tolist()

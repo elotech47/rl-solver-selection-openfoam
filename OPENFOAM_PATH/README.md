@@ -28,3 +28,10 @@ python tools/export_policy.py
 ## Layout
 
 See `instruction.md` §1. Versions: `VERSIONS.md`. Decisions: `DECISIONS.md`.
+
+## Contributor wiki
+
+Pedagogical overview (0D chemFoam, opposed-jet CFD, mechanism, RL solver selection):
+
+- [`docs/wiki/README.md`](../docs/wiki/README.md)
+- [`docs/wiki/01_reacting_flow_and_solver_selection.md`](../docs/wiki/01_reacting_flow_and_solver_selection.md)

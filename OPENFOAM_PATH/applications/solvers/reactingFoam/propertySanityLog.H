@@ -25,17 +25,44 @@
         const volScalarField& cpFld = tcp();
         tmp<volScalarField> talpha = turbulence->alphaEff();
         const volScalarField& alphaEff = talpha();
+        // Laminar ThermalDiffusivity::alphaEff() == transport_.alphahe()
+        // (= CpByCpv·alpha_), NOT alphat (alphat≡0 under laminar).
+        tmp<volScalarField> talphaHe = thermo.alphahe();
+        const volScalarField& alphaHe = talphaHe();
         tmp<volScalarField> talphaMol = thermo.alpha();
         const volScalarField& alphaMol = talphaMol();
+        tmp<volScalarField> tmu = thermo.mu();
+        const volScalarField& muFld = tmu();
+        tmp<volScalarField> tkappa = thermo.kappa();
+        const volScalarField& kappaFld = tkappa();
 
         const scalar cpMin = gMin(cpFld);
         const scalar cpMax = gMax(cpFld);
         const scalar alphaMin = gMin(alphaEff);
         const scalar alphaMax = gMax(alphaEff);
+        const scalar alphaHeMin = gMin(alphaHe);
+        const scalar alphaHeMax = gMax(alphaHe);
         const scalar alphaMolMin = gMin(alphaMol);
         const scalar alphaMolMax = gMax(alphaMol);
+        const scalar muMin = gMin(muFld);
+        const scalar muMax = gMax(muFld);
+        const scalar kappaMin = gMin(kappaFld);
+        const scalar kappaMax = gMax(kappaFld);
         const scalar Tmin = gMin(Tfld);
         const scalar Tmax = gMax(Tfld);
+        // Fraction of cells with physical diffusivity (guards against Info
+        // truncating small values to a bare "0").
+        label nAlphaPos = 0;
+        forAll(alphaEff, celli)
+        {
+            if (alphaEff[celli] > Foam::scalar(1e-20))
+            {
+                ++nAlphaPos;
+            }
+        }
+        reduce(nAlphaPos, sumOp<label>());
+        const label nCellsGlobal = returnReduce(Tfld.size(), sumOp<label>());
+
 
         scalar maxRelBlend = -1;
         label worstCell = -1;
@@ -82,16 +109,23 @@
             }
         }
 
+        const unsigned oldPrec = Info.stream().precision();
+        Info.stream().precision(12);
         Info<< "propSanity: T " << Tmin << " " << Tmax
             << "  cp " << cpMin << " " << cpMax
-            << "  alphaEff " << alphaMin << " " << alphaMax
-            << "  alpha " << alphaMolMin << " " << alphaMolMax;
+            << "  mu " << muMin << " " << muMax
+            << "  kappa " << kappaMin << " " << kappaMax
+            << "  alphaEff(turb=alphahe) " << alphaMin << " " << alphaMax
+            << "  alphahe " << alphaHeMin << " " << alphaHeMax
+            << "  alpha(T) " << alphaMolMin << " " << alphaMolMax
+            << "  nAlphaEff>1e-20 " << nAlphaPos << "/" << nCellsGlobal;
         if (doBlend)
         {
             Info<< "  max|cpBlend-cpSum|/cpSum = " << maxRelBlend
                 << " (cell " << worstCell << ")";
         }
         Info<< endl;
+        Info.stream().precision(oldPrec);
 
         static autoPtr<OFstream> propCsv;
         if (!propCsv.valid())
@@ -101,15 +135,21 @@
                 new OFstream(runTime.path()/"e12_prop_sanity.csv")
             );
             *propCsv
-                << "#t,Tmin,Tmax,cpMin,cpMax,alphaEffMin,alphaEffMax,alphaMin,alphaMax,maxRelBlend,worstCell"
+                << "#t,Tmin,Tmax,cpMin,cpMax,muMin,muMax,kappaMin,kappaMax,"
+                   "alphaEffMin,alphaEffMax,alphaheMin,alphaheMax,"
+                   "alphaMin,alphaMax,nAlphaEffPos,maxRelBlend,worstCell"
                 << nl;
         }
         *propCsv
             << runTime.value() << ','
             << Tmin << ',' << Tmax << ','
             << cpMin << ',' << cpMax << ','
+            << muMin << ',' << muMax << ','
+            << kappaMin << ',' << kappaMax << ','
             << alphaMin << ',' << alphaMax << ','
+            << alphaHeMin << ',' << alphaHeMax << ','
             << alphaMolMin << ',' << alphaMolMax << ','
+            << nAlphaPos << ','
             << maxRelBlend << ','
             << worstCell
             << nl;
