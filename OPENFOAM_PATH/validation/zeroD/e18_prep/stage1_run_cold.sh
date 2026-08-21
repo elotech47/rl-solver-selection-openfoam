@@ -117,34 +117,9 @@ if ! _foam_util decomposePar -force > "$OUT/log.decomposePar" 2>&1; then
 fi
 log "decomposePar done"
 
-PROGRESS_AWK='
-BEGIN { step=0; last_t=""; last_tmax="" }
-/^Time = / { last_t=$3; next }
-/^propSanity: T / {
-  last_tmax=$4
-  if (step % 5 == 0)
-    printf "propSanity t=%s T=%s..%s\n", last_t, $3, $4 > "/dev/stderr"
-  next
-}
-/ClockTime = / {
-  step++
-  if (step % 10 == 0)
-    printf "t=%s maxT=%s\n", last_t, last_tmax > "/dev/stderr"
-  next
-}
-/janafThermo/ { next }
-/^FOAM Warning/ { next }
-/Solving for / { next }
-/FATAL|Floating point|SIGFPE|Signal:/ { print > "/dev/stderr"; print; next }
-/^End/ { print > "/dev/stderr"; print; next }
-{ next }
-'
-
 log "=== mpirun reactingFoamDebug -parallel (chem OFF) ==="
-# Solver may need torch preload (harmless for chem-off; required for rlAdaptive later)
-if [[ -n "${OFRL_TORCH_LD_PRELOAD:-}" && -z "${LD_PRELOAD:-}" ]]; then
-  export LD_PRELOAD="$OFRL_TORCH_LD_PRELOAD"
-fi
+# Stage1 is chem-off: do NOT LD_PRELOAD LibTorch (8 ranks × torch ≈ OOM / SIGPIPE on interactive nodes)
+unset LD_PRELOAD
 START=$(date +%s)
 set +e
 if [[ "${OF_RUNTIME:-native}" == "docker" ]]; then
@@ -152,19 +127,36 @@ if [[ "${OF_RUNTIME:-native}" == "docker" ]]; then
 else
   MPI=(mpirun -np "$NPROC")
 fi
-"${MPI[@]}" reactingFoamDebug -parallel \
-  2>&1 \
-  | ENDT="$ENDT" awk "$PROGRESS_AWK" \
-  2> "$OUT/progress.${MODE}.log" \
-  | tee "$OUT/log.${MODE}"
-RC=${PIPESTATUS[0]}
+
+# Direct log — do not pipe through awk (OOM → "Killed" → solver exit 141 SIGPIPE)
+: > "$OUT/progress.${MODE}.log"
+(
+  # light progress sampler; dies with solver when log stops growing
+  while true; do
+    sleep 30
+    [[ -f "$OUT/log.${MODE}" ]] || continue
+    # last Time= and propSanity if present
+    tline=$(grep -E '^Time = |^propSanity: T |^End' "$OUT/log.${MODE}" 2>/dev/null | tail -3 || true)
+    [[ -n "$tline" ]] && echo "$(date -Is) $tline" >> "$OUT/progress.${MODE}.log"
+  done
+) &
+PROG_PID=$!
+
+"${MPI[@]}" reactingFoamDebug -parallel > "$OUT/log.${MODE}" 2>&1
+RC=$?
+kill "$PROG_PID" 2>/dev/null || true
+wait "$PROG_PID" 2>/dev/null || true
+
 set -e
 END=$(date +%s)
 echo "wall_s=$((END-START)) exit=$RC" | tee "$OUT/wall.txt"
-tail -30 "$OUT/progress.${MODE}.log" 2>/dev/null || true
+# Summary crumbs
+grep -E '^Time = |^End|Floating point|SIGFPE|FOAM FATAL' "$OUT/log.${MODE}" | tail -40 \
+  | tee -a "$OUT/progress.${MODE}.log" || true
+tail -20 "$OUT/progress.${MODE}.log" 2>/dev/null || true
 
 if [[ "$RC" -ne 0 ]]; then
-  echo "FATAL solver exit=$RC"
+  echo "FATAL solver exit=$RC (see $OUT/log.${MODE})"
   exit "$RC"
 fi
 

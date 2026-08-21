@@ -12,12 +12,17 @@ That loads modules + OpenFOAM-v2312 + LibTorch/SUNDIALS paths. **Do not** reinst
 ## Stage 1 cold freeze (if `0.05/` missing)
 
 ```bash
-source production/env.qb.sh
-export NPROC=8   # or match your salloc
-bash production/scripts/11_run_stage1_cold.sh
-# then chemistry twins:
-bash production/scripts/20_run_chem.sh
+cd /work/elo/solverRL2D/rl-solver-selection-openfoam/OPENFOAM_PATH
+bash production/cluster/submit_stage1.sh
+# or: sbatch production/cluster/e18_stage1.sbatch
+
+squeue -u $USER
+tail -f production/runs/slurm-*-stage1.out
+# solver progress:
+tail -f production/runs/stage1_cold_*/progress.coldMix.log
 ```
+
+When you see `STAGE1_OK`, submit chemistry (smoke / twins).
 
 1. OF-v2312 built under `/work/elo/OpenFOAM/OpenFOAM-v2312`
 2. `opt/libtorch` + `opt/sundials` (+ `ln -sfn lib64 opt/sundials/lib` if needed)

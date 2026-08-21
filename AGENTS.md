@@ -239,6 +239,7 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 | 2026-08-20 | JANAF spam `T = 300` out of range 300→3500 | Fuel at Tlow boundary. Set production thermo **`Tlow 200`** (same NASA coeffs; Option R low poly). |
 | 2026-08-20 | Huge Foam logs (Yi solvers + warnings) | `logDecisions false` by default; Stage2 awk drops janaf/`Solving for`; `SolverPerformance 0`. |
 | 2026-08-20 | `checkMesh`/`decomposePar` **Aborted (core dumped)** on QB | LibTorch `LD_PRELOAD` from `ofrl_container_env.sh`. Run utilities with `env -u LD_PRELOAD …`; keep preload only for `reactingFoamDebug`. |
+| 2026-08-20 | Stage1 `exit=141` Broken pipe; awk `Killed` | Progress `awk` in the MPI pipe OOM'd (and/or LibTorch preload on chem-off ranks). Log solver directly; **no** `LD_PRELOAD` for Stage1; sample progress from the log file. |
 
 ---
 
