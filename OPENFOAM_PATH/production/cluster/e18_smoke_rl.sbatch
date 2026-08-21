@@ -10,8 +10,11 @@
 #SBATCH --output=production/runs/slurm-%j-smoke_rl.out
 #SBATCH --error=production/runs/slurm-%j-smoke_rl.err
 
-# Short rlAdaptive smoke (~0.2 ms chem) — no LibTorch LD_PRELOAD by default.
-# Submit FROM OPENFOAM_PATH (login node):
+# Short rlAdaptive smoke (~0.2 ms chem).
+# - No LibTorch LD_PRELOAD (breaks Foam mesh/dict on QB).
+# - FOAM_SIGFPE unset for this smoke only: torch JIT import Abort(134) under SIGFPE trap.
+#   Production twins should re-enable SIGFPE once smoke proves policy load works.
+#
 #   sbatch production/cluster/e18_smoke_rl.sbatch
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-.}"
@@ -33,8 +36,9 @@ export E18_MODES=rlAdaptive
 export E18_END_TIME=0.0002
 export NPROC="${SLURM_NTASKS:-8}"
 export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_smoke_rl"
-# Prefer rpath/LD_LIBRARY_PATH only — LD_PRELOAD aborts Foam on QB
 export OFRL_TORCH_PRELOAD=0
+export OFRL_RL_NO_SIGFPE=1
 unset LD_PRELOAD
+unset FOAM_SIGFPE
 
 bash production/scripts/20_run_chem.sh

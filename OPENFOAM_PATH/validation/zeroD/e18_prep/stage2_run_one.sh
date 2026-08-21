@@ -74,6 +74,15 @@ else
   unset LD_PRELOAD
   echo "LD_PRELOAD unset (mode=$MODE OFRL_TORCH_PRELOAD=${OFRL_TORCH_PRELOAD:-0})"
 fi
+
+# LibTorch JIT import can raise benign FPEs; FOAM_SIGFPE then Abort (exit 134)
+# during torch::jit::import_ir_module. Smoke/cluster may waive with OFRL_RL_NO_SIGFPE=1.
+if [[ "$MODE" == "rlAdaptive" && "${OFRL_RL_NO_SIGFPE:-0}" == "1" ]]; then
+  unset FOAM_SIGFPE
+  echo "WARN: FOAM_SIGFPE unset for rlAdaptive (OFRL_RL_NO_SIGFPE=1) — torch JIT init"
+else
+  echo "FOAM_SIGFPE=${FOAM_SIGFPE:-unset}"
+fi
 START=$(date +%s)
 set +e
 
