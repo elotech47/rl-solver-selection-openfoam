@@ -1,0 +1,163 @@
+{
+  "condition": {
+    "T0": 800,
+    "p_atm": 10,
+    "Z": 0.062,
+    "dt": 1e-06,
+    "t_end": 0.0035,
+    "num_steps": 20
+  },
+  "obs_rms_source": "policy/best_offline_eval2.pt",
+  "teacher_forced": {
+    "base": {
+      "n": 175,
+      "n_CVODE": 14,
+      "n_QSS": 161,
+      "CVODE_frac": 0.08,
+      "QSS_frac": 0.92,
+      "mean_conf": 0.816770224571228,
+      "ood_frac": 0.02857142857142857,
+      "T_start": 800.0,
+      "T_end": 2601.024948346447
+    },
+    "lambda_1p0": {
+      "n": 175,
+      "n_CVODE": 116,
+      "n_QSS": 59,
+      "CVODE_frac": 0.6628571428571428,
+      "QSS_frac": 0.33714285714285713,
+      "mean_conf": 0.6998376114027841,
+      "ood_frac": 0.09142857142857143,
+      "T_start": 800.0,
+      "T_end": 2601.024948346447
+    },
+    "lambda_init_1p0": {
+      "n": 175,
+      "n_CVODE": 86,
+      "n_QSS": 89,
+      "CVODE_frac": 0.49142857142857144,
+      "QSS_frac": 0.5085714285714286,
+      "mean_conf": 0.620562949521201,
+      "ood_frac": 0.49142857142857144,
+      "T_start": 800.0,
+      "T_end": 2601.024948346447
+    },
+    "finetuned_1D_policy6": {
+      "n": 175,
+      "n_CVODE": 174,
+      "n_QSS": 1,
+      "CVODE_frac": 0.9942857142857143,
+      "QSS_frac": 0.005714285714285714,
+      "mean_conf": 0.989233226435525,
+      "ood_frac": 0.0,
+      "T_start": 800.0,
+      "T_end": 2601.024948346447
+    },
+    "lambda_1p0_NO_obs_rms": {
+      "n": 175,
+      "n_CVODE": 26,
+      "n_QSS": 149,
+      "CVODE_frac": 0.14857142857142858,
+      "QSS_frac": 0.8514285714285714,
+      "mean_conf": 0.6915708555494036,
+      "ood_frac": 0.06285714285714286,
+      "T_start": 800.0,
+      "T_end": 2601.024948346447
+    }
+  },
+  "agreement_vs_base": {
+    "lambda_1p0": {
+      "n": 175,
+      "n_ok": 71,
+      "agree": 0.4057142857142857
+    },
+    "lambda_init_1p0": {
+      "n": 175,
+      "n_ok": 95,
+      "agree": 0.5428571428571428
+    },
+    "finetuned_1D_policy6": {
+      "n": 175,
+      "n_ok": 13,
+      "agree": 0.07428571428571429
+    },
+    "lambda_1p0_NO_obs_rms": {
+      "n": 175,
+      "n_ok": 161,
+      "agree": 0.92
+    }
+  },
+  "phases_vs_base_T": {
+    "base": {
+      "pre_Tlt1500": {
+        "n": 115,
+        "CVODE_frac": 0.12173913043478261
+      },
+      "ign_1500_2200": {
+        "n": 1,
+        "CVODE_frac": 0.0
+      },
+      "post_Tge2200": {
+        "n": 59,
+        "CVODE_frac": 0.0
+      }
+    },
+    "lambda_1p0": {
+      "pre_Tlt1500": {
+        "n": 115,
+        "CVODE_frac": 0.48695652173913045
+      },
+      "ign_1500_2200": {
+        "n": 1,
+        "CVODE_frac": 1.0
+      },
+      "post_Tge2200": {
+        "n": 59,
+        "CVODE_frac": 1.0
+      }
+    },
+    "lambda_init_1p0": {
+      "pre_Tlt1500": {
+        "n": 115,
+        "CVODE_frac": 0.7478260869565218
+      },
+      "ign_1500_2200": {
+        "n": 1,
+        "CVODE_frac": 0.0
+      },
+      "post_Tge2200": {
+        "n": 59,
+        "CVODE_frac": 0.0
+      }
+    },
+    "finetuned_1D_policy6": {
+      "pre_Tlt1500": {
+        "n": 115,
+        "CVODE_frac": 0.991304347826087
+      },
+      "ign_1500_2200": {
+        "n": 1,
+        "CVODE_frac": 1.0
+      },
+      "post_Tge2200": {
+        "n": 59,
+        "CVODE_frac": 1.0
+      }
+    },
+    "lambda_1p0_NO_obs_rms": {
+      "pre_Tlt1500": {
+        "n": 115,
+        "CVODE_frac": 0.20869565217391303
+      },
+      "ign_1500_2200": {
+        "n": 1,
+        "CVODE_frac": 1.0
+      },
+      "post_Tge2200": {
+        "n": 59,
+        "CVODE_frac": 0.01694915254237288
+      }
+    }
+  },
+  "note": "Teacher-forced on CVODE MidT through ignition. Finetunes wrapped with base obs_rms."
+}

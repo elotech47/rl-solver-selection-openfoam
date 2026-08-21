@@ -11,11 +11,11 @@
 
 A three-mode chemistry smoke on a small 2D opposed-jet mesh shows a clear split:
 
-| Mode | Result | Wall time | Latest CFD time |
-|------|--------|----------:|----------------:|
-| **cvodeOnly** (`method rl`, force CVODE) | **Success** to `endTime` | ~20 253 s (~5.6 h) | 5×10⁻⁴ s |
-| **qssOnly** | **SIGFPE** shortly after ignition | ~83 s | ~1.0415×10⁻⁴ s |
-| **rlAdaptive** | **SIGFPE** on the same post-ignition path | ~221 s | ~1.0306×10⁻⁴ s |
+| Mode                                     | Result                                    | Wall time          | Latest CFD time |
+| ------------------------------------------| -------------------------------------------| -------------------:| ----------------:|
+| **cvodeOnly** (`method rl`, force CVODE) | **Success** to `endTime`                  | ~20 253 s (~5.6 h) | 5×10⁻⁴ s        |
+| **qssOnly**                              | **SIGFPE** shortly after ignition         | ~83 s              | ~1.0415×10⁻⁴ s  |
+| **rlAdaptive**                           | **SIGFPE** on the same post-ignition path | ~221 s             | ~1.0306×10⁻⁴ s  |
 
 **Working interpretation:** The failure is **not primarily an RL-runtime bug**. Pure CVODE through the same `rlChemistryModel` path is stable through ignition and to end time. Both `qssOnly` and `rlAdaptive` ignite, then temperature hits the solver clip (**3500 K**), `cp` becomes pathological, and MPI ranks die with **SIGFPE (signal 8, exit 136)** under OpenFOAM’s `FOAM_SIGFPE`.
 

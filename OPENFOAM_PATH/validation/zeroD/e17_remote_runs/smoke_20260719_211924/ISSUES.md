@@ -44,11 +44,11 @@ bash validation/zeroD/e17_remote/02b_smoke_resume.sh
 | mean conf | 0.88 |
 
 Per CFD decision epoch (all 3200 cells):
-| t [s] | CVODE | QSS |
-|------:|------:|----:|
-| 1e-5, 3e-5 | 3200 | 0 |
-| 5e-5 … 8.3e-5 | 0 | 3200 |
-| ~1.01e-4 (ignition) | 37 | 3163 |
+| t [s]               | CVODE | QSS  |
+| --------------------:| ------:| -----:|
+| 1e-5, 3e-5          | 3200  | 0    |
+| 5e-5 … 8.3e-5       | 0     | 3200 |
+| ~1.01e-4 (ignition) | 37    | 3163 |
 
 Crash (wall ≈ 221 s, exit 136): same post-ignition path as qssOnly — T→3500, then CVODE `h→1e-78` / SIGFPE in `omega` while building Jacobian. Policy was ≈99% QSS into the blow-up.
 
