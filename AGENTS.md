@@ -198,6 +198,7 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 - Fallback windows **count as CVODE** in usage (`solverFlag=0`, `qssFallbackCount++`).
 - Keep **`FOAM_SIGFPE` ON** unless the user explicitly waives it.
 - No silent “T threshold override” policy hacks for E17.2.
+- **LibTorch `LD_PRELOAD`**: required for `reactingFoamDebug` + RL; **aborts** `checkMesh` / `decomposePar` / `reconstructPar` / `foamDictionary` on native QB. Use `env -u LD_PRELOAD …` for utilities (`OFRL_TORCH_PRELOAD=0` in `env.qb.sh`).
 
 ---
 
@@ -237,6 +238,7 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 | 2026-08-20 | `rlUsage` CVODE/QSS disagreed with ParaView `solverFlag` | Usage used `nCvode−nFallback` and fallback **overwrote** `lastDecision` (policy lost). Now: `policyFlag`/`lastDecision` stay policy; `forceCvodeHold` for rescue; log `policyCVODE/QSS` + `effCVODE/QSS`. Trust `solverFlag`=effective, `policyFlag`=policy. |
 | 2026-08-20 | JANAF spam `T = 300` out of range 300→3500 | Fuel at Tlow boundary. Set production thermo **`Tlow 200`** (same NASA coeffs; Option R low poly). |
 | 2026-08-20 | Huge Foam logs (Yi solvers + warnings) | `logDecisions false` by default; Stage2 awk drops janaf/`Solving for`; `SolverPerformance 0`. |
+| 2026-08-20 | `checkMesh`/`decomposePar` **Aborted (core dumped)** on QB | LibTorch `LD_PRELOAD` from `ofrl_container_env.sh`. Run utilities with `env -u LD_PRELOAD …`; keep preload only for `reactingFoamDebug`. |
 
 ---
 

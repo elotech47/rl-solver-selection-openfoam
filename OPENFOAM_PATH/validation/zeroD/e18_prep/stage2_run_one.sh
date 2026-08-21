@@ -13,27 +13,38 @@ set -eo pipefail
 ROOT="${ROOT:-/work}"
 OF_BASHRC="${OF_BASHRC:-/usr/lib/openfoam/openfoam2312/etc/bashrc}"
 
-set +eu
-# shellcheck disable=SC1090
-source "$OF_BASHRC"
-set -e
-set +u
-# shellcheck disable=SC1091
-source "$ROOT/tools/ofrl_container_env.sh"
-set +u
+if [[ "${SKIP_OF_SOURCE:-}" == "1" ]] \
+  || { [[ -n "${WM_PROJECT_DIR:-}" ]] && command -v reactingFoamDebug >/dev/null 2>&1; }; then
+  set +u
+  # shellcheck disable=SC1091
+  source "$ROOT/tools/ofrl_container_env.sh" || true
+  set +u
+else
+  set +eu
+  # shellcheck disable=SC1090
+  source "$OF_BASHRC"
+  set -e
+  set +u
+  # shellcheck disable=SC1091
+  source "$ROOT/tools/ofrl_container_env.sh"
+  set +u
+fi
 export FOAM_USER_LIBBIN="${ROOT}/platforms/${WM_OPTIONS}/lib"
 export FOAM_USER_APPBIN="${ROOT}/platforms/${WM_OPTIONS}/bin"
 export LD_LIBRARY_PATH="${FOAM_USER_LIBBIN}:${SUNDIALS_DIR}/lib:${LIBTORCH_DIR}/lib:${LD_LIBRARY_PATH:-}"
 export PATH="${FOAM_USER_APPBIN}:${PATH}"
 export OFRL_PROP_SANITY=1
 
+# LibTorch preload aborts Foam utilities
+_foam_util() { env -u LD_PRELOAD "$@"; }
+
 mkdir -p "$OUT"
 cd "$CASE"
 
-foamDictionary system/controlDict -entry endTime -set "$ENDT" > /dev/null
-foamDictionary system/controlDict -entry startFrom -set startTime > /dev/null
-foamDictionary system/controlDict -entry startTime -set "$FREEZE" > /dev/null
-foamDictionary system/decomposeParDict -entry numberOfSubdomains -set "$NPROC" > /dev/null
+_foam_util foamDictionary system/controlDict -entry endTime -set "$ENDT" > /dev/null
+_foam_util foamDictionary system/controlDict -entry startFrom -set startTime > /dev/null
+_foam_util foamDictionary system/controlDict -entry startTime -set "$FREEZE" > /dev/null
+_foam_util foamDictionary system/decomposeParDict -entry numberOfSubdomains -set "$NPROC" > /dev/null
 
 # Drop processors only; keep freeze mesh + fields
 rm -rf processor* postProcessing 2>/dev/null || true
@@ -45,8 +56,8 @@ command -v reactingFoamDebug >/dev/null || {
 }
 
 echo "=== decomposePar from freeze=$FREEZE (NPROC=$NPROC) ==="
-decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
-  || decomposePar -force > "$OUT/log.decomposePar" 2>&1
+_foam_util decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
+  || _foam_util decomposePar -force > "$OUT/log.decomposePar" 2>&1
 
 PROGRESS_AWK='
 BEGIN { step=0; last_t=""; last_tmax=""; endt=ENVIRON["ENDT"]+0; warn_skip=0 }
@@ -86,6 +97,10 @@ warn_skip > 0 { warn_skip--; next }
 '
 
 echo "=== mpirun reactingFoamDebug MODE=$MODE freeze=$FREEZE end=$ENDT ===" | tee "$OUT/run_header.txt"
+# rlAdaptive needs LibTorch preload; safe for other modes too
+if [[ -n "${OFRL_TORCH_LD_PRELOAD:-}" ]]; then
+  export LD_PRELOAD="$OFRL_TORCH_LD_PRELOAD"
+fi
 START=$(date +%s)
 set +e
 # Slurm: use allocation; interactive: plain mpirun
@@ -115,7 +130,7 @@ if [[ "$RC" -ne 0 ]]; then
 fi
 
 echo "=== reconstructPar ==="
-reconstructPar > "$OUT/log.reconstructPar" 2>&1 || true
+_foam_util reconstructPar > "$OUT/log.reconstructPar" 2>&1 || true
 if [[ -d /work ]] && [[ "$ROOT" == "/work" ]]; then
   chown -R "$(stat -c '%u:%g' /work)" "$OUT" "$CASE" 2>/dev/null || true
 fi

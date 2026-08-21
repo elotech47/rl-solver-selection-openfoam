@@ -90,22 +90,31 @@ command -v reactingFoamDebug >/dev/null || {
 }
 log "reactingFoamDebug=$(command -v reactingFoamDebug)"
 
+# LibTorch LD_PRELOAD aborts checkMesh / decomposePar / reconstructPar on native HPC
+_foam_util() {
+  env -u LD_PRELOAD "$@"
+}
+
 if [[ ! -f constant/polyMesh/points ]]; then
   log "=== blockMesh ==="
-  blockMesh > "$OUT/log.blockMesh" 2>&1
+  _foam_util blockMesh > "$OUT/log.blockMesh" 2>&1
 else
   log "polyMesh present — skip blockMesh (E18_REMESH=1 to force)"
   if [[ "${E18_REMESH:-0}" == "1" ]]; then
     rm -rf constant/polyMesh
-    blockMesh > "$OUT/log.blockMesh" 2>&1
+    _foam_util blockMesh > "$OUT/log.blockMesh" 2>&1
   fi
 fi
 log "=== checkMesh ==="
-checkMesh > "$OUT/log.checkMesh" 2>&1 || true
+_foam_util checkMesh > "$OUT/log.checkMesh" 2>&1 || true
 grep -E 'cells:|Max cell|Mesh OK|Failed' "$OUT/log.checkMesh" | head -20 || true
 
 log "=== decomposePar ($NPROC) ==="
-decomposePar -force > "$OUT/log.decomposePar" 2>&1
+if ! _foam_util decomposePar -force > "$OUT/log.decomposePar" 2>&1; then
+  echo "FATAL: decomposePar failed — see $OUT/log.decomposePar" >&2
+  tail -40 "$OUT/log.decomposePar" >&2 || true
+  exit 1
+fi
 log "decomposePar done"
 
 PROGRESS_AWK='
@@ -132,6 +141,10 @@ BEGIN { step=0; last_t=""; last_tmax="" }
 '
 
 log "=== mpirun reactingFoamDebug -parallel (chem OFF) ==="
+# Solver may need torch preload (harmless for chem-off; required for rlAdaptive later)
+if [[ -n "${OFRL_TORCH_LD_PRELOAD:-}" && -z "${LD_PRELOAD:-}" ]]; then
+  export LD_PRELOAD="$OFRL_TORCH_LD_PRELOAD"
+fi
 START=$(date +%s)
 set +e
 if [[ "${OF_RUNTIME:-native}" == "docker" ]]; then
@@ -156,7 +169,8 @@ if [[ "$RC" -ne 0 ]]; then
 fi
 
 log "=== reconstructPar ==="
-reconstructPar -latestTime > "$OUT/log.reconstructPar" 2>&1 || reconstructPar > "$OUT/log.reconstructPar" 2>&1
+_foam_util reconstructPar -latestTime > "$OUT/log.reconstructPar" 2>&1 \
+  || _foam_util reconstructPar > "$OUT/log.reconstructPar" 2>&1
 
 ls -d [0-9]* 0.* 2>/dev/null | sort -g | tee "$OUT/times.txt" || true
 

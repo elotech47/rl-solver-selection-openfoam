@@ -45,10 +45,17 @@ export MKL_NUM_THREADS="${MKL_NUM_THREADS:-1}"
 export TORCH_MKLDNN_ENABLED=0
 export ATEN_NUM_THREADS=1
 
+# Torch preload is required for reactingFoamDebug + rlAdaptive, but it often
+# Aborts bare Foam utilities (checkMesh, decomposePar, reconstructPar, blockMesh).
+# Keep the string in OFRL_TORCH_LD_PRELOAD; apply to LD_PRELOAD only when needed.
 if [[ -f "${LIBTORCH_DIR}/lib/libtorch_cpu.so" ]]; then
-  export LD_PRELOAD="${LIBTORCH_DIR}/lib/libtorch_cpu.so:${LIBTORCH_DIR}/lib/libc10.so"
+  OFRL_TORCH_LD_PRELOAD="${LIBTORCH_DIR}/lib/libtorch_cpu.so:${LIBTORCH_DIR}/lib/libc10.so"
   OMPLIB="$(ls "${LIBTORCH_DIR}"/lib/libomp*.so 2>/dev/null | head -1 || true)"
-  [[ -n "${OMPLIB}" ]] && export LD_PRELOAD="${LD_PRELOAD}:${OMPLIB}"
+  [[ -n "${OMPLIB}" ]] && OFRL_TORCH_LD_PRELOAD="${OFRL_TORCH_LD_PRELOAD}:${OMPLIB}"
+  export OFRL_TORCH_LD_PRELOAD
+  if [[ "${OFRL_TORCH_PRELOAD:-1}" == "1" ]]; then
+    export LD_PRELOAD="${OFRL_TORCH_LD_PRELOAD}${LD_PRELOAD:+:$LD_PRELOAD}"
+  fi
 fi
 
 export OFRL_PROP_SANITY=1

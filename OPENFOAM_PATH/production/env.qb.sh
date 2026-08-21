@@ -46,6 +46,10 @@ set +eu
 source "$OF_BASHRC"
 set +u
 
+# Do not put LibTorch in LD_PRELOAD for the interactive shell —
+# checkMesh/decomposePar Abort. Solvers set LD_PRELOAD from OFRL_TORCH_LD_PRELOAD.
+export OFRL_TORCH_PRELOAD=0
+unset LD_PRELOAD
 # shellcheck disable=SC1091
 source "$ROOT/tools/ofrl_container_env.sh"
 set +u
@@ -68,4 +72,5 @@ if [[ ! -x "$(command -v reactingFoamDebug 2>/dev/null || true)" ]]; then
 fi
 
 echo "env.qb.sh OK  ROOT=$ROOT  WM_OPTIONS=${WM_OPTIONS:-?}  NPROC=$NPROC  OF_RUNTIME=$OF_RUNTIME"
+echo "  LD_PRELOAD=${LD_PRELOAD:-<unset>} (utilities need unset; solvers use OFRL_TORCH_LD_PRELOAD)"
 command -v reactingFoamDebug >/dev/null && echo "  reactingFoamDebug=$(command -v reactingFoamDebug)"
