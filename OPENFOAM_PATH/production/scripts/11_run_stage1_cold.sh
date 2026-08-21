@@ -65,8 +65,14 @@ PY
 export ROOT CASE OUT NPROC ENDT
 export OF_RUNTIME="${OF_RUNTIME:-native}"
 export OF_BASHRC="${OF_BASHRC:-/work/elo/OpenFOAM/OpenFOAM-v2312/etc/bashrc}"
+# Avoid second OpenFOAM bashrc source (common hang on interactive nodes)
+export SKIP_OF_SOURCE=1
 
 echo "OUT=$OUT NPROC=$NPROC ENDT=$ENDT CASE=$CASE"
+if ! command -v reactingFoamDebug >/dev/null 2>&1; then
+  echo "FATAL: reactingFoamDebug not on PATH — source production/env.qb.sh first" >&2
+  exit 1
+fi
 bash "$ROOT/validation/zeroD/e18_prep/stage1_run_cold.sh"
 
 # Verify freeze
