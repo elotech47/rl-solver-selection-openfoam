@@ -32,6 +32,19 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     confidenceThreshold_(0.6),
     policyManifestPath_("policy_manifest"),
     policyTorchPath_("policy.ts"),
+    policyFlag_
+    (
+        IOobject
+        (
+            "policyFlag",
+            this->mesh().time().timeName(),
+            this->mesh(),
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        this->mesh(),
+        dimensionedScalar("policyFlag", dimless, 0)
+    ),
     solverFlag_
     (
         IOobject
@@ -103,7 +116,11 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     timeSinceDecision_(this->mesh().nCells(), 0),
     nDecisionsTaken_(this->mesh().nCells(), 0),
     lastDecision_(this->mesh().nCells(), 0),
+    forceCvodeHold_(this->mesh().nCells(), false),
     everDecided_(this->mesh().nCells(), false),
+    logUsage_(true),
+    logDecisions_(false),
+    logFallbackReasons_(true),
     chemTimeAccum_(0),
     warnedOversizedDt_(false),
     testDeltaTIndex_(0),
@@ -126,6 +143,9 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     confidenceThreshold_ = dict.getOrDefault<scalar>("confidenceThreshold", 0.6);
     policyManifestPath_ = dict.getOrDefault<fileName>("manifest", "policy_manifest");
     policyTorchPath_ = dict.getOrDefault<fileName>("torchScript", "policy.ts");
+    logUsage_ = dict.getOrDefault<Switch>("logUsage", true);
+    logDecisions_ = dict.getOrDefault<Switch>("logDecisions", false);
+    logFallbackReasons_ = dict.getOrDefault<Switch>("logFallbackReasons", true);
 
     if (dict.found("testDeltaTSchedule"))
     {
@@ -449,29 +469,75 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             policy_->inferBatch(feats, flags, conf, pQss);
 
             {
-                const fileName logPath =
-                    this->mesh().time().path()/"rl_decisions.csv";
-                const bool fresh = !isFile(logPath);
-                OFstream os
-                (
-                    logPath,
-                    IOstreamOption(IOstreamOption::ASCII),
-                    IOstreamOption::APPEND
-                );
-                if (fresh)
+                if (logDecisions_)
                 {
-                    os << "time,chemTime,subStep,celli,flag,conf,p,T,P,"
-                       << "Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7,"
-                       << "Tprev,Yp0,Yp1,Yp2,Yp3,Yp4,Yp5,Yp6,Yp7,hasPrev,"
-                       << "timeSince,tauDec,dtChem"
-                       << nl;
+                    const fileName logPath =
+                        this->mesh().time().path()/"rl_decisions.csv";
+                    const bool fresh = !isFile(logPath);
+                    OFstream os
+                    (
+                        logPath,
+                        IOstreamOption(IOstreamOption::ASCII),
+                        IOstreamOption::APPEND
+                    );
+                    if (fresh)
+                    {
+                        os << "time,chemTime,subStep,celli,flag,conf,p,T,P,"
+                           << "Y0,Y1,Y2,Y3,Y4,Y5,Y6,Y7,"
+                           << "Tprev,Yp0,Yp1,Yp2,Yp3,Yp4,Yp5,Yp6,Yp7,hasPrev,"
+                           << "timeSince,tauDec,dtChem"
+                           << nl;
+                    }
+                    for (size_t k = 0; k < active.size(); ++k)
+                    {
+                        const label celli = active[k];
+                        const scalar timeSinceLogged = timeSinceDecision_[celli];
+                        double YkeyLog[8];
+                        scalar rhoNow = 0;
+                        for (label i = 0; i < nSpecie; ++i)
+                        {
+                            rhoNow += cWork[celli][i]*this->specieThermo_[i].W();
+                        }
+                        rhoNow = max(rhoNow, SMALL);
+                        for (label j = 0; j < 8; ++j)
+                        {
+                            const label si = keyIndices_[j];
+                            YkeyLog[j] =
+                                cWork[celli][si]*this->specieThermo_[si].W()/rhoNow;
+                        }
+                        const bool hasPrev = hasSnapPrev_[celli];
+                        os << this->mesh().time().value() << ','
+                           << chemTimeAccum_ << ','
+                           << s << ','
+                           << celli << ','
+                           << flags[k] << ','
+                           << conf[k] << ','
+                           << pQss[k] << ','
+                           << Twork[celli] << ','
+                           << pWork[celli];
+                        for (label j = 0; j < 8; ++j)
+                        {
+                            os << ',' << YkeyLog[j];
+                        }
+                        os << ',' << Tprev_[celli];
+                        for (label j = 0; j < 8; ++j)
+                        {
+                            os << ',' << YkeyPrev_[celli][j];
+                        }
+                        os << ',' << (hasPrev ? 1 : 0)
+                           << ',' << timeSinceLogged
+                           << ',' << tauDec_
+                           << ',' << dtChem
+                           << nl;
+                    }
                 }
+
                 for (size_t k = 0; k < active.size(); ++k)
                 {
                     const label celli = active[k];
-                    const scalar timeSinceLogged = timeSinceDecision_[celli];
                     lastDecision_[celli] = flags[k];
-                    solverFlag_[celli] = flags[k];
+                    policyFlag_[celli] = flags[k];
+                    forceCvodeHold_[celli] = false; // new τ_dec clears rescue hold
                     everDecided_[celli] = true;
 
                     double YkeyLog[8];
@@ -487,30 +553,6 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                         YkeyLog[j] =
                             cWork[celli][si]*this->specieThermo_[si].W()/rhoNow;
                     }
-                    const bool hasPrev = hasSnapPrev_[celli];
-                    os << this->mesh().time().value() << ','
-                       << chemTimeAccum_ << ','
-                       << s << ','
-                       << celli << ','
-                       << flags[k] << ','
-                       << conf[k] << ','
-                       << pQss[k] << ','
-                       << Twork[celli] << ','
-                       << pWork[celli];
-                    for (label j = 0; j < 8; ++j)
-                    {
-                        os << ',' << YkeyLog[j];
-                    }
-                    os << ',' << Tprev_[celli];
-                    for (label j = 0; j < 8; ++j)
-                    {
-                        os << ',' << YkeyPrev_[celli][j];
-                    }
-                    os << ',' << (hasPrev ? 1 : 0)
-                       << ',' << timeSinceLogged
-                       << ',' << tauDec_
-                       << ',' << dtChem
-                       << nl;
 
                     // Snapshot current state as the prev for the *next* τ_dec query
                     Tprev_[celli] = Twork[celli];
@@ -524,10 +566,13 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 }
             }
 
-            // Held cells: keep lastDecision_ / solverFlag_
+            // Predicted action before integrate (policy, unless rescue hold)
             for (label celli = 0; celli < nCells; ++celli)
             {
-                solverFlag_[celli] = lastDecision_[celli];
+                policyFlag_[celli] = lastDecision_[celli];
+                const bool tryQss =
+                    (lastDecision_[celli] == 1) && !forceCvodeHold_[celli];
+                solverFlag_[celli] = tryQss ? 1 : 0;
             }
         }
         else if (mode_ == Mode::cvodeOnly)
@@ -535,7 +580,9 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             forAll(solverFlag_, celli)
             {
                 solverFlag_[celli] = 0;
+                policyFlag_[celli] = 0;
                 lastDecision_[celli] = 0;
+                forceCvodeHold_[celli] = false;
             }
         }
         else
@@ -543,7 +590,10 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             forAll(solverFlag_, celli)
             {
                 solverFlag_[celli] = 1;
+                policyFlag_[celli] = 1;
                 lastDecision_[celli] = 1;
+                // qssOnly: re-attempt QSS every window (hold does not stick)
+                forceCvodeHold_[celli] = false;
             }
         }
 
@@ -566,10 +616,14 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
 
             const auto t0 = std::chrono::steady_clock::now();
             scalar timeLeft = dtChem;
-            bool cellUsedCvode = (lastDecision_[celli] == 0);
+            const bool policyQss = (lastDecision_[celli] == 1);
+            bool tryQss = policyQss && !forceCvodeHold_[celli];
+            bool cellUsedCvode = !tryQss;
             bool cellFellBack = false;
             while (timeLeft > SMALL)
             {
+                // Re-evaluate if a prior sub-window set the rescue hold
+                tryQss = policyQss && !forceCvodeHold_[celli];
                 scalar dt = timeLeft;
                 scalar subDt = this->deltaTChem_[celli];
 
@@ -583,7 +637,7 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 const scalarField cSnap(this->c_);
                 const scalar TSnap = Ti;
 
-                if (lastDecision_[celli] == 1)
+                if (tryQss)
                 {
                     const bool integOk = ofRlChem::integrateQss
                     (
@@ -657,6 +711,11 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                         }
                         cellUsedCvode = true;
                         cellFellBack = true;
+                        // rlAdaptive: hold CVODE until next τ_dec (keep policy flag)
+                        if (mode_ == Mode::rlAdaptive)
+                        {
+                            forceCvodeHold_[celli] = true;
+                        }
                     }
                     else if (guardCoeffs_.enabled && accept)
                     {
@@ -699,23 +758,20 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 fellBackThisSolve[celli] = true;
             }
 
-            // Effective usage: any fallback in this CFD chem call counts as CVODE
+            // Effective usage this chem call; policyFlag stays lastDecision_
             solverFlag_[celli] = cellUsedCvode ? 0 : 1;
+            policyFlag_[celli] = lastDecision_[celli];
             if (mode_ == Mode::qssOnly)
             {
-                // Keep attempting QSS next window; guards re-check every time
                 lastDecision_[celli] = 1;
+                forceCvodeHold_[celli] = false;
             }
             else if (mode_ == Mode::cvodeOnly)
             {
                 lastDecision_[celli] = 0;
+                policyFlag_[celli] = 0;
                 solverFlag_[celli] = 0;
-            }
-            else if (cellUsedCvode && lastDecision_[celli] == 1)
-            {
-                // rlAdaptive: after QSS→CVODE rescue, hold CVODE until next
-                // τ_dec decision (avoids re-entering QSS on a marginal state)
-                lastDecision_[celli] = 0;
+                forceCvodeHold_[celli] = false;
             }
 
             for (label i = 0; i < nSpecie; ++i)
@@ -738,10 +794,14 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
     }
 
     // --- Compact usage line (MPI-reduced) for clean logs / progress filters ---
+    if (logUsage_)
     {
-        label nCvode = 0;
-        label nQss = 0;
+        label nPolCvode = 0;
+        label nPolQss = 0;
+        label nEffCvode = 0;
+        label nEffQss = 0;
         label nFallback = 0;
+        label nHold = 0;
         label nReact = 0;
         scalar cpuCvode = 0;
         scalar cpuQss = 0;
@@ -752,6 +812,18 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 continue;
             }
             ++nReact;
+            if (lastDecision_[celli] == 0)
+            {
+                ++nPolCvode;
+            }
+            else
+            {
+                ++nPolQss;
+            }
+            if (forceCvodeHold_[celli])
+            {
+                ++nHold;
+            }
             if (fellBackThisSolve[celli])
             {
                 ++nFallback;
@@ -759,12 +831,12 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             // Attribute CPU by effective solver after last sub-window
             if (solverFlag_[celli] < 0.5)
             {
-                ++nCvode;
+                ++nEffCvode;
                 cpuCvode += cpuThisSolve[celli];
             }
             else
             {
-                ++nQss;
+                ++nEffQss;
                 cpuQss += cpuThisSolve[celli];
             }
         }
@@ -774,9 +846,12 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
         const scalar wallChemLocal = cpuCvode + cpuQss;
         scalar wallChem = wallChemLocal;
 
-        reduce(nCvode, sumOp<label>());
-        reduce(nQss, sumOp<label>());
+        reduce(nPolCvode, sumOp<label>());
+        reduce(nPolQss, sumOp<label>());
+        reduce(nEffCvode, sumOp<label>());
+        reduce(nEffQss, sumOp<label>());
         reduce(nFallback, sumOp<label>());
+        reduce(nHold, sumOp<label>());
         reduce(nReact, sumOp<label>());
         reduce(nFbYneg, sumOp<label>());
         reduce(nFbSumY, sumOp<label>());
@@ -791,7 +866,6 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
 
         if (Pstream::master())
         {
-            const label nCvodeDirect = max(label(0), nCvode - nFallback);
             const scalar cpuTotSum = cpuCvode + cpuQss;
             const label nProcs = Pstream::nProcs();
             const scalar pct =
@@ -801,16 +875,17 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             Info<< "rlUsage"
                 << " t=" << this->mesh().time().value()
                 << " react=" << nReact
-                << " CVODE=" << nCvodeDirect
-                << " QSS=" << nQss
-                << " fallbackCVODE=" << nFallback
-                << " cpu_CVODE_sum=" << cpuCvode << "s"
-                << " cpu_QSS_sum=" << cpuQss << "s"
-                << " cpu_tot_sum=" << cpuTotSum << "s"
+                << " policyCVODE=" << nPolCvode
+                << " policyQSS=" << nPolQss
+                << " effCVODE=" << nEffCvode
+                << " effQSS=" << nEffQss
+                << " fallback=" << nFallback
+                << " holdCVODE=" << nHold
                 << " wall_chem=" << wallChem << "s"
+                << " cpu_tot_sum=" << cpuTotSum << "s"
                 << " nProcs=" << nProcs
                 << endl;
-            if (nFallback > 0)
+            if (logFallbackReasons_ && nFallback > 0)
             {
                 Info<< "rlFallbackReasons"
                     << " Y_negative=" << nFbYneg
@@ -829,8 +904,6 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             }
 
             // Append step CSV at case root (master only).
-            // cpu_*_sum = MPI sum of cell timers (CPU-seconds of work).
-            // wall_chem = max over ranks of that rank's cell-timer sum.
             const fileName usagePath =
                 this->mesh().time().rootPath()
                /this->mesh().time().globalCaseName()
@@ -843,17 +916,9 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 if (hdrCheck.good())
                 {
                     hdrCheck.getLine(hdr);
-                    if
-                    (
-                        hdr.find("wall_chem") == std::string::npos
-                     || hdr.find("fb_Y_negative") == std::string::npos
-                    )
+                    if (hdr.find("policyCVODE") == std::string::npos)
                     {
-                        mv
-                        (
-                            usagePath,
-                            usagePath + ".bak"
-                        );
+                        mv(usagePath, usagePath + ".bak");
                     }
                 }
             }
@@ -866,7 +931,8 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             );
             if (fresh)
             {
-                uos << "time,nReact,nCVODE,nQSS,nFallbackCVODE,"
+                uos << "time,nReact,policyCVODE,policyQSS,effCVODE,effQSS,"
+                    << "nFallback,nHoldCVODE,"
                     << "fb_Y_negative,fb_sumY_drift,fb_dT_window,"
                     << "fb_T_bounds,fb_qss_integ,maxNegY,maxSumDrift,"
                     << "cpu_CVODE_sum,cpu_QSS_sum,cpu_tot_sum,"
@@ -874,9 +940,12 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             }
             uos << this->mesh().time().value() << ','
                 << nReact << ','
-                << nCvodeDirect << ','
-                << nQss << ','
+                << nPolCvode << ','
+                << nPolQss << ','
+                << nEffCvode << ','
+                << nEffQss << ','
                 << nFallback << ','
+                << nHold << ','
                 << nFbYneg << ','
                 << nFbSumY << ','
                 << nFbDT << ','

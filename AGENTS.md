@@ -234,6 +234,9 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 | 2026-07-22 | `rl_usage_step.csv` cpu_* looked 8× too large | Those columns are **MPI-sum CPU-seconds** (Σ cell timers over ranks), not wall. After 2026-07-22: CSV has `cpu_*_sum`, `wall_chem` (= max over ranks), `nProcs`. Live run must be restarted to pick up new `librlChemistryModel`. |
 | 2026-07-22 | `obs_rms size mismatch mean=0` after `.pt`→`.ts` export | Foam manifest must use `obs_rms_mean` / `obs_dim` (not camelCase). |
 | 2026-07-22 | ~90% cells `fallbackCVODE` on E18 RL steps | Counters: **100% `T_bounds`** (fuel T=300 &lt; `TminAccept=310`), not Y/ΣY. Relaxed `epsY=1e-8`, `epsSumY=1e-2`; set `TminAccept=250`. Log `rlFallbackReasons`. |
+| 2026-08-20 | `rlUsage` CVODE/QSS disagreed with ParaView `solverFlag` | Usage used `nCvode−nFallback` and fallback **overwrote** `lastDecision` (policy lost). Now: `policyFlag`/`lastDecision` stay policy; `forceCvodeHold` for rescue; log `policyCVODE/QSS` + `effCVODE/QSS`. Trust `solverFlag`=effective, `policyFlag`=policy. |
+| 2026-08-20 | JANAF spam `T = 300` out of range 300→3500 | Fuel at Tlow boundary. Set production thermo **`Tlow 200`** (same NASA coeffs; Option R low poly). |
+| 2026-08-20 | Huge Foam logs (Yi solvers + warnings) | `logDecisions false` by default; Stage2 awk drops janaf/`Solving for`; `SolverPerformance 0`. |
 
 ---
 

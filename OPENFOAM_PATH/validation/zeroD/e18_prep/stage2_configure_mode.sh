@@ -49,6 +49,9 @@ rl
     confidenceThreshold 0.6;
     manifest            "${CONTAINER_ROOT}/policy/policy_manifest";
     torchScript         "${CONTAINER_ROOT}/policy/policy.ts";
+    logUsage            true;
+    logDecisions        false;
+    logFallbackReasons  true;
 }
 qssCoeffs
 {
@@ -94,8 +97,26 @@ want = """$want"""
 t2, n = re.subn(r"libs\s*\([^;]*\);", want, t, count=1)
 if n == 0:
     raise SystemExit("libs line not found in controlDict")
-p.write_text(t2)
-print("controlDict libs updated for mode=$MODE")
+t = t2
+# Quiet solver + suppress redundant foam chatter in production chem runs
+if "DebugSwitches" not in t:
+    t += """
+DebugSwitches
+{
+    SolverPerformance 0;
+}
+"""
+else:
+    if "SolverPerformance" not in t:
+        t = t.replace(
+            "DebugSwitches\n{",
+            "DebugSwitches\n{\n    SolverPerformance 0;",
+        )
+# Less frequent propSanity spam
+t2, n = re.subn(r"propSanityInterval\s+[^;]+;", "propSanityInterval 50;", t, count=1)
+t = t2 if n else t
+p.write_text(t)
+print("controlDict libs + quiet switches for mode=$MODE")
 PY
 
-echo "Configured opposedJet_2D for mode=${MODE} (guards ON, policy root=${CONTAINER_ROOT})"
+echo "Configured opposedJet_E18 for mode=${MODE} (guards ON, policy root=${CONTAINER_ROOT})"

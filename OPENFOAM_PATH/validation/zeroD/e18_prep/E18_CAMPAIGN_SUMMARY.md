@@ -141,19 +141,15 @@ Defaults updated in `stage2_configure_mode.sh` and `E17_2_GATES.md`. Remaining l
 - Wall clock ~**91 h**; chemistry `wall_chem` typically O(1–4 min) per step once hot (log).
 - Progress shows mostly QSS head-counts with small CVODE + rare `qss_integ` fallbacks — **but see §4.3**.
 
-### 4.3 Known inconsistency: `rlUsage` vs `solverFlag` (open)
+### 4.3 Usage logging (fixed 2026-08-20)
 
-At e.g. `t=0.05426`:
+`rlUsage` now prints **both**:
 
-| Source | CVODE (0) | QSS (1) |
-|--------|----------:|--------:|
-| On-disk / ParaView `solverFlag` | **~18970** | **~1030** |
-| `rlUsage` line | ~1214 | ~18786 |
+- `policyCVODE` / `policyQSS` — last τ_dec policy action (`policyFlag` field)
+- `effCVODE` / `effQSS` — integrator actually used (`solverFlag` field)
+- `fallback` / `holdCVODE` — rescue this step / still holding CVODE until next decision
 
-- First step `t=0.05001` **agreed**; later steps **nearly inverted**.
-- Policy decision CSV still votes QSS on decision epochs; written field is mostly CVODE except a thin strip (often near the mixing/flame layer).
-- **Trust ParaView / `solverFlag` for spatial maps** until logger is fixed to report policy vs effective flags explicitly.
-- T legends capped at 1000 K hide flame peaks (~2500 K) — rescale in ParaView.
+After a QSS→CVODE rescue, policy is **kept**; `forceCvodeHold` forces CVODE until the next τ_dec (no longer overwrites `lastDecision`). Rebuild `librlChemistryModel` to pick this up. Per-cell `rl_decisions.csv` is **off** by default (`logDecisions false`).
 
 ### 4.4 Cost and accuracy vs cvodeOnly through shared cutoff (workstation)
 

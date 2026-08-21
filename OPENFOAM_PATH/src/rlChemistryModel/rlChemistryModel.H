@@ -45,6 +45,9 @@ private:
     ofRlChem::CvodeCoeffs cvodeCoeffs_;
     ofRlChem::GuardCoeffs guardCoeffs_;
 
+    // policyFlag = last policy action (0=CVODE, 1=QSS); never overwritten by guards
+    mutable volScalarField policyFlag_;
+    // solverFlag = effective integrator this chem call (after guards/fallback)
     mutable volScalarField solverFlag_;
     mutable volScalarField chemCpuTime_;
     mutable volScalarField Tconsistency_;
@@ -59,8 +62,14 @@ private:
     mutable boolList hasSnapPrev_;
     mutable scalarField timeSinceDecision_;
     mutable labelField nDecisionsTaken_;
-    mutable labelField lastDecision_;
+    mutable labelField lastDecision_;   // pure policy action at last τ_dec
+    mutable boolList forceCvodeHold_;   // after QSS→CVODE rescue until next decision
     mutable boolList everDecided_;
+
+    // Logging (production defaults: compact usage, no per-cell CSV)
+    Switch logUsage_;
+    Switch logDecisions_;
+    Switch logFallbackReasons_;
 
     // Cumulative chemistry time (all cells share CFD clock; logged for gates)
     mutable scalar chemTimeAccum_;
@@ -93,6 +102,7 @@ public:
     virtual scalar solve(const scalar deltaT);
 
     const volScalarField& solverFlag() const { return solverFlag_; }
+    const volScalarField& policyFlag() const { return policyFlag_; }
 };
 
 } // End namespace Foam

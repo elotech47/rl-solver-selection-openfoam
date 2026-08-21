@@ -43,34 +43,56 @@ decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
   || decomposePar -force > "$OUT/log.decomposePar" 2>&1
 
 PROGRESS_AWK='
-BEGIN { step=0; last_t=""; last_tmax=""; endt=ENVIRON["ENDT"]+0 }
+BEGIN { step=0; last_t=""; last_tmax=""; endt=ENVIRON["ENDT"]+0; warn_skip=0 }
+# --- progress monitor (stderr) + slim log (stdout) ---
 /^Time = / { last_t=$3; next }
 /^propSanity: T / {
   last_tmax=$4
-  if (step % 20 == 0)
+  if (step % 20 == 0) {
     printf "propSanity t=%s Tmax=%s\n", last_t, last_tmax > "/dev/stderr"
+    print
+  }
   next
 }
-/^rlUsage / { print > "/dev/stderr"; next }
-/^rlFallbackReasons / { print > "/dev/stderr"; next }
+/^rlUsage / { print > "/dev/stderr"; print; next }
+/^rlFallbackReasons / { print > "/dev/stderr"; print; next }
 /ClockTime = / {
   step++
-  if (step % 20 == 0)
+  if (step % 20 == 0) {
     printf "t=%s maxT=%s\n", last_t, last_tmax > "/dev/stderr"
+    print
+  }
   next
 }
-{ print }
+# Drop JANAF boundary spam (fuel T≈Tlow) and linear-solver chatter
+/janafThermo/ { warn_skip=3; next }
+warn_skip > 0 { warn_skip--; next }
+/^FOAM Warning/ { next }
+/Solving for / { next }
+/DILUPBiCGStab/ { next }
+/GAMG:/ { next }
+/smoothSolver:/ { next }
+# Keep failures and completion
+/FATAL|Floating point|SIGFPE|Signal:/ { print > "/dev/stderr"; print; next }
+/^End/ { print > "/dev/stderr"; print; next }
+/^Courant Number/ {
+  if (step % 20 == 0) print
+  next
+}
+# Drop everything else from the slim log
+{ next }
 '
 
 echo "=== mpirun reactingFoamDebug MODE=$MODE freeze=$FREEZE end=$ENDT ===" | tee "$OUT/run_header.txt"
 START=$(date +%s)
 set +e
+# awk filters spam → slim log; progress.* gets rlUsage / samples
 mpirun --allow-run-as-root -np "$NPROC" --map-by core --bind-to core \
   reactingFoamDebug -parallel \
   2>&1 \
-  | tee "$OUT/log.${MODE}" \
   | ENDT="$ENDT" awk "$PROGRESS_AWK" \
-  2> "$OUT/progress.${MODE}.log"
+  2> "$OUT/progress.${MODE}.log" \
+  | tee "$OUT/log.${MODE}"
 RC=${PIPESTATUS[0]}
 set -e
 END=$(date +%s)

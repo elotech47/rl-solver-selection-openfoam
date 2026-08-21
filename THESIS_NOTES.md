@@ -286,6 +286,6 @@ blocker for E17.
 
 **Production kit.** Thesis dumps and Slurm entry points live under [`OPENFOAM_PATH/production/`](OPENFOAM_PATH/production/) (`RUN_PLAN.md`, `scripts/`, `cluster/`) — not under `validation/zeroD/e*`.
 
-**Pointers.** Case `cases/opposedJet_E18/`; configure/run scripts under `validation/zeroD/e18_prep/` (logic) wrapped by `production/scripts/`; engineering checklist `AGENTS.md`; onboarding `docs/wiki/01_reacting_flow_and_solver_selection.md`.
+*Addendum 2026-08-20:* Usage logging fixed: `policyFlag` vs `solverFlag` (effective); rescue uses `forceCvodeHold` without overwriting the policy action. JANAF Tlow lowered to 200 K for fuel boundary. Rebuild `librlChemistryModel` required on cluster after sync.
 
 ---

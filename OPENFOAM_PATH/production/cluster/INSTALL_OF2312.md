@@ -234,3 +234,24 @@ du -sh /work/elo/OpenFOAM
 ```
 
 Then we can patch `production/scripts` for true native launch (source `$OF_BASHRC` instead of Docker paths) and run the E18 bootstrap.
+
+---
+
+## Appendix — LibTorch / SUNDIALS on QB (no Docker)
+
+```bash
+# Inside salloc; do NOT leave set -e on in the interactive shell (a failed
+# command can kill the whole allocation). Prefer:
+set +e
+
+cd /work/elo/solverRL2D/rl-solver-selection-openfoam/OPENFOAM_PATH
+bash tools/install_libtorch.sh      # native pip or zip — no docker
+module load cmake/3.27.7/gcc-8.5.0  # if needed
+bash tools/install_sundials.sh
+
+set +eu
+source /work/elo/OpenFOAM/OpenFOAM-v2312/etc/bashrc
+set +u
+source tools/ofrl_container_env.sh
+bash tools/build_libs.sh
+```
