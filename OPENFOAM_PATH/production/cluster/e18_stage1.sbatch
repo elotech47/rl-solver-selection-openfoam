@@ -11,9 +11,7 @@
 #SBATCH --error=production/runs/slurm-%j-stage1.err
 
 # Cold mix → freeze t=0.05 under cases/opposedJet_E18/
-# Submit FROM OPENFOAM_PATH:
-#   cd .../OPENFOAM_PATH && sbatch production/cluster/e18_stage1.sbatch
-# or:
+# Submit FROM OPENFOAM_PATH (login node):
 #   bash production/cluster/submit_stage1.sh
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-.}"
@@ -21,10 +19,12 @@ mkdir -p production/runs
 
 # shellcheck disable=SC1091
 source production/env.qb.sh
+set -euo pipefail
 
 export NPROC="${SLURM_NTASKS:-8}"
 export E18_STAGE1_END="${E18_STAGE1_END:-0.05}"
-export E18_STAGE1_OUT="production/runs/stage1_cold_${SLURM_JOB_ID}"
+# Absolute OUT — relative path breaks after cd into the case
+export E18_STAGE1_OUT="${ROOT}/production/runs/stage1_cold_${SLURM_JOB_ID}"
 export SKIP_OF_SOURCE=1
 unset LD_PRELOAD
 

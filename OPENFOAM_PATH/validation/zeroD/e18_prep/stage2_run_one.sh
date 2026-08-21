@@ -39,6 +39,9 @@ export OFRL_PROP_SANITY=1
 _foam_util() { env -u LD_PRELOAD "$@"; }
 
 mkdir -p "$OUT"
+OUT="$(cd "$OUT" && pwd)"
+CASE="$(cd "$CASE" && pwd)"
+ROOT="$(cd "$ROOT" && pwd)"
 cd "$CASE"
 
 _foam_util foamDictionary system/controlDict -entry endTime -set "$ENDT" > /dev/null

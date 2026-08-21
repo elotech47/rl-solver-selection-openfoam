@@ -13,6 +13,7 @@ That loads modules + OpenFOAM-v2312 + LibTorch/SUNDIALS paths. **Do not** reinst
 
 ```bash
 cd /work/elo/solverRL2D/rl-solver-selection-openfoam/OPENFOAM_PATH
+# LOGIN node only (not qbcNNN from salloc — sbatch is missing there)
 bash production/cluster/submit_stage1.sh
 # or: sbatch production/cluster/e18_stage1.sbatch
 

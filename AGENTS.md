@@ -240,6 +240,8 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 | 2026-08-20 | Huge Foam logs (Yi solvers + warnings) | `logDecisions false` by default; Stage2 awk drops janaf/`Solving for`; `SolverPerformance 0`. |
 | 2026-08-20 | `checkMesh`/`decomposePar` **Aborted (core dumped)** on QB | LibTorch `LD_PRELOAD` from `ofrl_container_env.sh`. Run utilities with `env -u LD_PRELOAD …`; keep preload only for `reactingFoamDebug`. |
 | 2026-08-20 | Stage1 `exit=141` Broken pipe; awk `Killed` | Progress `awk` in the MPI pipe OOM'd (and/or LibTorch preload on chem-off ranks). Log solver directly; **no** `LD_PRELOAD` for Stage1; sample progress from the log file. |
+| 2026-08-20 | `sbatch --parsable` job id garbage on LONI | SU banner lines go to stdout; parse `Submitted job N` / last bare integer. |
+| 2026-08-20 | Stage1 Slurm “done” with no progress log | Relative `E18_STAGE1_OUT` + `cd CASE` broke `tee` log path; `env.qb.sh` left `set +e` so sbatch ignored the failure. Use absolute OUT; restore `set -e` after sourcing. |
 
 ---
 

@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # Host launcher — E18 Stage 1 cold mix → freeze t=0.05 on Queen Bee.
 #
-#   source production/env.qb.sh
+# Interactive (after source production/env.qb.sh):
 #   bash production/scripts/11_run_stage1_cold.sh
+# Batch (login node):
+#   bash production/cluster/submit_stage1.sh
 #
 # If cases/opposedJet_E18 is incomplete, set E18_RECONFIGURE=1 to rebuild
-# from opposedJet_2D via stage1_configure.sh (needs opposedJet_2D in tree).
+# from opposedJet_2D via stage1_configure.sh.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 CASE="$ROOT/cases/opposedJet_E18"
@@ -14,11 +16,14 @@ NPROC="${NPROC:-${SLURM_NTASKS:-8}}"
 ENDT="${E18_STAGE1_END:-0.05}"
 
 mkdir -p "$OUT"
+OUT="$(cd "$OUT" && pwd)"
+CASE="$(cd "$CASE" && pwd)"
 chmod +x "$ROOT/validation/zeroD/e18_prep/stage1_run_cold.sh"
 
 if [[ "${E18_RECONFIGURE:-0}" == "1" ]] || [[ ! -f "$CASE/0/T" ]]; then
   echo "=== stage1_configure (rebuild opposedJet_E18 from opposedJet_2D) ==="
   bash "$ROOT/validation/zeroD/e18_prep/stage1_configure.sh"
+  CASE="$(cd "$ROOT/cases/opposedJet_E18" && pwd)"
 fi
 
 # Ensure cold chem-off + endTime even if case already exists
@@ -45,7 +50,6 @@ chem.write_text(ct)
 print("Stage1 control: endTime=$ENDT chemistry off")
 PY
 
-# Patch Sutherland As/Ts if still zero (alphaEff bug)
 python3 - <<PY
 from pathlib import Path
 import re
@@ -65,7 +69,6 @@ PY
 export ROOT CASE OUT NPROC ENDT
 export OF_RUNTIME="${OF_RUNTIME:-native}"
 export OF_BASHRC="${OF_BASHRC:-/work/elo/OpenFOAM/OpenFOAM-v2312/etc/bashrc}"
-# Avoid second OpenFOAM bashrc source (common hang on interactive nodes)
 export SKIP_OF_SOURCE=1
 
 echo "OUT=$OUT NPROC=$NPROC ENDT=$ENDT CASE=$CASE"
@@ -75,7 +78,6 @@ if ! command -v reactingFoamDebug >/dev/null 2>&1; then
 fi
 bash "$ROOT/validation/zeroD/e18_prep/stage1_run_cold.sh"
 
-# Verify freeze
 FREEZE=$(python3 - <<PY
 from pathlib import Path
 case = Path(r"$CASE")
@@ -96,4 +98,4 @@ PY
 echo "FREEZE=$FREEZE" | tee "$OUT/freeze_time.txt"
 test -f "$CASE/$FREEZE/T" || { echo "FATAL: $CASE/$FREEZE/T missing"; exit 1; }
 echo "STAGE1_OK freeze=$CASE/$FREEZE"
-echo "Next: bash production/scripts/20_run_chem.sh"
+echo "Next: sbatch production/cluster/e18_smoke.sbatch   # or submit_twins.sh"

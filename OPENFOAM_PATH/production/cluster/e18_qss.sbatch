@@ -16,9 +16,10 @@ mkdir -p production/runs
 
 # shellcheck disable=SC1091
 source production/env.qb.sh
+set -euo pipefail
 
 export E18_MODES=qssOnly
 export NPROC="${SLURM_NTASKS:-32}"
-export E18_PROD_OUT="production/runs/e18_${SLURM_JOB_ID}_qssOnly"
+export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_qssOnly"
 
 bash production/scripts/20_run_chem.sh

@@ -15,9 +15,13 @@ CASE="${CASE:-$ROOT/cases/opposedJet_E18}"
 MODE=coldMix
 
 mkdir -p "$OUT"
+# Absolute paths — after `cd "$CASE"`, relative OUT breaks tee/logs (silent fail)
+OUT="$(cd "$OUT" && pwd)"
+CASE="$(cd "$CASE" && pwd)"
+ROOT="$(cd "$ROOT" && pwd)"
 LOG="$OUT/run.log"
 log() { echo "$(date -Is) $*" | tee -a "$LOG"; }
-log "stage1_run_cold START CASE=$CASE NPROC=$NPROC ENDT=$ENDT"
+log "stage1_run_cold START CASE=$CASE NPROC=$NPROC ENDT=$ENDT OUT=$OUT"
 
 # Prefer already-loaded interactive env
 if [[ "${SKIP_OF_SOURCE:-}" == "1" ]] \

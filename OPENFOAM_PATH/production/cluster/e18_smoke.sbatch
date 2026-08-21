@@ -16,8 +16,9 @@ cd "${SLURM_SUBMIT_DIR:-.}"
 mkdir -p production/runs
 # shellcheck disable=SC1091
 source production/env.qb.sh
+set -euo pipefail
 export E18_MODES=cvodeOnly
 export E18_END_TIME=0.0002
 export NPROC="${SLURM_NTASKS:-8}"
-export E18_PROD_OUT="production/runs/e18_${SLURM_JOB_ID}_smoke"
+export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_smoke"
 bash production/scripts/20_run_chem.sh

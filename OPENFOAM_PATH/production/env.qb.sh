@@ -40,7 +40,9 @@ if [[ ! -f "$OF_BASHRC" ]]; then
   return 1 2>/dev/null || exit 1
 fi
 
-# OpenFOAM bashrc trips set -e / unset vars
+# OpenFOAM bashrc trips set -e / unset vars — restore caller's -e afterward
+_ofrl_restore_e=0
+[[ $- == *e* ]] && _ofrl_restore_e=1
 set +eu
 # shellcheck disable=SC1090
 source "$OF_BASHRC"
@@ -53,6 +55,8 @@ unset LD_PRELOAD
 # shellcheck disable=SC1091
 source "$ROOT/tools/ofrl_container_env.sh"
 set +u
+((_ofrl_restore_e)) && set -e
+unset _ofrl_restore_e
 
 # Ensure sundials lib → lib64 symlink (QB cmake layout)
 if [[ -d "$ROOT/opt/sundials/lib64" && ! -e "$ROOT/opt/sundials/lib" ]]; then
