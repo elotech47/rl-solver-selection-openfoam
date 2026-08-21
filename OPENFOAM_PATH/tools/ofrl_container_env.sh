@@ -67,6 +67,9 @@ ofrl_run_parallel() {
   shift
   if [[ -n "${SLURM_JOB_ID:-}" ]] && command -v srun >/dev/null 2>&1; then
     echo "ofrl_mpi: srun -n ${np} $*"
+    # Prefer TCP/shared-memory on-node; mlx5 OpenFabrics often warns/fails on QB
+    OMPI_MCA_btl="${OMPI_MCA_btl:-self,vader,tcp}" \
+    OMPI_MCA_pml="${OMPI_MCA_pml:-ob1}" \
     srun -n "${np}" "$@"
   elif [[ "${OF_RUNTIME:-}" == "docker" ]]; then
     mpirun --allow-run-as-root -np "${np}" --map-by core --bind-to core "$@"

@@ -200,6 +200,7 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 - No silent “T threshold override” policy hacks for E17.2.
 - **LibTorch `LD_PRELOAD`**: required for `reactingFoamDebug` + RL; **aborts** `checkMesh` / `decomposePar` / `reconstructPar` / `foamDictionary` on native QB. Use `env -u LD_PRELOAD …` for utilities (`OFRL_TORCH_PRELOAD=0` in `env.qb.sh`).
 - **MPI on LONI**: inside `sbatch`, use **`srun -n $NPROC`** (`ofrl_run_parallel`). Do not call `mpirun` — Spack stub prints “without the mpiexec/mpirun commands”.
+- **LibTorch preload scope**: `LD_PRELOAD` only for **`rlAdaptive`**. cvodeOnly/qssOnly/Stage1 must `unset LD_PRELOAD` or Foam aborts at mesh/dict read (`libc10` + fake OOM).
 
 ---
 
@@ -244,6 +245,7 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 | 2026-08-20 | `sbatch --parsable` job id garbage on LONI | SU banner lines go to stdout; parse `Submitted job N` / last bare integer. |
 | 2026-08-20 | Stage1 Slurm “done” with no progress log | Relative `E18_STAGE1_OUT` + `cd CASE` broke `tee` log path; `env.qb.sh` left `set +e` so sbatch ignored the failure. Use absolute OUT; restore `set -e` after sourcing. |
 | 2026-08-21 | `log.coldMix` = Spack “without mpiexec/mpirun” + shell level 1000 | LONI Slurm OpenMPI stubs `mpirun`. Use **`srun -n $NPROC`** inside batch (`ofrl_run_parallel` in `ofrl_container_env.sh`). |
+| 2026-08-21 | Smoke `new cannot satisfy memory request` + Abort; stack in `libc10` / Foam regex | LibTorch `LD_PRELOAD` on **cvodeOnly**. Preload **only** for `rlAdaptive`; unset for cvode/qss/Stage1. IB `mlx5` warnings are usually non-fatal. |
 
 ---
 
