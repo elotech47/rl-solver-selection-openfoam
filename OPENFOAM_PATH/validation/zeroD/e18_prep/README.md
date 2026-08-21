@@ -1,6 +1,9 @@
 # E18-prep — cold-flow → chemistry restart (twin-nozzle counterflow)
 
-**Status:** Stage 0 COMPLETE · Stage 1 COMPLETE · Stage 2 in progress
+**Status:** Stage 0 COMPLETE · Stage 1 COMPLETE · Stage 2 workstation **rlAdaptive COMPLETE**; **cvodeOnly** stopped ~0.055; **cluster** cvodeOnly + RL twins in progress; qssOnly TBD
+
+**Campaign chronicle (method / trials / results / next steps):**
+[`E18_CAMPAIGN_SUMMARY.md`](E18_CAMPAIGN_SUMMARY.md) · Committee narrative: [`THESIS_NOTES.md`](../../../../THESIS_NOTES.md)
 
 ## Stage 0 — ignition viability (DONE)
 

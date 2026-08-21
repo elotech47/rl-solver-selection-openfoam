@@ -102,3 +102,9 @@ OPENFOAM_PATH/policy/*.bak.*
 /*.mp4
 /validation/
 /animation_*.mp4
+
+# Production cluster dumps (scripts under production/ stay tracked)
+OPENFOAM_PATH/production/runs/**
+!OPENFOAM_PATH/production/runs/.gitkeep
+OPENFOAM_PATH/production/env.local.sh
+OPENFOAM_PATH/production/pins/POLICY_HASH.txt

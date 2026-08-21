@@ -22,9 +22,9 @@ Chemistry is often the expensive part: some species change on nanosecond scales 
 
 ### 0.2 Mass fractions and temperature
 
-- **Species mass fraction** \(Y_i\): mass of species \(i\) divided by mixture mass. \(\sum_i Y_i = 1\).  
-- **Temperature** \(T\): set by energy conservation and the heat released/absorbed by reactions.  
-- **Pressure** \(p\) and **density** \(\rho\): linked by an equation of state (ideal gas in our cases).
+- **Species mass fraction** $Y_i$: mass of species $i$ divided by mixture mass. $\sum_i Y_i = 1$.  
+- **Temperature** $T$: set by energy conservation and the heat released/absorbed by reactions.  
+- **Pressure** $p$ and **density** $\rho$: linked by an equation of state (ideal gas in our cases).
 
 Chemistry does not invent mass: it **rearranges** atoms among molecules. Heat release appears because product molecules sit at different enthalpies than reactants.
 
@@ -49,33 +49,39 @@ So when docs say “vs Ember 1D,” they mean **centerline profiles**, not that 
 
 ### 1.1 Chemical kinetics (every cell)
 
-For species concentrations \(c_i\) (kmol/m³) at fixed pressure (our chemistry integrators match the **constant-pressure** training setup):
+For species concentrations $c_i$ (kmol/m³) at fixed pressure (our chemistry integrators match the **constant-pressure** training setup):
 
-\[
+
+$$
 \frac{\mathrm{d}c_i}{\mathrm{d}t} = \dot{\omega}_i(T,p,\mathbf{c}),
 \qquad
 \frac{\mathrm{d}T}{\mathrm{d}t} = f_{\text{energy}}(\dot{\omega}, h_i, c_p,\ldots)
-\]
+$$
 
-\(\dot{\omega}_i\) comes from the **mechanism** (Arrhenius rates, third-body, fall-off, etc.).  
-α-QSS needs **creation/destruction** rates \(q_i,d_i\) from forward/reverse progress rates — **not** a sign-split of the net rate (see `instruction.md` ground rules).
+
+$\dot{\omega}_i$ comes from the **mechanism** (Arrhenius rates, third-body, fall-off, etc.).  
+α-QSS needs **creation/destruction** rates $q_i,d_i$ from forward/reverse progress rates — **not** a sign-split of the net rate (see `instruction.md` ground rules).
 
 ### 1.2 Coupling chemistry → CFD (OpenFOAM pattern)
 
-OpenFOAM’s chemistry model integrates each cell over a window \(\Delta t_{\mathrm{chem}}\) and returns **effective reaction rates** that the transport equations consume (ESI `StandardChemistryModel` pattern):
+OpenFOAM’s chemistry model integrates each cell over a window $\Delta t_{\mathrm{chem}}$ and returns **effective reaction rates** that the transport equations consume (ESI `StandardChemistryModel` pattern):
 
-\[
+
+$$
 \mathrm{RR}_i \approx \rho\,\frac{Y_i^{n+1}-Y_i^{n}}{\Delta t_{\mathrm{chem}}}
-\]
+$$
 
-Heat release for the energy equation is built from \(\mathrm{RR}_i\) and enthalpies of formation:
 
-\[
+Heat release for the energy equation is built from $\mathrm{RR}_i$ and enthalpies of formation:
+
+
+$$
 \dot{Q} = -\sum_i \mathrm{RR}_i\, h_{f,i}
 \quad\text{(sign convention as in Foam; magnitude = chemical heat)}.
-\]
+$$
 
-Standing diagnostic in this repo: compare integrator \(T\) to CFD \(T\) after transport applies \(\mathrm{RR}\) (`Tconsistency`).
+
+Standing diagnostic in this repo: compare integrator $T$ to CFD $T$ after transport applies $\mathrm{RR}$ (`Tconsistency`).
 
 ### 1.3 Multi-dimensional conservation (opposed jet / `reactingFoam`)
 
@@ -83,12 +89,12 @@ High level (compressible reacting Navier–Stokes; details in Foam’s `UEqn` / 
 
 | Equation | Idea |
 |----------|------|
-| Continuity | Mass conservation for \(\rho\) |
-| Momentum | \(\partial_t(\rho\mathbf{U}) + \nabla\cdot(\rho\mathbf{U}\mathbf{U}) = -\nabla p + \ldots\) |
-| Species | \(\partial_t(\rho Y_i) + \nabla\cdot(\rho\mathbf{U} Y_i) = \nabla\cdot(\mu_{\mathrm{eff}}\nabla Y_i) + \mathrm{R}(Y_i)\) |
-| Energy | Enthalpy (or internal energy) with conduction/diffusion and \(\dot{Q}\) |
+| Continuity | Mass conservation for $\rho$ |
+| Momentum | $\partial_t(\rho\mathbf{U}) + \nabla\cdot(\rho\mathbf{U}\mathbf{U}) = -\nabla p + \ldots$ |
+| Species | $\partial_t(\rho Y_i) + \nabla\cdot(\rho\mathbf{U} Y_i) = \nabla\cdot(\mu_{\mathrm{eff}}\nabla Y_i) + \mathrm{R}(Y_i)$ |
+| Energy | Enthalpy (or internal energy) with conduction/diffusion and $\dot{Q}$ |
 
-**Operator splitting:** each CFD step, chemistry advances composition over \(\Delta t\) (possibly subcycled), then flow/transport uses the resulting \(\mathrm{RR}\) and \(\dot{Q}\).
+**Operator splitting:** each CFD step, chemistry advances composition over $\Delta t$ (possibly subcycled), then flow/transport uses the resulting $\mathrm{RR}$ and $\dot{Q}$.
 
 ---
 
@@ -101,8 +107,8 @@ Case: [`OPENFOAM_PATH/cases/chemFoam_0D/`](../../OPENFOAM_PATH/cases/chemFoam_0D
 
 There is **no mesh flow** — one cell. The loop is essentially:
 
-1. **`solveChemistry`** — integrate the stiff ODE for \(\Delta t\)  
-2. **`YEqn`** — update mass fractions from chemistry \(\mathrm{RR}\)  
+1. **`solveChemistry`** — integrate the stiff ODE for $\Delta t$  
+2. **`YEqn`** — update mass fractions from chemistry $\mathrm{RR}$  
 3. **`hEqn` / energy** — update enthalpy from chemical heat  
 4. **`pEqn`** — close thermodynamics (`constantProperty pressure` or `volume`)
 
@@ -127,7 +133,7 @@ p   1013250;   // Pa (example: 10 atm)
 T   800;       // K
 ```
 
-Do **not** put bare `Yi` keys at the top level of this dictionary (Foam will mis-parse and \(\sum Y\) will look insane). See `AGENTS.md`.
+Do **not** put bare `Yi` keys at the top level of this dictionary (Foam will mis-parse and $\sum Y$ will look insane). See `AGENTS.md`.
 
 ### 2.3 Why 0D matters for this project
 
@@ -149,8 +155,8 @@ If 0D is wrong, CFD will be wrong for the same reason — fix 0D first.
 Binary: **`reactingFoamDebug`**  
 Cases:
 
-- [`cases/opposedJet_2D/`](../../OPENFOAM_PATH/cases/opposedJet_2D/) — E17 smoke (gap \(L=0.02\,\mathrm{m}\))  
-- [`cases/opposedJet_E18/`](../../OPENFOAM_PATH/cases/opposedJet_E18/) — E18 Ember-matched gap \(L=0.008\,\mathrm{m}\)
+- [`cases/opposedJet_2D/`](../../OPENFOAM_PATH/cases/opposedJet_2D/) — E17 smoke (gap $L=0.02\,\mathrm{m}$)  
+- [`cases/opposedJet_E18/`](../../OPENFOAM_PATH/cases/opposedJet_E18/) — E18 Ember-matched gap $L=0.008\,\mathrm{m}$
 
 PIMPLE outer loop (schematic): `rhoEqn` → `UEqn` → chemistry/`YEqn` → `EEqn` → `pEqn`.
 
@@ -158,7 +164,7 @@ PIMPLE outer loop (schematic): `rhoEqn` → `UEqn` → chemistry/`YEqn` → `EEq
 
 ### 3.2 “1D flame” reading of a 2D run
 
-On the midplane (or centerline strip), plot \(T(x)\), \(Y_{\mathrm{OH}}(x)\), mixture fraction, etc. Those curves are what we compare to **Ember 1D** opposed-jet solutions (`validation/oned_crossref/`).
+On the midplane (or centerline strip), plot $T(x)$, $Y_{\mathrm{OH}}(x)$, mixture fraction, etc. Those curves are what we compare to **Ember 1D** opposed-jet solutions (`validation/oned_crossref/`).
 
 ### 3.3 Typical E18 Stage split (why chemistry is often off at first)
 
@@ -177,7 +183,7 @@ Checked-in `opposedJet_E18` may ship with `chemistry off` for Stage 1; Stage 2 s
 
 A mechanism is a list of:
 
-- **Species** (thermodynamics: NASA polynomials → \(c_p\), \(h\), \(s\))  
+- **Species** (thermodynamics: NASA polynomials → $c_p$, $h$, $s$)  
 - **Reactions** (kinetics: Arrhenius parameters, third bodies, pressure dependence)  
 - **Transport** (viscosities, diffusivities — Sutherland / polynomial fits)
 
@@ -200,7 +206,7 @@ foamChemistryFile       "<constant>/reactions";
 foamChemistryThermoFile "<constant>/thermo";
 ```
 
-**Production thermo:** Option R JANAF refit (`Thigh = 3500` K, etc.) under `mechanisms/refit/` — important for high-\(T\) stability after ignition.
+**Production thermo:** Option R JANAF refit (`Thigh = 3500` K, etc.) under `mechanisms/refit/` — important for high-$T$ stability after ignition.
 
 ---
 
@@ -233,7 +239,7 @@ Implementation: [`src/rlChemistryModel/`](../../OPENFOAM_PATH/src/rlChemistryMod
 |------|----------|
 | `cvodeOnly` | Always CVODE (Layer-1 sanitize still on) |
 | `qssOnly` | Always attempt QSS + **guards**; reject → CVODE redo |
-| `rlAdaptive` | **Policy** chooses CVODE vs QSS every \(\tau_{\mathrm{dec}}\) + **same guards** |
+| `rlAdaptive` | **Policy** chooses CVODE vs QSS every $\tau_{\mathrm{dec}}$ + **same guards** |
 
 Unguarded stock `solver qss` is **retired for CFD** after E17.2 (still OK for some 0D algorithm studies).
 
@@ -241,18 +247,18 @@ Unguarded stock `solver qss` is **retired for CFD** after E17.2 (still OK for so
 
 When QSS runs under `method rl`:
 
-1. **Layer 1 — sanitize inputs:** floor \(Y_i \ge 0\), renormalize \(\sum Y = 1\) (diagnostic `yClipMass`).  
+1. **Layer 1 — sanitize inputs:** floor $Y_i \ge 0$, renormalize $\sum Y = 1$ (diagnostic `yClipMass`).  
 2. **Integrate QSS** over the micro-window.  
 3. **Layer 2 — accept/reject** raw output. Reject if any of:
-   - \(Y_i < -\varepsilon_Y\)  
-   - \(\lvert\sum Y - 1\rvert > \varepsilon_{\Sigma Y}\)  
-   - \(\lvert\Delta T\rvert > dT_{\max}\) over the window  
-   - \(T \notin [T_{\min}, T_{\max}]\)  
+   - $Y_i < -\varepsilon_Y$  
+   - $\lvert\sum Y - 1\rvert > \varepsilon_{\Sigma Y}$  
+   - $\lvert\Delta T\rvert > dT_{\max}$ over the window  
+   - $T \notin [T_{\min}, T_{\max}]$  
 4. On reject: **restore** pre-QSS state, **redo with CVODE**, increment `qssFallbackCount`. That window **counts as CVODE** in usage.
 
 Progress logs may print `rlFallbackReasons` with percentages per check.
 
-Defaults and E18 notes: `AGENTS.md`, `validation/zeroD/e17_2/E17_2_GATES.md`. Cold fuel at 300 K needs \(T_{\min}\) **≤ 300** (E18 uses 250), or nearly every cold cell “falls back” as `T_bounds`.
+Defaults and E18 notes: `AGENTS.md`, `validation/zeroD/e17_2/E17_2_GATES.md`. Cold fuel at 300 K needs $T_{\min}$ **≤ 300** (E18 uses 250), or nearly every cold cell “falls back” as `T_bounds`.
 
 ### 5.4 The RL policy (solver selection)
 
@@ -260,23 +266,25 @@ Defaults and E18 notes: `AGENTS.md`, `validation/zeroD/e17_2/E17_2_GATES.md`. Co
 
 - `0` → CVODE  
 - `1` → QSS  
-- Softmax confidence \(< 0.6\) → force CVODE  
+- Softmax confidence $< 0.6$ → force CVODE  
 
 **Observation (19-D)** — order fixed in `policy_manifest` / `policyFeatures.H`:
 
-1. \(T\) normalized  
-2. \(\log_{10} Y\) for 8 key species: OH, H₂O, O₂, H₂, H₂O₂, O, H, N₂  
-3. \(p\) normalized  
-4. Nine **Δlog₁₀** features (T + keys) — **differences**, not divided by \(\Delta t\)
+1. $T$ normalized  
+2. $\log_{10} Y$ for 8 key species: OH, H₂O, O₂, H₂, H₂O₂, O, H, N₂  
+3. $p$ normalized  
+4. Nine **Δlog₁₀** features (T + keys) — **differences**, not divided by $\Delta t$
 
 **Decision interval (physical chemistry time):**
 
-\[
+
+$$
 \tau_{\mathrm{dec}} = N_{\mathrm{steps}} \times \Delta t_{\mathrm{ref}}
 \quad\text{(default } 20 \times 10^{-6}\,\mathrm{s} = 20\,\mu\mathrm{s}\text{)}
-\]
+$$
 
-Decisions land on this chemistry clock (E16.5), not “every CFD step” unless you set \(\tau_{\mathrm{dec}}\) accordingly. CFD \(\Delta t \approx 10^{-5}\) with \(\tau_{\mathrm{dec}}=2\times10^{-5}\) ⇒ decide roughly every **two** steps.
+
+Decisions land on this chemistry clock (E16.5), not “every CFD step” unless you set $\tau_{\mathrm{dec}}$ accordingly. CFD $\Delta t \approx 10^{-5}$ with $\tau_{\mathrm{dec}}=2\times10^{-5}$ ⇒ decide roughly every **two** steps.
 
 **Artifacts**
 
@@ -329,7 +337,7 @@ Usage line (MPI-reduced): `rlUsage` with `CVODE` / `QSS` / `fallbackCVODE` and `
 
 ## 7. How to contribute safely
 
-1. **Read** `instruction.md` ground rules (parity ladder, no rate rescaling, true \(q/d\) for QSS).  
+1. **Read** `instruction.md` ground rules (parity ladder, no rate rescaling, true $q/d$ for QSS).  
 2. **Change C++** under `src/`, then `wmake` inside Docker (`AGENTS.md` §2).  
 3. **Validate 0D** before claiming CFD wins.  
 4. **Never commit** Stage 2 dumps: `e18_prep/stage2_chem_*/`, `processor*`, huge logs (`.gitignore`). Commit scripts + small reports only.  
@@ -350,6 +358,8 @@ Usage line (MPI-reduced): `rlUsage` with `CVODE` / `QSS` / `fallbackCVODE` and `
 | Mechanism conversion | `mechanisms/CONVERSION.md` |
 | E17.2 gates | `validation/zeroD/e17_2/E17_2_GATES.md` |
 | E18 prep | `validation/zeroD/e18_prep/README.md` |
+| E18 campaign summary | `validation/zeroD/e18_prep/E18_CAMPAIGN_SUMMARY.md` |
+| Production / cluster kit | `OPENFOAM_PATH/production/` (`RUN_PLAN.md`) |
 
 ---
 
@@ -360,11 +370,11 @@ Usage line (MPI-reduced): `rlUsage` with `CVODE` / `QSS` / `fallbackCVODE` and `
 | Stiffness | Timescales in the ODE span many orders of magnitude |
 | CVODE | Implicit BDF ODE solver (SUNDIALS) — accurate/robust |
 | α-QSS | Quasi-steady-state integrator (CHEMEQ2) — cheap when valid |
-| \(\mathrm{RR}\) | Effective species source for CFD after a chemistry window |
-| \(\tau_{\mathrm{dec}}\) | Policy decision period in chemistry time |
+| $\mathrm{RR}$ | Effective species source for CFD after a chemistry window |
+| $\tau_{\mathrm{dec}}$ | Policy decision period in chemistry time |
 | Guard / fallback | Reject bad QSS state and redo with CVODE |
-| Mixture fraction \(Z\) | Conserved scalar measuring fuel–air mixing |
-| JANAF / NASA7 | Thermodynamic polynomial fits for \(c_p,h,s\) |
+| Mixture fraction $Z$ | Conserved scalar measuring fuel–air mixing |
+| JANAF / NASA7 | Thermodynamic polynomial fits for $c_p,h,s$ |
 
 ---
 

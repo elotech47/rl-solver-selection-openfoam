@@ -27,6 +27,7 @@ Canonical short Cursor rule: `.cursor/rules/openfoam-rl-agent.mdc` (always-on po
 | `OPENFOAM_PATH/validation/zeroD/e17_remote/` | Multi-core smoke kit (scripts) |
 | `OPENFOAM_PATH/validation/zeroD/e17_remote_runs/` | **Runtime dumps** (gitignored except small reports) |
 | `OPENFOAM_PATH/validation/zeroD/e17_2/` | E17.2 forensics + minimal repro + gates |
+| `OPENFOAM_PATH/production/` | **Thesis / cluster CFD** (`RUN_PLAN.md`, scripts, Slurm) |
 | `OPENFOAM_PATH/DECISIONS.md` | Design decisions log |
 | `THESIS_NOTES.md` | Committee narrative |
 
