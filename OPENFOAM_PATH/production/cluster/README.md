@@ -37,8 +37,9 @@ Parallel CFD uses **`srun`** inside the allocation (not `mpirun` — LONI stubs 
 
 ```bash
 source production/env.qb.sh
-# optional smoke first (~2 h wall budget):
-sbatch production/cluster/e18_smoke.sbatch
+# smokes (~0.2 ms chem, 8 ranks, 2 h):
+sbatch production/cluster/e18_smoke.sbatch      # cvodeOnly
+sbatch production/cluster/e18_smoke_rl.sbatch   # rlAdaptive (no LD_PRELOAD)
 
 # full twins to endTime=0.059:
 bash production/cluster/submit_twins.sh
@@ -52,7 +53,9 @@ Watch:
 
 ```bash
 squeue -u $USER
-tail -f production/runs/slurm-*-cvode.out
+tail -f production/runs/slurm-*-smoke.out
+tail -f production/runs/slurm-*-smoke_rl.out
+tail -f production/runs/e18_*_smoke*/**/progress*.log
 # progress inside a run dir:
 tail -f production/runs/e18_*_cvodeOnly/cvodeOnly/progress.cvodeOnly.log
 ```

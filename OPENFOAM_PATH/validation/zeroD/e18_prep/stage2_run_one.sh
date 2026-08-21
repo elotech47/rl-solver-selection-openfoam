@@ -63,14 +63,16 @@ _foam_util decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
   || _foam_util decomposePar -force > "$OUT/log.decomposePar" 2>&1
 
 echo "=== parallel reactingFoamDebug MODE=$MODE freeze=$FREEZE end=$ENDT ===" | tee "$OUT/run_header.txt"
-# LibTorch LD_PRELOAD only for RL — on LONI it aborts Foam dict/mesh parse for cvode/qss
-# (stack: libc10 basic_string inside OpenFOAM regex / "new cannot satisfy memory request").
-if [[ "$MODE" == "rlAdaptive" ]] && [[ -n "${OFRL_TORCH_LD_PRELOAD:-}" ]]; then
+# Default: never LD_PRELOAD LibTorch on native QB (aborts mesh/dict parse).
+# Opt-in only: OFRL_TORCH_PRELOAD=1 if policy fails to resolve symbols without it.
+if [[ "$MODE" == "rlAdaptive" ]] \
+  && [[ "${OFRL_TORCH_PRELOAD:-0}" == "1" ]] \
+  && [[ -n "${OFRL_TORCH_LD_PRELOAD:-}" ]]; then
   export LD_PRELOAD="$OFRL_TORCH_LD_PRELOAD"
-  echo "LD_PRELOAD=LibTorch (rlAdaptive)"
+  echo "LD_PRELOAD=LibTorch (OFRL_TORCH_PRELOAD=1)"
 else
   unset LD_PRELOAD
-  echo "LD_PRELOAD unset (mode=$MODE)"
+  echo "LD_PRELOAD unset (mode=$MODE OFRL_TORCH_PRELOAD=${OFRL_TORCH_PRELOAD:-0})"
 fi
 START=$(date +%s)
 set +e

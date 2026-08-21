@@ -21,5 +21,7 @@ set -euo pipefail
 export E18_MODES=rlAdaptive
 export NPROC="${SLURM_NTASKS:-32}"
 export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_rlAdaptive"
+export OFRL_TORCH_PRELOAD=0
+unset LD_PRELOAD
 
 bash production/scripts/20_run_chem.sh
