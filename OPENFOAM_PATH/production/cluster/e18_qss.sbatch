@@ -12,13 +12,13 @@
 
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-.}"
+mkdir -p production/runs
 
-# module load ... ; source OpenFOAM-v2312 bashrc ; source tools env — see cluster/README.md
+# shellcheck disable=SC1091
+source production/env.qb.sh
 
-source production/env.example.sh
-export OF_RUNTIME=native
 export E18_MODES=qssOnly
 export NPROC="${SLURM_NTASKS:-32}"
-export E18_PROD_OUT="production/runs/e18_${SLURM_JOB_ID:-manual}_qssOnly"
+export E18_PROD_OUT="production/runs/e18_${SLURM_JOB_ID}_qssOnly"
 
 bash production/scripts/20_run_chem.sh

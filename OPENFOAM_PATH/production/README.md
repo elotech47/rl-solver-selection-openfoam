@@ -14,6 +14,14 @@ production fields there.
 
 Canonical Foam tree remains `OPENFOAM_PATH/` (Docker/Apptainer mount ≡ `/work`).
 
+## Quick start (Queen Bee)
+
+```bash
+cd .../OPENFOAM_PATH
+source production/env.qb.sh
+sbatch production/cluster/e18_smoke.sbatch
+```
+
 ## Quick start (workstation or interactive node)
 
 ```bash

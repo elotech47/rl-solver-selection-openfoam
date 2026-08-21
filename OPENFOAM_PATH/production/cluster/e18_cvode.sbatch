@@ -10,18 +10,17 @@
 #SBATCH --output=production/runs/slurm-%j-cvode.out
 #SBATCH --error=production/runs/slurm-%j-cvode.err
 
-# Run from OPENFOAM_PATH after native OF-v2312 + user libs are built.
+# Submit FROM OPENFOAM_PATH:
+#   cd .../OPENFOAM_PATH && sbatch production/cluster/e18_cvode.sbatch
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:-.}"
+mkdir -p production/runs
 
-# module load ...   # gcc / intel-mpi matching your OF build — fill after install
-# source /work/elo/OpenFOAM/OpenFOAM-v2312/etc/bashrc
-# source "$PWD/tools/ofrl_container_env.sh"   # or a host-native env helper
+# shellcheck disable=SC1091
+source production/env.qb.sh
 
-source production/env.example.sh
-export OF_RUNTIME=native
 export E18_MODES=cvodeOnly
 export NPROC="${SLURM_NTASKS:-32}"
-export E18_PROD_OUT="production/runs/e18_${SLURM_JOB_ID:-manual}_cvodeOnly"
+export E18_PROD_OUT="production/runs/e18_${SLURM_JOB_ID}_cvodeOnly"
 
 bash production/scripts/20_run_chem.sh

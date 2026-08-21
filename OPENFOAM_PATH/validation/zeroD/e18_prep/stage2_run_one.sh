@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# E18 Stage 2 — one chemistry mode from frozen Stage1 field (inside OF container).
-# Does NOT remesh or wipe the freeze time directory.
+# E18 Stage 2 — one chemistry mode from frozen Stage1 field.
+# Works in Docker (/work) and native HPC (ROOT + OF_BASHRC set by env.qb.sh).
 set -eo pipefail
 : "${MODE:?}"
 : "${OUT:?}"
@@ -9,16 +9,20 @@ set -eo pipefail
 : "${CASE:?}"
 : "${FREEZE:?}"
 
+# Defaults: container layout unless caller set ROOT / OF_BASHRC
+ROOT="${ROOT:-/work}"
+OF_BASHRC="${OF_BASHRC:-/usr/lib/openfoam/openfoam2312/etc/bashrc}"
+
 set +eu
-source /usr/lib/openfoam/openfoam2312/etc/bashrc
+# shellcheck disable=SC1090
+source "$OF_BASHRC"
 set -e
 set +u
-export ROOT=/work
 # shellcheck disable=SC1091
-source /work/tools/ofrl_container_env.sh
+source "$ROOT/tools/ofrl_container_env.sh"
 set +u
-export FOAM_USER_LIBBIN=/work/platforms/${WM_OPTIONS}/lib
-export FOAM_USER_APPBIN=/work/platforms/${WM_OPTIONS}/bin
+export FOAM_USER_LIBBIN="${ROOT}/platforms/${WM_OPTIONS}/lib"
+export FOAM_USER_APPBIN="${ROOT}/platforms/${WM_OPTIONS}/bin"
 export LD_LIBRARY_PATH="${FOAM_USER_LIBBIN}:${SUNDIALS_DIR}/lib:${LIBTORCH_DIR}/lib:${LD_LIBRARY_PATH:-}"
 export PATH="${FOAM_USER_APPBIN}:${PATH}"
 export OFRL_PROP_SANITY=1
@@ -34,9 +38,11 @@ foamDictionary system/decomposeParDict -entry numberOfSubdomains -set "$NPROC" >
 # Drop processors only; keep freeze mesh + fields
 rm -rf processor* postProcessing 2>/dev/null || true
 
-# Mesh must already exist from Stage1
 test -f constant/polyMesh/points || { echo "FATAL: no polyMesh — Stage1 incomplete"; exit 1; }
 test -d "$FREEZE" || { echo "FATAL: freeze dir $FREEZE missing"; exit 1; }
+command -v reactingFoamDebug >/dev/null || {
+  echo "FATAL: reactingFoamDebug not found on PATH"; exit 1;
+}
 
 echo "=== decomposePar from freeze=$FREEZE (NPROC=$NPROC) ==="
 decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
@@ -44,7 +50,6 @@ decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
 
 PROGRESS_AWK='
 BEGIN { step=0; last_t=""; last_tmax=""; endt=ENVIRON["ENDT"]+0; warn_skip=0 }
-# --- progress monitor (stderr) + slim log (stdout) ---
 /^Time = / { last_t=$3; next }
 /^propSanity: T / {
   last_tmax=$4
@@ -64,7 +69,6 @@ BEGIN { step=0; last_t=""; last_tmax=""; endt=ENVIRON["ENDT"]+0; warn_skip=0 }
   }
   next
 }
-# Drop JANAF boundary spam (fuel T≈Tlow) and linear-solver chatter
 /janafThermo/ { warn_skip=3; next }
 warn_skip > 0 { warn_skip--; next }
 /^FOAM Warning/ { next }
@@ -72,23 +76,29 @@ warn_skip > 0 { warn_skip--; next }
 /DILUPBiCGStab/ { next }
 /GAMG:/ { next }
 /smoothSolver:/ { next }
-# Keep failures and completion
 /FATAL|Floating point|SIGFPE|Signal:/ { print > "/dev/stderr"; print; next }
 /^End/ { print > "/dev/stderr"; print; next }
 /^Courant Number/ {
   if (step % 20 == 0) print
   next
 }
-# Drop everything else from the slim log
 { next }
 '
 
 echo "=== mpirun reactingFoamDebug MODE=$MODE freeze=$FREEZE end=$ENDT ===" | tee "$OUT/run_header.txt"
 START=$(date +%s)
 set +e
-# awk filters spam → slim log; progress.* gets rlUsage / samples
-mpirun --allow-run-as-root -np "$NPROC" --map-by core --bind-to core \
-  reactingFoamDebug -parallel \
+# Slurm: use allocation; interactive: plain mpirun
+if [[ -n "${SLURM_JOB_ID:-}" ]]; then
+  MPI_LAUNCH=(mpirun -np "$NPROC")
+else
+  MPI_LAUNCH=(mpirun -np "$NPROC")
+  # Docker-only convenience flags (ignore failures on HPC)
+  if [[ "${OF_RUNTIME:-}" == "docker" ]]; then
+    MPI_LAUNCH=(mpirun --allow-run-as-root -np "$NPROC" --map-by core --bind-to core)
+  fi
+fi
+"${MPI_LAUNCH[@]}" reactingFoamDebug -parallel \
   2>&1 \
   | ENDT="$ENDT" awk "$PROGRESS_AWK" \
   2> "$OUT/progress.${MODE}.log" \
@@ -106,5 +116,7 @@ fi
 
 echo "=== reconstructPar ==="
 reconstructPar > "$OUT/log.reconstructPar" 2>&1 || true
-chown -R "$(stat -c '%u:%g' /work)" "$OUT" "$CASE" 2>/dev/null || true
+if [[ -d /work ]] && [[ "$ROOT" == "/work" ]]; then
+  chown -R "$(stat -c '%u:%g' /work)" "$OUT" "$CASE" 2>/dev/null || true
+fi
 echo "STAGE2_MODE_DONE mode=$MODE exit=0"

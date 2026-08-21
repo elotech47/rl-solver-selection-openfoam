@@ -1,27 +1,30 @@
 #!/usr/bin/env bash
 # Production Stage-2 host launcher — chemistry restart into production/runs/.
-# Reuses e18_prep configure + stage2_run_one; only OUT root and runtime differ.
 #
-# Env (see production/env.example.sh):
-#   E18_MODES  E18_END_TIME  E18_WRITE_INTERVAL  NPROC  OF_IMAGE  OF_RUNTIME
-#   E18_PROD_OUT  — optional fixed output dir
+# Queen Bee:
+#   source production/env.qb.sh
+#   export E18_MODES=cvodeOnly   # or rlAdaptive / qssOnly
+#   bash production/scripts/20_run_chem.sh
+#
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 CASE="$ROOT/cases/opposedJet_E18"
 IMAGE="${OF_IMAGE:-opencfd/openfoam-default:2312}"
 PLATFORM="${OF_PLATFORM:-linux/amd64}"
-RUNTIME="${OF_RUNTIME:-docker}"
+RUNTIME="${OF_RUNTIME:-native}"
 SIF="${OF_SIF:-}"
 NPROC="${NPROC:-32}"
 ENDT_REL="${E18_END_TIME:-0.009}"
 WRITE_INT="${E18_WRITE_INTERVAL:-1e-05}"
 BASE="${E18_PROD_OUT:-$ROOT/production/runs/e18_$(date +%Y%m%d_%H%M%S)}"
+# Policy paths inside Foam dicts
+POLICY_ROOT="${E17_CONTAINER_ROOT:-$ROOT}"
 # shellcheck disable=SC2206
 MODES=(${E18_MODES:-cvodeOnly})
 
 mkdir -p "$BASE"
 chmod +x "$ROOT/validation/zeroD/e18_prep/stage2_run_one.sh"
-chmod +x "$ROOT/production/scripts/"*.sh
+chmod +x "$ROOT/production/scripts/"*.sh 2>/dev/null || true
 
 FREEZE=$(python3 - <<PY
 from pathlib import Path
@@ -45,20 +48,25 @@ ENDT=$(python3 -c "print(float('$FREEZE') + float('$ENDT_REL'))")
   echo "freeze=$FREEZE chem_horizon=${ENDT_REL}s endTime=$ENDT BASE=$BASE"
   echo "modes=${MODES[*]} NPROC=$NPROC runtime=$RUNTIME"
   echo "git=$(git -C "$ROOT/.." rev-parse --short HEAD 2>/dev/null || echo unknown)"
-  echo "case=$CASE"
+  echo "case=$CASE ROOT=$ROOT POLICY_ROOT=$POLICY_ROOT"
 } | tee "$BASE/stage2_header.txt" "$BASE/MANIFEST.txt"
 echo "$FREEZE" > "$BASE/freeze_time.txt"
 
-run_container() {
+run_one() {
   local mode="$1" mode_case="$2" out="$3"
+  if [[ "$RUNTIME" == "native" ]]; then
+    export MODE="$mode" OUT="$out" NPROC="$NPROC" ENDT="$ENDT" CASE="$mode_case" FREEZE="$FREEZE"
+    export ROOT OF_BASHRC OF_RUNTIME
+    bash "$ROOT/validation/zeroD/e18_prep/stage2_run_one.sh"
+    return $?
+  fi
   local rel_out="${out#"$ROOT"/}"
   local rel_case="${mode_case#"$ROOT"/}"
   local inner='bash /work/validation/zeroD/e18_prep/stage2_run_one.sh'
   if [[ "$RUNTIME" == "apptainer" || "$RUNTIME" == "singularity" ]]; then
     [[ -n "$SIF" && -f "$SIF" ]] || { echo "Set OF_SIF to Apptainer image" >&2; return 2; }
-    # shellcheck disable=SC2086
     apptainer exec --cleanenv --bind "$ROOT:/work" "$SIF" \
-      /bin/bash -lc "export MODE=$mode OUT=/work/$rel_out NPROC=$NPROC ENDT=$ENDT CASE=/work/$rel_case FREEZE=$FREEZE; $inner"
+      /bin/bash -lc "export MODE=$mode OUT=/work/$rel_out NPROC=$NPROC ENDT=$ENDT CASE=/work/$rel_case FREEZE=$FREEZE ROOT=/work; $inner"
   else
     docker run --rm --platform="$PLATFORM" --entrypoint /bin/bash \
       -v "$ROOT:/work" -w /work \
@@ -68,6 +76,7 @@ run_container() {
       -e ENDT="$ENDT" \
       -e CASE="/work/$rel_case" \
       -e FREEZE="$FREEZE" \
+      -e ROOT=/work \
       "$IMAGE" \
       -lc "$inner"
   fi
@@ -85,7 +94,7 @@ for MODE in "${MODES[@]}"; do
   cp -a --no-preserve=ownership "$CASE/0" "$MODE_CASE/0"
   cp -a --no-preserve=ownership "$CASE/$FREEZE" "$MODE_CASE/$FREEZE"
 
-  CASE="$MODE_CASE" MODE="$MODE" E17_CONTAINER_ROOT=/work \
+  E17_CONTAINER_ROOT="$POLICY_ROOT" \
     bash "$ROOT/validation/zeroD/e18_prep/stage2_configure_mode.sh" "$MODE" "$MODE_CASE"
 
   python3 - <<PY
@@ -122,7 +131,7 @@ PY
   cp -f "$MODE_CASE/system/controlDict" "$MODE_CASE/constant/chemistryProperties" "$OUT/" || true
 
   set +e
-  run_container "$MODE" "$MODE_CASE" "$OUT"
+  run_one "$MODE" "$MODE_CASE" "$OUT"
   RC=$?
   set -e
   if [[ "$RUNTIME" == "docker" ]]; then
