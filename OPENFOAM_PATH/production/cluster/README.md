@@ -29,7 +29,7 @@ Bare `salloc` failed earlier because the default account/partition combo was wro
 
 ## Runtime: native OpenFOAM (recommended on QB)
 
-**Docker is not required** (and is usually unavailable on LONI). Prefer a **local ESI OpenFOAM v2312** tree under `/work/elo` plus our user libs.
+**Docker is not required.** Install guide: **[`INSTALL_OF2312.md`](INSTALL_OF2312.md)**.
 
 | Approach | Verdict |
 |----------|---------|
