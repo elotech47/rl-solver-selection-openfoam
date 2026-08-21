@@ -11,9 +11,7 @@
 #SBATCH --error=production/runs/slurm-%j-smoke_rl.err
 
 # Short rlAdaptive smoke (~0.2 ms chem).
-# - No LibTorch LD_PRELOAD (breaks Foam mesh/dict on QB).
-# - FOAM_SIGFPE unset for this smoke only: torch JIT import Abort(134) under SIGFPE trap.
-#   Production twins should re-enable SIGFPE once smoke proves policy load works.
+# RHEL8: LibTorch stays out-of-process (OFRL_POLICY_WORKER) — Foam must not jit::load.
 #
 #   sbatch production/cluster/e18_smoke_rl.sbatch
 set -euo pipefail
@@ -32,18 +30,27 @@ test -f "${ROOT}/policy/policy_manifest" || {
   exit 1
 }
 
+WORKER="${ROOT}/opt/bin/ofrl_policy_worker"
+if [[ ! -x "$WORKER" ]]; then
+  echo "FATAL: missing $WORKER — on login node run:" >&2
+  echo "  LIBTORCH_FORCE=1 LIBTORCH_CXX11_ABI=0 bash tools/install_libtorch.sh" >&2
+  echo "  bash tools/build_ofrl_policy_worker.sh" >&2
+  echo "  wmake -j8 src/policyRuntime" >&2
+  exit 1
+fi
+
 export E18_MODES=rlAdaptive
 export E18_END_TIME=0.0002
 export NPROC="${SLURM_NTASKS:-8}"
 export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_smoke_rl"
 export OFRL_TORCH_PRELOAD=0
 export OFRL_RL_NO_SIGFPE=1
+export OFRL_POLICY_WORKER="$WORKER"
 unset LD_PRELOAD
 unset FOAM_SIGFPE
 
 mkdir -p "$E18_PROD_OUT"
-# Foam-free JIT load first (isolates LibTorch from OpenFOAM)
-chmod +x tools/run_torch_jit_smoke.sh
+echo "OFRL_POLICY_WORKER=$OFRL_POLICY_WORKER" | tee "$E18_PROD_OUT/worker.txt"
 bash tools/run_torch_jit_smoke.sh | tee "$E18_PROD_OUT/jit_preflight.txt"
 
 bash production/scripts/20_run_chem.sh

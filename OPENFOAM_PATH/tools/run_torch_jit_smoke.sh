@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build + run a Foam-free LibTorch JIT load of policy.ts (isolates ABI/SIGFPE from OF).
+# Build + run Foam-free LibTorch JIT load (ABI=0 for RHEL8).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # shellcheck disable=SC1091
@@ -19,13 +19,16 @@ test -f "$POLICY" || {
 }
 
 CXX="${CXX:-g++}"
-echo "building $BIN with $CXX (ABI=0)"
-"$CXX" -O2 -std=c++17 -D_GLIBCXX_USE_CXX11_ABI=1 \
+ABI_FLAG=0
+[[ -f "$LIBTORCH_DIR/OFR_CXX11_ABI" ]] && ABI_FLAG="$(cat "$LIBTORCH_DIR/OFR_CXX11_ABI")"
+echo "building $BIN with $CXX (ABI=$ABI_FLAG)"
+"$CXX" -O2 -std=c++17 -D_GLIBCXX_USE_CXX11_ABI="$ABI_FLAG" \
   -I"$LIBTORCH_DIR/include" \
   -I"$LIBTORCH_DIR/include/torch/csrc/api/include" \
   "$ROOT/tools/torch_jit_smoke.cpp" -o "$BIN" \
   -L"$LIBTORCH_DIR/lib" -Wl,-rpath,"$LIBTORCH_DIR/lib" \
-  -ltorch -ltorch_cpu -lc10
+  -ltorch -ltorch_cpu -lc10 \
+  -lm
 
 unset FOAM_SIGFPE
 unset LD_PRELOAD

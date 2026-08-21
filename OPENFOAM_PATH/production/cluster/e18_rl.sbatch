@@ -22,6 +22,12 @@ export E18_MODES=rlAdaptive
 export NPROC="${SLURM_NTASKS:-32}"
 export E18_PROD_OUT="${ROOT}/production/runs/e18_${SLURM_JOB_ID}_rlAdaptive"
 export OFRL_TORCH_PRELOAD=0
+export OFRL_POLICY_WORKER="${OFRL_POLICY_WORKER:-$ROOT/opt/bin/ofrl_policy_worker}"
 unset LD_PRELOAD
+
+test -x "$OFRL_POLICY_WORKER" || {
+  echo "FATAL: build worker: bash tools/build_ofrl_policy_worker.sh" >&2
+  exit 1
+}
 
 bash production/scripts/20_run_chem.sh

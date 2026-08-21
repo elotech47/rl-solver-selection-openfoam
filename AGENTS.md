@@ -247,7 +247,8 @@ Guards (`guardCoeffs`): see `DECISIONS.md` (2026-07-20) and `validation/zeroD/e1
 | 2026-08-21 | `log.coldMix` = Spack “without mpiexec/mpirun” + shell level 1000 | LONI Slurm OpenMPI stubs `mpirun`. Use **`srun -n $NPROC`** inside batch (`ofrl_run_parallel` in `ofrl_container_env.sh`). |
 | 2026-08-21 | Smoke `new cannot satisfy memory request` + Abort; stack in `libc10` / Foam regex | LibTorch `LD_PRELOAD` on **cvodeOnly**. Preload **only** for `rlAdaptive`; unset for cvode/qss/Stage1. IB `mlx5` warnings are usually non-fatal. |
 | 2026-08-21 | RL smoke exit 134 at `torch::jit::import_ir_module` after `Time=0.05001` | Mesh OK without preload; JIT Abort. `trapFpe` still on after shell `unset` — force `srun … env -u FOAM_SIGFPE`. Preflight: `tools/run_torch_jit_smoke.sh`. |
-| 2026-08-21 | RL `Foam::newError` / `Ss` string in libtorch under Foam | **ABI clash**: pre-cxx11 LibTorch (ABI=0) + OpenFOAM (ABI=1) + Foam `operator new`. Install **cxx11-abi** libtorch (`LIBTORCH_FORCE=1 bash tools/install_libtorch.sh`), rebuild `policyRuntime` with `-D_GLIBCXX_USE_CXX11_ABI=1`. |
+| 2026-08-21 | RL `Foam::newError` / `Ss` string in libtorch under Foam | **ABI clash**: pre-cxx11 LibTorch + OpenFOAM + Foam `operator new`. On RHEL8 (glibc&lt;2.29) cxx11-abi zips fail (`GLIBC_2.29`). Use **ABI=0 LibTorch** + **`OFRL_POLICY_WORKER`** out-of-process (`tools/build_ofrl_policy_worker.sh`). |
+| 2026-08-21 | Advisor: IPC vs chemistry; batching; instrument | Foam already **batches** `inferBatch` per rank/τ_dec. Worker pinned `OMP/ATEN=1`. Log `policy_wall_max/sum` in `rl_usage_step.csv`. Twins must share same Opt binary; final paper timings may use in-process/hand-rolled forward. |
 
 ---
 

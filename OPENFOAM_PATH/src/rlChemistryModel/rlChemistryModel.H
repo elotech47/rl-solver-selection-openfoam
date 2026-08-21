@@ -75,6 +75,9 @@ private:
     mutable scalar chemTimeAccum_;
     mutable bool warnedOversizedDt_;
 
+    // Wall seconds spent in policy infer (IPC+MLP) this solve — for thesis accounting
+    mutable scalar policyWallAcc_;
+
     // Optional E16.5 regression hook: override solve(deltaT) with a repeating
     // schedule so adaptive-Δt clock tests do not need a custom chemFoam.
     // Prefer schedules that are integer multiples of dtRef/maxChemDeltaT so

@@ -288,4 +288,6 @@ blocker for E17.
 
 *Addendum 2026-08-20:* Usage logging fixed: `policyFlag` vs `solverFlag` (effective); rescue uses `forceCvodeHold` without overwriting the policy action. JANAF Tlow lowered to 200 K for fuel boundary. Rebuild `librlChemistryModel` required on cluster after sync.
 
+*Addendum 2026-08-21 (cluster RL / advisor):* In-process LibTorch on Queen Bee (RHEL8) aborts (ABI + Foam `operator new`; cxx11-abi Torch needs glibc 2.29). Mitigation: out-of-process `OFRL_POLICY_WORKER` with **batched** `inferBatch` (already one IPC per rank per τ_dec decision set, not per cell). Worker pinned to 1 thread. Policy wall time logged as `policy_wall_max` / `policy_wall_sum` in `rl_usage_step.csv` so reported speedups are a **lower bound** including IPC. Same Opt binary for twins (`reactingFoamDebug` name is the solver target under `linux64GccDPInt32Opt`, not a Debug build). Final paper timing runs may later replace Torch with a hand-rolled forward once the architecture freezes.
+
 ---

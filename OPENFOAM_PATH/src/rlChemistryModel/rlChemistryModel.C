@@ -123,6 +123,7 @@ Foam::rlChemistryModel<ReactionThermo, ThermoType>::rlChemistryModel
     logFallbackReasons_(true),
     chemTimeAccum_(0),
     warnedOversizedDt_(false),
+    policyWallAcc_(0),
     testDeltaTIndex_(0),
     keysResolved_(false),
     cvodeUdStorage_(nullptr)
@@ -356,6 +357,7 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
     const scalar dtChem = deltaT/nSub;
     const label nCells = this->mesh().nCells();
     const label nSpecie = this->nSpecie_;
+    policyWallAcc_ = 0;
 
     // CFD / chemistry window larger than one decision interval: decide every
     // window and let Δlog span the actual elapsed chemistry time.
@@ -466,7 +468,15 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
             std::vector<int> flags;
             std::vector<double> conf;
             std::vector<double> pQss;
-            policy_->inferBatch(feats, flags, conf, pQss);
+            {
+                const auto t0 = std::chrono::steady_clock::now();
+                policy_->inferBatch(feats, flags, conf, pQss);
+                policyWallAcc_ +=
+                    std::chrono::duration<double>
+                    (
+                        std::chrono::steady_clock::now() - t0
+                    ).count();
+            }
 
             {
                 if (logDecisions_)
@@ -863,6 +873,10 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
         reduce(cpuCvode, sumOp<scalar>());
         reduce(cpuQss, sumOp<scalar>());
         reduce(wallChem, maxOp<scalar>());
+        scalar policyWallSum = policyWallAcc_;
+        scalar policyWallMax = policyWallAcc_;
+        reduce(policyWallSum, sumOp<scalar>());
+        reduce(policyWallMax, maxOp<scalar>());
 
         if (Pstream::master())
         {
@@ -882,6 +896,7 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 << " fallback=" << nFallback
                 << " holdCVODE=" << nHold
                 << " wall_chem=" << wallChem << "s"
+                << " policy_wall_max=" << policyWallMax << "s"
                 << " cpu_tot_sum=" << cpuTotSum << "s"
                 << " nProcs=" << nProcs
                 << endl;
@@ -916,7 +931,8 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 if (hdrCheck.good())
                 {
                     hdrCheck.getLine(hdr);
-                    if (hdr.find("policyCVODE") == std::string::npos)
+                    if (hdr.find("policyCVODE") == std::string::npos
+                     || hdr.find("policy_wall_max") == std::string::npos)
                     {
                         mv(usagePath, usagePath + ".bak");
                     }
@@ -936,7 +952,7 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                     << "fb_Y_negative,fb_sumY_drift,fb_dT_window,"
                     << "fb_T_bounds,fb_qss_integ,maxNegY,maxSumDrift,"
                     << "cpu_CVODE_sum,cpu_QSS_sum,cpu_tot_sum,"
-                    << "wall_chem,nProcs" << nl;
+                    << "wall_chem,policy_wall_sum,policy_wall_max,nProcs" << nl;
             }
             uos << this->mesh().time().value() << ','
                 << nReact << ','
@@ -957,6 +973,8 @@ Foam::scalar Foam::rlChemistryModel<ReactionThermo, ThermoType>::solve
                 << cpuQss << ','
                 << cpuTotSum << ','
                 << wallChem << ','
+                << policyWallSum << ','
+                << policyWallMax << ','
                 << nProcs << nl;
         }
     }

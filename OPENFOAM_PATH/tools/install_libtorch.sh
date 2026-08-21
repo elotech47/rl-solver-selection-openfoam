@@ -21,8 +21,17 @@ if [[ -z "$PLATFORM" ]]; then
   esac
 fi
 TORCH_VER="${TORCH_VER:-2.2.2}"
-# Default cxx11 ABI for native OF; Docker arm/legacy may set 0
-LIBTORCH_CXX11_ABI="${LIBTORCH_CXX11_ABI:-1}"
+# RHEL8 / glibc 2.28 cannot use official cxx11-abi zips (need GLIBC_2.29).
+# Default ABI=0 (pip / pre-cxx11 zip) on old glibc; cxx11 only when glibc >= 2.29.
+_glibc_minor="$(ldd --version 2>/dev/null | head -1 | sed -n 's/.* \([0-9]\+\)\.\([0-9]\+\)$/\2/p' || true)"
+if [[ -z "${LIBTORCH_CXX11_ABI:-}" ]]; then
+  if [[ "${_glibc_minor:-0}" -ge 29 ]]; then
+    LIBTORCH_CXX11_ABI=1
+  else
+    LIBTORCH_CXX11_ABI=0
+    echo "[libtorch] glibc minor=${_glibc_minor:-?} < 29 → ABI=0 (use OFRL_POLICY_WORKER for Foam RL)"
+  fi
+fi
 
 have_libtorch() {
   [[ -f "$OUT/include/torch/script.h" && -f "$OUT/lib/libtorch_cpu.so" ]]
@@ -169,9 +178,11 @@ if [[ "${LIBTORCH_USE_DOCKER:-0}" == "1" ]]; then
   install_from_docker || { echo "Docker install failed" >&2; exit 1; }
 elif [[ "$LIBTORCH_CXX11_ABI" == "1" ]] && install_from_zip; then
   :
-elif install_from_python; then
+elif [[ "$LIBTORCH_CXX11_ABI" == "0" ]] && install_from_python; then
   :
 elif install_from_zip; then
+  :
+elif install_from_python; then
   :
 elif install_from_docker; then
   :

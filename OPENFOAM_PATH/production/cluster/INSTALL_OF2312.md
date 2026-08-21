@@ -245,10 +245,10 @@ Then we can patch `production/scripts` for true native launch (source `$OF_BASHR
 set +e
 
 cd /work/elo/solverRL2D/rl-solver-selection-openfoam/OPENFOAM_PATH
-bash tools/install_libtorch.sh      # native — **cxx11-abi** zip (required for OF+RL)
-# replace ABI=0 install:
-#   LIBTORCH_FORCE=1 bash tools/install_libtorch.sh
-# then: wmake -j$(nproc) src/policyRuntime
+bash tools/install_libtorch.sh      # RHEL8: ABI=0 pip (cxx11 zip needs glibc 2.29)
+# QB RL:
+#   LIBTORCH_FORCE=1 LIBTORCH_CXX11_ABI=0 bash tools/install_libtorch.sh
+#   bash tools/build_ofrl_policy_worker.sh && wmake -j8 src/policyRuntime
 module load cmake/3.27.7/gcc-8.5.0  # if needed
 bash tools/install_sundials.sh
 

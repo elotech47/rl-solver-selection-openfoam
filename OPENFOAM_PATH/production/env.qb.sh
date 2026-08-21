@@ -66,6 +66,11 @@ fi
 export LIBTORCH_DIR="${LIBTORCH_DIR:-$ROOT/opt/libtorch}"
 export SUNDIALS_DIR="${SUNDIALS_DIR:-$ROOT/opt/sundials}"
 
+# Out-of-process TorchScript on native HPC (avoids Foam×LibTorch ABI crash)
+if [[ -x "$ROOT/opt/bin/ofrl_policy_worker" ]]; then
+  export OFRL_POLICY_WORKER="${OFRL_POLICY_WORKER:-$ROOT/opt/bin/ofrl_policy_worker}"
+fi
+
 # Sanity (non-fatal for interactive)
 if [[ ! -x "$(command -v reactingFoamDebug 2>/dev/null || true)" ]]; then
   if [[ -x "$ROOT/platforms/${WM_OPTIONS}/bin/reactingFoamDebug" ]]; then
