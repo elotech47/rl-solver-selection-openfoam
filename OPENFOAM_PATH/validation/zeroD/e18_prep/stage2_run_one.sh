@@ -62,69 +62,40 @@ echo "=== decomposePar from freeze=$FREEZE (NPROC=$NPROC) ==="
 _foam_util decomposePar -force -time "$FREEZE" > "$OUT/log.decomposePar" 2>&1 \
   || _foam_util decomposePar -force > "$OUT/log.decomposePar" 2>&1
 
-PROGRESS_AWK='
-BEGIN { step=0; last_t=""; last_tmax=""; endt=ENVIRON["ENDT"]+0; warn_skip=0 }
-/^Time = / { last_t=$3; next }
-/^propSanity: T / {
-  last_tmax=$4
-  if (step % 20 == 0) {
-    printf "propSanity t=%s Tmax=%s\n", last_t, last_tmax > "/dev/stderr"
-    print
-  }
-  next
-}
-/^rlUsage / { print > "/dev/stderr"; print; next }
-/^rlFallbackReasons / { print > "/dev/stderr"; print; next }
-/ClockTime = / {
-  step++
-  if (step % 20 == 0) {
-    printf "t=%s maxT=%s\n", last_t, last_tmax > "/dev/stderr"
-    print
-  }
-  next
-}
-/janafThermo/ { warn_skip=3; next }
-warn_skip > 0 { warn_skip--; next }
-/^FOAM Warning/ { next }
-/Solving for / { next }
-/DILUPBiCGStab/ { next }
-/GAMG:/ { next }
-/smoothSolver:/ { next }
-/FATAL|Floating point|SIGFPE|Signal:/ { print > "/dev/stderr"; print; next }
-/^End/ { print > "/dev/stderr"; print; next }
-/^Courant Number/ {
-  if (step % 20 == 0) print
-  next
-}
-{ next }
-'
-
-echo "=== mpirun reactingFoamDebug MODE=$MODE freeze=$FREEZE end=$ENDT ===" | tee "$OUT/run_header.txt"
+echo "=== parallel reactingFoamDebug MODE=$MODE freeze=$FREEZE end=$ENDT ===" | tee "$OUT/run_header.txt"
 # rlAdaptive needs LibTorch preload; safe for other modes too
 if [[ -n "${OFRL_TORCH_LD_PRELOAD:-}" ]]; then
   export LD_PRELOAD="$OFRL_TORCH_LD_PRELOAD"
 fi
 START=$(date +%s)
 set +e
-# Slurm: use allocation; interactive: plain mpirun
-if [[ -n "${SLURM_JOB_ID:-}" ]]; then
-  MPI_LAUNCH=(mpirun -np "$NPROC")
-else
-  MPI_LAUNCH=(mpirun -np "$NPROC")
-  # Docker-only convenience flags (ignore failures on HPC)
-  if [[ "${OF_RUNTIME:-}" == "docker" ]]; then
-    MPI_LAUNCH=(mpirun --allow-run-as-root -np "$NPROC" --map-by core --bind-to core)
-  fi
+
+if ! declare -F ofrl_run_parallel >/dev/null 2>&1; then
+  # shellcheck disable=SC1091
+  source "$ROOT/tools/ofrl_container_env.sh"
 fi
-"${MPI_LAUNCH[@]}" reactingFoamDebug -parallel \
-  2>&1 \
-  | ENDT="$ENDT" awk "$PROGRESS_AWK" \
-  2> "$OUT/progress.${MODE}.log" \
-  | tee "$OUT/log.${MODE}"
-RC=${PIPESTATUS[0]}
+
+# Direct log (no awk pipe — OOM risk on chemistry)
+: > "$OUT/progress.${MODE}.log"
+(
+  while true; do
+    sleep 60
+    [[ -f "$OUT/log.${MODE}" ]] || continue
+    tline=$(grep -E '^Time = |^propSanity: T |^End|rlUsage' "$OUT/log.${MODE}" 2>/dev/null | tail -5 || true)
+    [[ -n "$tline" ]] && echo "$(date -Is) $tline" >> "$OUT/progress.${MODE}.log"
+  done
+) &
+PROG_PID=$!
+
+ofrl_run_parallel "$NPROC" reactingFoamDebug -parallel > "$OUT/log.${MODE}" 2>&1
+RC=$?
+kill "$PROG_PID" 2>/dev/null || true
+wait "$PROG_PID" 2>/dev/null || true
 set -e
 END=$(date +%s)
 echo "wall_s=$((END-START)) exit=$RC" | tee "$OUT/wall.txt"
+grep -E '^Time = |^End|Floating point|SIGFPE|FOAM FATAL|rlUsage' "$OUT/log.${MODE}" 2>/dev/null \
+  | tail -50 | tee -a "$OUT/progress.${MODE}.log" || true
 tail -30 "$OUT/progress.${MODE}.log" 2>/dev/null || true
 
 if [[ "$RC" -ne 0 ]]; then

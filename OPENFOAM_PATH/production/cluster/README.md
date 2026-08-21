@@ -31,7 +31,9 @@ When you see `STAGE1_OK`, submit chemistry (smoke / twins).
 4. `policy/policy.ts` + `policy/policy_manifest` present
 5. Case freeze: `cases/opposedJet_E18/0.05/`
 
-## Submit jobs (from OPENFOAM_PATH)
+## Submit jobs (from OPENFOAM_PATH **login node**)
+
+Parallel CFD uses **`srun`** inside the allocation (not `mpirun` — LONI stubs it).
 
 ```bash
 source production/env.qb.sh

@@ -60,3 +60,30 @@ fi
 
 export OFRL_PROP_SANITY=1
 echo "ofrl env: ROOT=$ROOT SUNDIALS_DIR=$SUNDIALS_DIR LIBTORCH_DIR=$LIBTORCH_DIR"
+
+# Parallel launch: LONI Slurm OpenMPI (Spack) stubs out mpirun — use srun in jobs.
+ofrl_run_parallel() {
+  local np="$1"
+  shift
+  if [[ -n "${SLURM_JOB_ID:-}" ]] && command -v srun >/dev/null 2>&1; then
+    echo "ofrl_mpi: srun -n ${np} $*"
+    srun -n "${np}" "$@"
+  elif [[ "${OF_RUNTIME:-}" == "docker" ]]; then
+    mpirun --allow-run-as-root -np "${np}" --map-by core --bind-to core "$@"
+  else
+    # Prefer real mpirun; fail loudly on Spack stub
+    if command -v mpirun >/dev/null 2>&1; then
+      local _help
+      _help="$(mpirun --help 2>&1 | head -5 || true)"
+      if printf '%s' "$_help" | grep -q 'without the mpiexec/mpirun'; then
+        echo "FATAL: mpirun is a Spack/Slurm stub — run under sbatch/srun or load a full OpenMPI module" >&2
+        return 127
+      fi
+      mpirun -np "${np}" "$@"
+    else
+      echo "FATAL: neither srun nor mpirun found" >&2
+      return 127
+    fi
+  fi
+}
+export -f ofrl_run_parallel

@@ -121,32 +121,30 @@ if ! _foam_util decomposePar -force > "$OUT/log.decomposePar" 2>&1; then
 fi
 log "decomposePar done"
 
-log "=== mpirun reactingFoamDebug -parallel (chem OFF) ==="
-# Stage1 is chem-off: do NOT LD_PRELOAD LibTorch (8 ranks × torch ≈ OOM / SIGPIPE on interactive nodes)
+log "=== srun/mpirun reactingFoamDebug -parallel (chem OFF) ==="
+# Stage1 is chem-off: do NOT LD_PRELOAD LibTorch
 unset LD_PRELOAD
 START=$(date +%s)
 set +e
-if [[ "${OF_RUNTIME:-native}" == "docker" ]]; then
-  MPI=(mpirun --allow-run-as-root -np "$NPROC" --map-by core --bind-to core)
-else
-  MPI=(mpirun -np "$NPROC")
-fi
 
-# Direct log — do not pipe through awk (OOM → "Killed" → solver exit 141 SIGPIPE)
 : > "$OUT/progress.${MODE}.log"
 (
-  # light progress sampler; dies with solver when log stops growing
   while true; do
     sleep 30
     [[ -f "$OUT/log.${MODE}" ]] || continue
-    # last Time= and propSanity if present
     tline=$(grep -E '^Time = |^propSanity: T |^End' "$OUT/log.${MODE}" 2>/dev/null | tail -3 || true)
     [[ -n "$tline" ]] && echo "$(date -Is) $tline" >> "$OUT/progress.${MODE}.log"
   done
 ) &
 PROG_PID=$!
 
-"${MPI[@]}" reactingFoamDebug -parallel > "$OUT/log.${MODE}" 2>&1
+# Ensure ofrl_run_parallel is defined (env.qb already sourced ofrl)
+if ! declare -F ofrl_run_parallel >/dev/null 2>&1; then
+  # shellcheck disable=SC1091
+  source "$ROOT/tools/ofrl_container_env.sh"
+fi
+
+ofrl_run_parallel "$NPROC" reactingFoamDebug -parallel > "$OUT/log.${MODE}" 2>&1
 RC=$?
 kill "$PROG_PID" 2>/dev/null || true
 wait "$PROG_PID" 2>/dev/null || true
