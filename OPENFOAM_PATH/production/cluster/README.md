@@ -9,7 +9,15 @@ source production/env.qb.sh
 
 That loads modules + OpenFOAM-v2312 + LibTorch/SUNDIALS paths. **Do not** reinstall OF each time.
 
-## First-time checklist (once)
+## Stage 1 cold freeze (if `0.05/` missing)
+
+```bash
+source production/env.qb.sh
+export NPROC=8   # or match your salloc
+bash production/scripts/11_run_stage1_cold.sh
+# then chemistry twins:
+bash production/scripts/20_run_chem.sh
+```
 
 1. OF-v2312 built under `/work/elo/OpenFOAM/OpenFOAM-v2312`
 2. `opt/libtorch` + `opt/sundials` (+ `ln -sfn lib64 opt/sundials/lib` if needed)
