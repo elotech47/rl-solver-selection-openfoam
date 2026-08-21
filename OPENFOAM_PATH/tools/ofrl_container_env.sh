@@ -65,16 +65,26 @@ echo "ofrl env: ROOT=$ROOT SUNDIALS_DIR=$SUNDIALS_DIR LIBTORCH_DIR=$LIBTORCH_DIR
 ofrl_run_parallel() {
   local np="$1"
   shift
+  # Optional wrappers applied to the rank executable (survive Slurm env re-exports)
+  local -a wrap=()
+  if [[ "${OFRL_RL_NO_SIGFPE:-0}" == "1" ]]; then
+    wrap+=(env -u FOAM_SIGFPE)
+    echo "ofrl_mpi: forcing env -u FOAM_SIGFPE on ranks"
+  fi
+  if [[ "${OFRL_TORCH_PRELOAD:-0}" != "1" ]]; then
+    wrap+=(env -u LD_PRELOAD)
+  fi
+
   if [[ -n "${SLURM_JOB_ID:-}" ]] && command -v srun >/dev/null 2>&1; then
-    echo "ofrl_mpi: srun -n ${np} $*"
+    echo "ofrl_mpi: srun -n ${np} ${wrap[*]} $*"
+    echo "ofrl_mpi: pre-srun FOAM_SIGFPE=${FOAM_SIGFPE:-unset}"
     # Prefer TCP/shared-memory on-node; mlx5 OpenFabrics often warns/fails on QB
     OMPI_MCA_btl="${OMPI_MCA_btl:-self,vader,tcp}" \
     OMPI_MCA_pml="${OMPI_MCA_pml:-ob1}" \
-    srun -n "${np}" "$@"
+    srun -n "${np}" "${wrap[@]}" "$@"
   elif [[ "${OF_RUNTIME:-}" == "docker" ]]; then
-    mpirun --allow-run-as-root -np "${np}" --map-by core --bind-to core "$@"
+    "${wrap[@]}" mpirun --allow-run-as-root -np "${np}" --map-by core --bind-to core "$@"
   else
-    # Prefer real mpirun; fail loudly on Spack stub
     if command -v mpirun >/dev/null 2>&1; then
       local _help
       _help="$(mpirun --help 2>&1 | head -5 || true)"
@@ -82,7 +92,7 @@ ofrl_run_parallel() {
         echo "FATAL: mpirun is a Spack/Slurm stub — run under sbatch/srun or load a full OpenMPI module" >&2
         return 127
       fi
-      mpirun -np "${np}" "$@"
+      "${wrap[@]}" mpirun -np "${np}" "$@"
     else
       echo "FATAL: neither srun nor mpirun found" >&2
       return 127

@@ -41,4 +41,9 @@ export OFRL_RL_NO_SIGFPE=1
 unset LD_PRELOAD
 unset FOAM_SIGFPE
 
+mkdir -p "$E18_PROD_OUT"
+# Foam-free JIT load first (isolates LibTorch from OpenFOAM)
+chmod +x tools/run_torch_jit_smoke.sh
+bash tools/run_torch_jit_smoke.sh | tee "$E18_PROD_OUT/jit_preflight.txt"
+
 bash production/scripts/20_run_chem.sh
