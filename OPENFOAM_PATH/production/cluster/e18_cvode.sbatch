@@ -6,7 +6,9 @@
 #SBATCH --ntasks=32
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=3900
-#SBATCH --time=5-00:00:00
+#SBATCH --time=7-00:00:00
+# 7 d = `single` partition max (168 h). Workstation cvodeOnly was still
+# incomplete after ~45 h (8 ranks); RL needed ~91 h to endTime=0.059.
 #SBATCH --output=production/runs/slurm-%j-cvode.out
 #SBATCH --error=production/runs/slurm-%j-cvode.err
 

@@ -60,7 +60,7 @@ Defaults:
 ```bash
 export FREEZE=0.05          # or auto from case
 export E18_END_TIME=0.009   # → endTime 0.059
-export E18_WRITE_INTERVAL=1e-05
+export E18_WRITE_INTERVAL=1e-04   # pack cadence; 106 Yi are not written
 export NPROC=32             # tune to node; keep identical across modes
 ```
 
@@ -68,7 +68,7 @@ export NPROC=32             # tune to node; keep identical across modes
 
 1. `30_extract_results.sh` → `summary.json`, progress CSV, centerline packs.
 2. `31_compare_twins.py` → ClockTime, T_max(t), sparse ΔT vs CVODE.
-3. ParaView: reconstruct `T`, `OH`, `solverFlag`, `chemCpuTime`.
+3. ParaView: reconstruct packed fields (`T`, `oh`, `solverFlag`, `chemCpuTime`, …).
 4. Freeze numbers into `THESIS_NOTES.md` + update `E18_CAMPAIGN_SUMMARY.md`.
 
 ### P3 — Optional ablations (after P1 green)
@@ -112,4 +112,4 @@ Workstation E18 dump `stage2_chem_20260720_130353/` is **pilot only**
 - [ ] FOAM_SIGFPE ON unless waived in writing
 - [ ] Guards: `TminAccept=250`, `epsY=1e-8`, `epsSumY=1e-2` (E18 production)
 - [ ] Policy: `lambda_1p0_with_base_obs_rms` → `policy.ts` + Foam manifest
-- [ ] Disk: multi-TB if writeInterval=1e-5 over 9 ms — consider packing subset fields
+- [ ] Disk: LONI `/work` inode quota (`showquota`, 4e6 files). Pack **20 fields** every 1e-4 s (`T/U/p` + flags + `oh o o2 h h2 h2o h2o2 ho2 co co2 ch2o c2h4 nc12h26 n2`); **no full Yi**. Delete `case_*/processor*` before resubmit.

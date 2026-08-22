@@ -15,7 +15,14 @@ RUNTIME="${OF_RUNTIME:-native}"
 SIF="${OF_SIF:-}"
 NPROC="${NPROC:-32}"
 ENDT_REL="${E18_END_TIME:-0.009}"
-WRITE_INT="${E18_WRITE_INTERVAL:-1e-05}"
+# Pack cadence. No full-species dumps — LONI /work is a 4e6-file quota.
+WRITE_INT="${E18_WRITE_INTERVAL:-1e-04}"
+# 1e6 ⇒ main writeControl never fires in the 9 ms window (pack-only).
+FULL_WINT="${E18_FULL_WRITE_INTERVAL:-1e6}"
+WRITE_FMT="${E18_WRITE_FORMAT:-binary}"
+WRITE_COMP="${E18_WRITE_COMPRESSION:-on}"
+# 20 fields: 6 instrument/flow + 14 telling species (Luo names are lowercase).
+PACK_OBJECTS="${E18_PACK_OBJECTS:-T U p solverFlag policyFlag chemCpuTime oh o o2 h h2 h2o h2o2 ho2 co co2 ch2o c2h4 nc12h26 n2}"
 BASE="${E18_PROD_OUT:-$ROOT/production/runs/e18_$(date +%Y%m%d_%H%M%S)}"
 # Policy paths inside Foam dicts
 POLICY_ROOT="${E17_CONTAINER_ROOT:-$ROOT}"
@@ -47,6 +54,8 @@ ENDT=$(python3 -c "print(float('$FREEZE') + float('$ENDT_REL'))")
 {
   echo "freeze=$FREEZE chem_horizon=${ENDT_REL}s endTime=$ENDT BASE=$BASE"
   echo "modes=${MODES[*]} NPROC=$NPROC runtime=$RUNTIME"
+  echo "writePackInterval=$WRITE_INT fullWriteInterval=$FULL_WINT (1e6=pack-only) writeFormat=$WRITE_FMT writeCompression=$WRITE_COMP"
+  echo "packObjects=$PACK_OBJECTS"
   echo "git=$(git -C "$ROOT/.." rev-parse --short HEAD 2>/dev/null || echo unknown)"
   echo "case=$CASE ROOT=$ROOT POLICY_ROOT=$POLICY_ROOT"
 } | tee "$BASE/stage2_header.txt" "$BASE/MANIFEST.txt"
@@ -101,16 +110,21 @@ for MODE in "${MODES[@]}"; do
 from pathlib import Path
 import re
 case = Path(r"$MODE_CASE")
-freeze, endt, wint = "$FREEZE", float("$ENDT"), float("$WRITE_INT")
+freeze, endt = "$FREEZE", float("$ENDT")
+pack_wint, full_wint = float("$WRITE_INT"), float("$FULL_WINT")
+wfmt, wcomp = "$WRITE_FMT", "$WRITE_COMP"
+objs = "$PACK_OBJECTS"
 cd = case/"system/controlDict"
 t = cd.read_text()
 for pat, rep in {
     r"startFrom\s+[^;]+;": "startFrom       startTime;",
     r"startTime\s+[^;]+;": f"startTime       {freeze};",
     r"endTime\s+[^;]+;": f"endTime         {endt};",
-    r"writeInterval\s+[^;]+;": f"writeInterval   {wint};",
+    r"writeInterval\s+[^;]+;": f"writeInterval   {full_wint};",
     r"writeControl\s+[^;]+;": "writeControl    adjustableRunTime;",
     r"purgeWrite\s+[^;]+;": "purgeWrite      0;",
+    r"writeFormat\s+[^;]+;": f"writeFormat     {wfmt};",
+    r"writeCompression\s+[^;]+;": f"writeCompression {wcomp};",
     r"deltaT\s+[^;]+;": "deltaT          1e-6;",
     r"maxCo\s+[^;]+;": "maxCo           0.5;",
     r"maxDeltaT\s+[^;]+;": "maxDeltaT       1e-5;",
@@ -118,6 +132,21 @@ for pat, rep in {
 }.items():
     t2, n = re.subn(pat, rep, t, count=1)
     t = t2 if n else t
+if "fieldPack" not in t:
+    t += f"""
+functions
+{{
+    fieldPack
+    {{
+        type            writeObjects;
+        libs            (utilityFunctionObjects);
+        objects         ( {objs} );
+        writeOption     anyWrite;
+        writeControl    adjustableRunTime;
+        writeInterval   {pack_wint};
+    }}
+}}
+"""
 cd.write_text(t)
 chem = case/"constant/chemistryProperties"
 ct = re.sub(r"chemistry\s+[^;]+;", "chemistry       on;", chem.read_text(), count=1)

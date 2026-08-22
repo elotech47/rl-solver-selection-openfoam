@@ -41,7 +41,12 @@ source production/env.qb.sh
 sbatch production/cluster/e18_smoke.sbatch      # cvodeOnly
 sbatch production/cluster/e18_smoke_rl.sbatch   # rlAdaptive (no LD_PRELOAD)
 
-# full twins to endTime=0.059:
+# Free /work FILE quota first (LONI: `showquota`, not `quota` / `df`).
+# /work has no GB cap but 4 million inodes — Foam mkDir dies with "Disk quota exceeded".
+#   showquota
+#   find runs/e18_743715_qssOnly | wc -l
+#   rm -rf runs/e18_*/case_*/processor*
+# Then full twins (20-field pack every 1e-4 s, no full Yi):
 bash production/cluster/submit_twins.sh
 # or individually:
 sbatch production/cluster/e18_cvode.sbatch
